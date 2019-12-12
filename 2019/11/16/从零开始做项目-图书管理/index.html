@@ -1,0 +1,927 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2" rel="stylesheet">
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+  <meta name="baidu-site-verification" content="0hTeZpIpmf" />
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/logo32.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/logo16.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="SpringBoot,实战小项目,JavaWeb," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="这篇博客记录一下自己做一个Demo项目的全过程，写博客一方面督促自己，一方面可以让自己更熟悉流程和细节，项目 资料是从Nowcoder上找的，项目的前端文件是直接使用了源项目文件，后端自己写了一遍。">
+<meta name="keywords" content="SpringBoot,实战小项目,JavaWeb">
+<meta property="og:type" content="article">
+<meta property="og:title" content="从零开始做项目-图书管理">
+<meta property="og:url" content="http:&#x2F;&#x2F;www.zealyoung.site&#x2F;2019&#x2F;11&#x2F;16&#x2F;%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B%E5%81%9A%E9%A1%B9%E7%9B%AE-%E5%9B%BE%E4%B9%A6%E7%AE%A1%E7%90%86&#x2F;index.html">
+<meta property="og:site_name" content="Zealyoung · CodeMaker">
+<meta property="og:description" content="这篇博客记录一下自己做一个Demo项目的全过程，写博客一方面督促自己，一方面可以让自己更熟悉流程和细节，项目 资料是从Nowcoder上找的，项目的前端文件是直接使用了源项目文件，后端自己写了一遍。">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http:&#x2F;&#x2F;www.zealyoung.site&#x2F;2019&#x2F;11&#x2F;16&#x2F;%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B%E5%81%9A%E9%A1%B9%E7%9B%AE-%E5%9B%BE%E4%B9%A6%E7%AE%A1%E7%90%86&#x2F;%E7%AC%AC%E4%B8%80%E6%AC%A1%E8%BF%90%E8%A1%8C.png">
+<meta property="og:updated_time" content="2019-11-17T13:34:32.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http:&#x2F;&#x2F;www.zealyoung.site&#x2F;2019&#x2F;11&#x2F;16&#x2F;%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B%E5%81%9A%E9%A1%B9%E7%9B%AE-%E5%9B%BE%E4%B9%A6%E7%AE%A1%E7%90%86&#x2F;%E7%AC%AC%E4%B8%80%E6%AC%A1%E8%BF%90%E8%A1%8C.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"always","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://www.zealyoung.site/2019/11/16/从零开始做项目-图书管理/"/>
+
+
+
+
+
+  <title>从零开始做项目-图书管理 | Zealyoung · CodeMaker</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <a href="https://github.com/zealyoung" target="_blank" rel="noopener" class="github-corner" aria-label="View source on GitHub"><svg width="80" height="80" viewBox="0 0 250 250" style="fill:#151513; color:#fff; position: absolute; top: 0; border: 0; right: 0;" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Zealyoung · CodeMaker</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">new beginning</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-guestbook">
+          <a href="/guestbook" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-comment"></i> <br />
+            
+            留言板
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://www.zealyoung.site/2019/11/16/%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B%E5%81%9A%E9%A1%B9%E7%9B%AE-%E5%9B%BE%E4%B9%A6%E7%AE%A1%E7%90%86/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="ZealYoung">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Zealyoung · CodeMaker">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">从零开始做项目-图书管理</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-11-16T11:46:32+08:00">
+                2019-11-16
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Java/" itemprop="url" rel="index">
+                    <span itemprop="name">Java</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Java/SpringBoot/" itemprop="url" rel="index">
+                    <span itemprop="name">SpringBoot</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2019/11/16/%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B%E5%81%9A%E9%A1%B9%E7%9B%AE-%E5%9B%BE%E4%B9%A6%E7%AE%A1%E7%90%86/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2019/11/16/%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B%E5%81%9A%E9%A1%B9%E7%9B%AE-%E5%9B%BE%E4%B9%A6%E7%AE%A1%E7%90%86/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                  <span class="post-meta-divider">|</span>
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  2k 字
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  7 分钟
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <pre><code>这篇博客记录一下自己做一个Demo项目的全过程，写博客一方面督促自己，一方面可以让自己更熟悉流程和细节，项目
+资料是从Nowcoder上找的，项目的前端文件是直接使用了源项目文件，后端自己写了一遍。</code></pre><a id="more"></a>
+<h1 id="项目简介"><a href="#项目简介" class="headerlink" title="项目简介"></a>项目简介</h1><h2 id="工程简介"><a href="#工程简介" class="headerlink" title="工程简介"></a>工程简介</h2><pre><code>项目利用Maven，利用SpringBoot作为项目主体框架（SpringBoot相比整合SSM少了很多配置，可以把精力放在代码
+开发和业务逻辑上，其本质还是SSM），项目使用Freemaker、Web、MyBatis、Aspect四个模块。</code></pre><h2 id="内容简介"><a href="#内容简介" class="headerlink" title="内容简介"></a>内容简介</h2><pre><code>项目实现图书管理，主要包含注册、登录、向书库中添加书目、借书、还书等操作，通过MD5加密算法对用户密码进
+行加密，通过cookie与ticket进行登录权限验证。</code></pre><h1 id="项目流程"><a href="#项目流程" class="headerlink" title="项目流程"></a>项目流程</h1><h2 id="项目创建方式"><a href="#项目创建方式" class="headerlink" title="项目创建方式"></a>项目创建方式</h2><ul>
+<li>在<a href="https://start.spring.io/" target="_blank" rel="noopener">https://start.spring.io/</a> 挑选模块之后下载到本地，用IDE打开</li>
+<li>在IDE中创建项目，我使用的是IDEA，选择Spring initializr，挑选模块后完成创建<h2 id="项目文件夹"><a href="#项目文件夹" class="headerlink" title="项目文件夹"></a>项目文件夹</h2></li>
+<li>biz 业务逻辑层，用来存放比较复杂的逻辑</li>
+<li>configuration 用来放Spring Boot的代码配置</li>
+<li>controllers 控制层，控制器都在这里，也可以认为是网页的入口都在这</li>
+<li>dao 持久层，跟数据库交互的包，主要是MyBatis在这里编码</li>
+<li>interceptor AOP的代码都在这</li>
+<li>model 各种数据模型，对数据的描述</li>
+<li>service 一般用作对dao层的封装</li>
+<li>utils 工具包，一般都是静态方法。</li>
+</ul>
+<h2 id="创建数据库"><a href="#创建数据库" class="headerlink" title="创建数据库"></a>创建数据库</h2><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">create</span> <span class="keyword">database</span> bookmanager</span><br></pre></td></tr></table></figure>
+<pre><code>分别创建三张表user、book、ticket，可以先向book表中插入几条数据</code></pre><h2 id="完成图书的CRUD"><a href="#完成图书的CRUD" class="headerlink" title="完成图书的CRUD"></a>完成图书的CRUD</h2><h3 id="创建图书实体类Book-java"><a href="#创建图书实体类Book-java" class="headerlink" title="创建图书实体类Book.java"></a>创建图书实体类Book.java</h3><pre><code>描述图书的基本属性，对应数据库表，写入Getter和Setter方法</code></pre><h3 id="创建图书的DAO层BookDAO-java"><a href="#创建图书的DAO层BookDAO-java" class="headerlink" title="创建图书的DAO层BookDAO.java"></a>创建图书的DAO层BookDAO.java</h3><pre><code>DAO层就是利用具体SQL实现CRUD，也是常说的Mapper，因为项目是Mybatis作为持久层框架的，所以可以选择写相应
+Xml完成映射，或直接用注解，本项目采用的是注解方法（个人感觉能用注解的时候都用注解，很清晰）</code></pre><h3 id="创建BookService-java"><a href="#创建BookService-java" class="headerlink" title="创建BookService.java"></a>创建BookService.java</h3><pre><code>这里的Service层就是对Controller层和Model层的解耦，通用的业务逻辑实现应该在Service层中，如果去掉这一层
+其实也可以运行，我们直接在Controller层中实现业务逻辑，并直接调用持久层(也就是DAO层)实现数据库操作，也
+可以完成相应内容，但代码的耦合度就变得很高。在本项目中主要是对DAO进行封装。</code></pre><h3 id="创建BookController-java"><a href="#创建BookController-java" class="headerlink" title="创建BookController.java"></a>创建BookController.java</h3><pre><code>Controller也就是MVC中的C，这时候的Controller还不完整，只是先出一个运行效果，可以访问主页，代码也只有
+下面几行。</code></pre><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Controller</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">BookController</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    BookService bookService;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@RequestMapping</span>(path = &#123;<span class="string">"/index"</span>&#125;, method = &#123;RequestMethod.GET&#125;)</span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">bookList</span><span class="params">(Model model)</span> </span>&#123;</span><br><span class="line">        loadAllBooksView(model);</span><br><span class="line">        <span class="keyword">return</span> <span class="string">"book/books"</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">loadAllBooksView</span><span class="params">(Model model)</span> </span>&#123;</span><br><span class="line">        model.addAttribute(<span class="string">"books"</span>, bookService.getAllBooks());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="看到运行效果"><a href="#看到运行效果" class="headerlink" title="看到运行效果"></a>看到运行效果</h3><pre><code>访问127.0.0.1:8080/index也就是主页的URL</code></pre><p><img src="/2019/11/16/%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B%E5%81%9A%E9%A1%B9%E7%9B%AE-%E5%9B%BE%E4%B9%A6%E7%AE%A1%E7%90%86/%E7%AC%AC%E4%B8%80%E6%AC%A1%E8%BF%90%E8%A1%8C.png" alt><br>(其实和写了一个HelloWorld没什么太大区别哈哈哈哈，第一个流程也属于先让项目运行起来，熟悉一下流程)</p>
+<h2 id="完成User类和Ticket类"><a href="#完成User类和Ticket类" class="headerlink" title="完成User类和Ticket类"></a>完成User类和Ticket类</h2><h3 id="创建User-java和Ticket-java"><a href="#创建User-java和Ticket-java" class="headerlink" title="创建User.java和Ticket.java"></a>创建User.java和Ticket.java</h3><pre><code>写对应实体类</code></pre><h3 id="创建UserDAO-java和TicketDAO-java"><a href="#创建UserDAO-java和TicketDAO-java" class="headerlink" title="创建UserDAO.java和TicketDAO.java"></a>创建UserDAO.java和TicketDAO.java</h3><pre><code>完成DAO层的CRUD</code></pre><h3 id="创建UserService-java和TicketService-java"><a href="#创建UserService-java和TicketService-java" class="headerlink" title="创建UserService.java和TicketService.java"></a>创建UserService.java和TicketService.java</h3><pre><code>根据需求对DAO层进行封装</code></pre><h2 id="完成工具类"><a href="#完成工具类" class="headerlink" title="完成工具类"></a>完成工具类</h2><pre><code>这部分跟着源项目学习了一下，下面贴一下源项目的介绍。</code></pre><p><strong>MD5.java</strong></p>
+<p>这个类就是用来加密的。服务器不保存用户的明文密码是一项基本常识，所以我们用MD5来加密。这里也不要专注于MD5的具体实现方法，这不是我们的主要任务，但建议你至少要知道MD5常用在什么地方，并知道这个加密是不可逆的就可以了。</p>
+<p><strong>UuidUtils.java</strong></p>
+<p>注意到Cookie都是一串无意义的码串，我们用JDK自带的UUID生成器可以非常方便的生成这样一串随机的字符串。</p>
+<p><strong>ConcurrentUtils.java</strong></p>
+<p>用来保存当前访问者的容器。我们知道，当web程序运行在web服务器中时，都是并发的<br>环境，拿tomcat来说，对于每一个请求tomcat都会从自己维护的线程池中选一个线程去处理这个请求。ThreadLocal这个类提供了一种线程id到一个泛型的绑定，你可以认为它是一个Map，当我们从里面取数据的时候，实际上是将当前的线程id作为map的key，取出之前这个线程存的东西。这里我们将User保存在里面，这样我们就能随时在程序的任何地方拿出User信息了。</p>
+<p><strong>CookieUtils.java</strong></p>
+<p>用来封装http请求中的Cookie的操作。</p>
+<p><strong>TicketUtils.java</strong></p>
+<p>提供了一个生产Ticket的方法。</p>
+<p><strong>LoginRegisterException.java</strong></p>
+<p>封装的Exception类，用来抛出异常信息。</p>
+<p><strong>HostHolder.java</strong></p>
+<p>HostHolder是一个重要的类，用来包装ConcurrentUtils.java的方法，并交给Spring容器去管理，使得我们可以在任何时候都能找当前的User，只要用户登录了，我们就将User信息设置到HostHolder里面，这样我们就在其他地方可以直接拿出User来用。</p>
+<h2 id="完成登录注册逻辑LoginBiz-java"><a href="#完成登录注册逻辑LoginBiz-java" class="headerlink" title="完成登录注册逻辑LoginBiz.java"></a>完成登录注册逻辑LoginBiz.java</h2><pre><code>biz是business的简写，用来保存较为复杂的业务逻辑，其本身也是一个service，一般命名Service的用来对DAO层进行封装，命名Biz表示复杂业务逻辑。</code></pre><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Service</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">LoginBiz</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    <span class="keyword">private</span> UserService userService;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    <span class="keyword">private</span> TicketService ticketService;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 登录逻辑，LoginController调用</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> email</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> password</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span> T票的Ticket(String)</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@throws</span> Exception</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">login</span><span class="params">(String email, String password)</span> <span class="keyword">throws</span> Exception</span>&#123;</span><br><span class="line">        User user = userService.getUser(email);</span><br><span class="line">        <span class="comment">//验证是否可以登录</span></span><br><span class="line">        <span class="keyword">if</span>(user == <span class="keyword">null</span>)</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> LoginRegisterException(<span class="string">"账户不存在，请重新输入或注册账号"</span>);</span><br><span class="line">        <span class="keyword">if</span>(StringUtils.equals(MD5.next(password), user.getPassword()))</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> LoginRegisterException(<span class="string">"密码不正确"</span>);</span><br><span class="line">        <span class="comment">//检查Ticket</span></span><br><span class="line">        Ticket t = ticketService.getTicket(user.getId());</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span>(t == <span class="keyword">null</span>)&#123;</span><br><span class="line">            t = TicketUtils.next(user.getId());</span><br><span class="line">            ticketService.addTicket(t);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span>(t.getExpiredAt().before(<span class="keyword">new</span> Date()))&#123;</span><br><span class="line">            ticketService.deleteTicket(t.getId());</span><br><span class="line">            t = TicketUtils.next(user.getId());</span><br><span class="line">            ticketService.addTicket(t);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        ConcurrentUtils.setHost(user);</span><br><span class="line">        <span class="keyword">return</span> t.getTicket();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 登出逻辑</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> t</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">logout</span><span class="params">(String t)</span></span>&#123;</span><br><span class="line">        ticketService.deleteTicket(t);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 注册逻辑</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> user</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span></span></span><br><span class="line"><span class="comment">     * <span class="doctag">@throws</span> LoginRegisterException</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">register</span><span class="params">(User user)</span> <span class="keyword">throws</span> LoginRegisterException</span>&#123;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span>(userService.getUser(user.getEmail()) != <span class="keyword">null</span>)&#123;</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> LoginRegisterException(<span class="string">"用户账号已存在"</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        user.setPassword(MD5.next(user.getPassword()));</span><br><span class="line">        userService.addUser(user);</span><br><span class="line"></span><br><span class="line">        Ticket t = TicketUtils.next(user.getId());</span><br><span class="line">        ticketService.addTicket(t);</span><br><span class="line"></span><br><span class="line">        ConcurrentUtils.setHost(user);</span><br><span class="line">        <span class="keyword">return</span> t.getTicket();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="完成控制层Controller"><a href="#完成控制层Controller" class="headerlink" title="完成控制层Controller"></a>完成控制层Controller</h2><h3 id="完成HomeController"><a href="#完成HomeController" class="headerlink" title="完成HomeController"></a>完成HomeController</h3><pre><code>这个是我自己新加的，之前index也就是主页也放在了BookController里，个人感觉不是很合适，分离出来以后BookController只注入BookService，降低耦合度。</code></pre><h3 id="完成BookController"><a href="#完成BookController" class="headerlink" title="完成BookController"></a>完成BookController</h3><pre><code>将借书、还书实现，简单调用BOOKService方法即可。</code></pre><h3 id="完成LoginController"><a href="#完成LoginController" class="headerlink" title="完成LoginController"></a>完成LoginController</h3><pre><code>主要调用LoginBiz方法。</code></pre><h2 id="实现拦截器完成登录权限验证"><a href="#实现拦截器完成登录权限验证" class="headerlink" title="实现拦截器完成登录权限验证"></a>实现拦截器完成登录权限验证</h2><pre><code>两个拦截器一个用来注入host信息，另一个用来进行权限验证。</code></pre><h1 id="项目总结"><a href="#项目总结" class="headerlink" title="项目总结"></a>项目总结</h1><pre><code>此项目基本就是拿来熟悉一下一个SpringBoot项目从零到运行，不得不说真的比SSM项目轻松许多，SSM项目要配置web.xml，spring的xml，springMVC的xml。
+项目中也有一些bug，例如退出登录后仍显示登录名，在注册时分配的ticket无效，直到登陆重新创建(虽然没太大影响，但是会多出来一个userid为0的ticket)，自己写的时候也改了一下，在完成项目时仍有问题，不过不属于编码问题，从项目设计就有的问题，例如应该有张表来维护用户和书的借还关系，此项目里A用户借走了书1，B用户点击归还书1也会成功归还，因为是通过book表的status列维护的，本来想在代码里增加一些判断来确保只有借走书的人才可以还，但是直接改的话会增加不少耦合性，代码也会看起来很乱，从设计阶段改的话工作量也很小(还是懒得改，主要还是为了练手)</code></pre><h1 id="项目源码"><a href="#项目源码" class="headerlink" title="项目源码"></a>项目源码</h1><pre><code>https://github.com/zealyoung/SpringBoot-BookManager</code></pre>
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/SpringBoot/" rel="tag"># SpringBoot</a>
+          
+            <a href="/tags/%E5%AE%9E%E6%88%98%E5%B0%8F%E9%A1%B9%E7%9B%AE/" rel="tag"># 实战小项目</a>
+          
+            <a href="/tags/JavaWeb/" rel="tag"># JavaWeb</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/11/13/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92-%E6%9C%80%E5%A4%A7M%E6%AE%B5%E5%AD%90%E6%AE%B5%E5%92%8C/" rel="next" title="动态规划-最大M段子段和">
+                <i class="fa fa-chevron-left"></i> 动态规划-最大M段子段和
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/11/18/%E7%94%9F%E4%BA%A7%E8%80%85%E6%B6%88%E8%B4%B9%E8%80%85/" rel="prev" title="用wait()/notify()实现生产者消费者问题">
+                用wait()/notify()实现生产者消费者问题 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+    </div>
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/avatar.gif"
+                alt="ZealYoung" />
+            
+              <p class="site-author-name" itemprop="name">ZealYoung</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives%7C%7C%20archive">
+              
+                  <span class="site-state-item-count">29</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">14</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">28</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/zealyoung" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="http://wpa.qq.com/msgrd?v=3&uin=547375009&site=qq&menu=yes" target="_blank" title="QQ">
+                      
+                        <i class="fa fa-fw fa-qq"></i>QQ</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="http://zealyoung.site/about" target="_blank" title="WeChat:Zzy59215921">
+                      
+                        <i class="fa fa-fw fa-weixin"></i>WeChat:Zzy59215921</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:1120161734@bit.edu.cn" target="_blank" title="E-Mail:1120161734@bit.edu.cn">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail:1120161734@bit.edu.cn</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#项目简介"><span class="nav-number">1.</span> <span class="nav-text">项目简介</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#工程简介"><span class="nav-number">1.1.</span> <span class="nav-text">工程简介</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#内容简介"><span class="nav-number">1.2.</span> <span class="nav-text">内容简介</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#项目流程"><span class="nav-number">2.</span> <span class="nav-text">项目流程</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#项目创建方式"><span class="nav-number">2.1.</span> <span class="nav-text">项目创建方式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#项目文件夹"><span class="nav-number">2.2.</span> <span class="nav-text">项目文件夹</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#创建数据库"><span class="nav-number">2.3.</span> <span class="nav-text">创建数据库</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#完成图书的CRUD"><span class="nav-number">2.4.</span> <span class="nav-text">完成图书的CRUD</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#创建图书实体类Book-java"><span class="nav-number">2.4.1.</span> <span class="nav-text">创建图书实体类Book.java</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#创建图书的DAO层BookDAO-java"><span class="nav-number">2.4.2.</span> <span class="nav-text">创建图书的DAO层BookDAO.java</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#创建BookService-java"><span class="nav-number">2.4.3.</span> <span class="nav-text">创建BookService.java</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#创建BookController-java"><span class="nav-number">2.4.4.</span> <span class="nav-text">创建BookController.java</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#看到运行效果"><span class="nav-number">2.4.5.</span> <span class="nav-text">看到运行效果</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#完成User类和Ticket类"><span class="nav-number">2.5.</span> <span class="nav-text">完成User类和Ticket类</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#创建User-java和Ticket-java"><span class="nav-number">2.5.1.</span> <span class="nav-text">创建User.java和Ticket.java</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#创建UserDAO-java和TicketDAO-java"><span class="nav-number">2.5.2.</span> <span class="nav-text">创建UserDAO.java和TicketDAO.java</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#创建UserService-java和TicketService-java"><span class="nav-number">2.5.3.</span> <span class="nav-text">创建UserService.java和TicketService.java</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#完成工具类"><span class="nav-number">2.6.</span> <span class="nav-text">完成工具类</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#完成登录注册逻辑LoginBiz-java"><span class="nav-number">2.7.</span> <span class="nav-text">完成登录注册逻辑LoginBiz.java</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#完成控制层Controller"><span class="nav-number">2.8.</span> <span class="nav-text">完成控制层Controller</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#完成HomeController"><span class="nav-number">2.8.1.</span> <span class="nav-text">完成HomeController</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#完成BookController"><span class="nav-number">2.8.2.</span> <span class="nav-text">完成BookController</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#完成LoginController"><span class="nav-number">2.8.3.</span> <span class="nav-text">完成LoginController</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#实现拦截器完成登录权限验证"><span class="nav-number">2.9.</span> <span class="nav-text">实现拦截器完成登录权限验证</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#项目总结"><span class="nav-number">3.</span> <span class="nav-text">项目总结</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#项目源码"><span class="nav-number">4.</span> <span class="nav-text">项目源码</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span> ❤ </span>
+  <span class="author" itemprop="copyrightHolder">ZealYoung</span>
+
+  
+</div>
+
+<!-- 
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
+
+-->
+
+<script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+ <i class="fa fa-user">
+<span id="busuanzi_container_site_pv"> 总访问量<span id="busuanzi_value_site_pv"></span>次</span>
+<span class="post-meta-divider">|</span>
+<i class="fa fa-eye"></i>
+<span id="busuanzi_container_site_uv"> 总访客<span id="busuanzi_value_site_uv"></span>人</span>
+ 
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+  
+  <script type="text/javascript">
+    var GUEST = ['nick','mail','link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item=>{
+      return GUEST.indexOf(item)>-1;
+    });
+    new Valine({
+        el: '#comments' ,
+        verify: false,
+        notify: false,
+        appId: 'zI1r47isCg9iLW9ozMqfMjox-gzGzoHsz',
+        appKey: 'ShGrTcR32q3V54g33wATke6E',
+        placeholder: '来发言吧，冲鸭！',
+        avatar:'retro',
+        guest_info:guest,
+        pageSize:'10' || 10,
+    });
+  </script>
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+  <script type="text/javascript" src="/js/src/exturl.js?v=5.1.4"></script>
+
+
+</body>
+</html>

@@ -77,7 +77,7 @@
 
 
 
-  <meta name="keywords" content="多线程,线程池," />
+  <meta name="keywords" content="多线程," />
 
 
 
@@ -88,15 +88,15 @@
 
 
 
-<meta name="description" content="什么是线程池就不贴什么定义了，用自己的理解说一下，线程池就是维护了一定量线程用来执行任务，我们要创建线程执行任务时，直接将任务交给线程池，线程池分配给线程池中的线程去执行，可以对线程池中的线程进行分配和回收，不需要每次都创建新的线程，基本所有的池作用都类似，例如数据库连接池之类的。 使用线程池的优点 减少了创建和销毁线程的次数，每个工作线程都可以被重复利用，可执行多个任务。  可以根据系统的承受能">
-<meta name="keywords" content="多线程,线程池">
+<meta name="description" content="问题描述之前面试被问到过两个线程交替打印，实现ABABABAB这样的效果，今天无意间看到一个线程1实现1-10循环打印，打印5时通知另一个线程的题目，因此来写一下，思路基本是相同的，所以只写了第二个题的代码。 思路使用synchronized进行锁操作，线程1循环打印1-10，打印5时将needNotice置为true表示要通知线程2，然后线程1执行wait()释放锁进行等待，线程2得到锁，输出信">
+<meta name="keywords" content="多线程">
 <meta property="og:type" content="article">
-<meta property="og:title" content="线程池的使用">
-<meta property="og:url" content="http:&#x2F;&#x2F;www.zealyoung.site&#x2F;2019&#x2F;12&#x2F;09&#x2F;%E7%BA%BF%E7%A8%8B%E6%B1%A0%E7%9A%84%E4%BD%BF%E7%94%A8&#x2F;index.html">
+<meta property="og:title" content="两个线程交替打印">
+<meta property="og:url" content="http:&#x2F;&#x2F;www.zealyoung.site&#x2F;2019&#x2F;12&#x2F;20&#x2F;%E4%B8%A4%E4%B8%AA%E7%BA%BF%E7%A8%8B%E4%BA%A4%E6%9B%BF%E6%89%93%E5%8D%B0&#x2F;index.html">
 <meta property="og:site_name" content="Zealyoung · CodeMaker">
-<meta property="og:description" content="什么是线程池就不贴什么定义了，用自己的理解说一下，线程池就是维护了一定量线程用来执行任务，我们要创建线程执行任务时，直接将任务交给线程池，线程池分配给线程池中的线程去执行，可以对线程池中的线程进行分配和回收，不需要每次都创建新的线程，基本所有的池作用都类似，例如数据库连接池之类的。 使用线程池的优点 减少了创建和销毁线程的次数，每个工作线程都可以被重复利用，可执行多个任务。  可以根据系统的承受能">
+<meta property="og:description" content="问题描述之前面试被问到过两个线程交替打印，实现ABABABAB这样的效果，今天无意间看到一个线程1实现1-10循环打印，打印5时通知另一个线程的题目，因此来写一下，思路基本是相同的，所以只写了第二个题的代码。 思路使用synchronized进行锁操作，线程1循环打印1-10，打印5时将needNotice置为true表示要通知线程2，然后线程1执行wait()释放锁进行等待，线程2得到锁，输出信">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-12-10T08:10:52.000Z">
+<meta property="og:updated_time" content="2019-12-20T10:05:28.077Z">
 <meta name="twitter:card" content="summary">
 
 
@@ -127,13 +127,13 @@
 
 
 
-  <link rel="canonical" href="http://www.zealyoung.site/2019/12/09/线程池的使用/"/>
+  <link rel="canonical" href="http://www.zealyoung.site/2019/12/20/两个线程交替打印/"/>
 
 
 
 
 
-  <title>线程池的使用 | Zealyoung · CodeMaker</title>
+  <title>两个线程交替打印 | Zealyoung · CodeMaker</title>
   
 
 
@@ -282,7 +282,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://www.zealyoung.site/2019/12/09/%E7%BA%BF%E7%A8%8B%E6%B1%A0%E7%9A%84%E4%BD%BF%E7%94%A8/">
+    <link itemprop="mainEntityOfPage" href="http://www.zealyoung.site/2019/12/20/%E4%B8%A4%E4%B8%AA%E7%BA%BF%E7%A8%8B%E4%BA%A4%E6%9B%BF%E6%89%93%E5%8D%B0/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="ZealYoung">
@@ -299,7 +299,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">线程池的使用</h1>
+          <h1 class="post-title" itemprop="name headline">两个线程交替打印</h1>
         
 
         <div class="post-meta">
@@ -311,8 +311,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-12-09T14:01:16+08:00">
-                2019-12-09
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-12-20T17:50:14+08:00">
+                2019-12-20
               </time>
             
 
@@ -363,8 +363,8 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2019/12/09/%E7%BA%BF%E7%A8%8B%E6%B1%A0%E7%9A%84%E4%BD%BF%E7%94%A8/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count valine-comment-count" data-xid="/2019/12/09/%E7%BA%BF%E7%A8%8B%E6%B1%A0%E7%9A%84%E4%BD%BF%E7%94%A8/" itemprop="commentCount"></span>
+                <a href="/2019/12/20/%E4%B8%A4%E4%B8%AA%E7%BA%BF%E7%A8%8B%E4%BA%A4%E6%9B%BF%E6%89%93%E5%8D%B0/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2019/12/20/%E4%B8%A4%E4%B8%AA%E7%BA%BF%E7%A8%8B%E4%BA%A4%E6%9B%BF%E6%89%93%E5%8D%B0/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -388,7 +388,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  1.3k 字
+                  378 字
                 </span>
               
 
@@ -404,7 +404,7 @@
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
                 <span title="阅读时长">
-                  4 分钟
+                  1 分钟
                 </span>
               
             </div>
@@ -425,73 +425,14 @@
       
 
       
-        <h1 id="什么是线程池"><a href="#什么是线程池" class="headerlink" title="什么是线程池"></a>什么是线程池</h1><p>就不贴什么定义了，用自己的理解说一下，线程池就是维护了一定量线程用来执行任务，我们要创建线程执行任务时，直接将任务交给线程池，线程池分配给线程池中的线程去执行，可以对线程池中的线程进行分配和回收，不需要每次都创建新的线程，基本所有的池作用都类似，例如数据库连接池之类的。</p>
-<h1 id="使用线程池的优点"><a href="#使用线程池的优点" class="headerlink" title="使用线程池的优点"></a>使用线程池的优点</h1><ul>
-<li><p>减少了创建和销毁线程的次数，每个工作线程都可以被重复利用，可执行多个任务。</p>
-</li>
-<li><p>可以根据系统的承受能力，调整线程池中工作线线程的数目，防止消耗过多的内存</p>
-</li>
-<li><p>方便管理，可以将一个线程池交给容器去管理</p>
-</li>
-</ul>
-<h1 id="ThreadPoolExecutor"><a href="#ThreadPoolExecutor" class="headerlink" title="ThreadPoolExecutor"></a>ThreadPoolExecutor</h1><p>ThreadPoolExecutor类实现Executor和ExecutorService接口，是线程池操作的基本类，常用的四种线程池底层都是对ThreadPoolExecutor的调用。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="title">ThreadPoolExecutor</span><span class="params">(<span class="keyword">int</span> corePoolSize,<span class="keyword">int</span> maximumPoolSize,<span class="keyword">long</span> keepAliveTime,TimeUnit unit,BlockingQueue&lt;Runnable&gt; workQueue, ThreadFactory threadFactory, RejectedExecutionHandler handler)</span></span>;</span><br></pre></td></tr></table></figure>
+        <h1 id="问题描述"><a href="#问题描述" class="headerlink" title="问题描述"></a>问题描述</h1><p>之前面试被问到过两个线程交替打印，实现ABABABAB这样的效果，今天无意间看到一个线程1实现1-10循环打印，打印5时通知另一个线程的题目，因此来写一下，思路基本是相同的，所以只写了第二个题的代码。</p>
+<h1 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h1><p>使用synchronized进行锁操作，线程1循环打印1-10，打印5时将<code>needNotice</code>置为true表示要通知线程2，然后线程1执行<code>wait()</code>释放锁进行等待，线程2得到锁，输出信息，释放锁等待下一次被通知，线程1得到锁继续循环打印。</p>
+<h1 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h1><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Main</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        Printer printer =  <span class="keyword">new</span> Printer();</span><br><span class="line">        <span class="keyword">new</span> Thread(() -&gt; &#123;</span><br><span class="line">            <span class="keyword">while</span> (<span class="keyword">true</span>)&#123;</span><br><span class="line">                printer.print();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;).start();</span><br><span class="line"></span><br><span class="line">        <span class="keyword">new</span> Thread(<span class="keyword">new</span> Runnable() &#123;</span><br><span class="line">            <span class="meta">@Override</span></span><br><span class="line">            <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</span><br><span class="line">                <span class="keyword">while</span> (<span class="keyword">true</span>)&#123;</span><br><span class="line">                    printer.receive();</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;).start();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Printer</span></span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">boolean</span> needNotice = <span class="keyword">false</span>;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> num = <span class="number">1</span>;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">synchronized</span> <span class="keyword">void</span> <span class="title">print</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">while</span>(needNotice)&#123;</span><br><span class="line">            <span class="keyword">try</span>&#123;</span><br><span class="line">                <span class="keyword">this</span>.wait();</span><br><span class="line">            &#125;<span class="keyword">catch</span> (InterruptedException e) &#123;</span><br><span class="line">                e.printStackTrace();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        System.out.println(Thread.currentThread().getName() + num);</span><br><span class="line">        <span class="keyword">if</span>(num == <span class="number">5</span>) needNotice = <span class="keyword">true</span>;</span><br><span class="line">        num = num % <span class="number">10</span> + <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">this</span>.notify();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">synchronized</span> <span class="keyword">void</span> <span class="title">receive</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">while</span>(!needNotice)&#123;</span><br><span class="line">            <span class="keyword">try</span>&#123;</span><br><span class="line">                <span class="keyword">this</span>.wait();</span><br><span class="line">            &#125;<span class="keyword">catch</span> (InterruptedException e) &#123;</span><br><span class="line">                e.printStackTrace();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        System.out.println(Thread.currentThread().getName() + <span class="string">"接到了通知"</span>);</span><br><span class="line">        needNotice = <span class="keyword">false</span>;</span><br><span class="line">        <span class="keyword">this</span>.notify();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<ul>
-<li><p>corePoolSize 核心线程数，指保留的线程池大小（不超过maximumPoolSize值时，线程池中最多有corePoolSize 个线程工作）。</p>
-</li>
-<li><p>maximumPoolSize 指的是线程池的最大大小（线程池中最大有corePoolSize 个线程可运行）</p>
-</li>
-<li><p>keepAliveTime 指的是空闲线程结束的超时时间（当一个线程不工作时，过keepAliveTime 长时间将停止该线程）。</p>
-</li>
-<li><p>unit 是一个枚举，表示 keepAliveTime 的单位（有NANOSECONDS, MICROSECONDS,</p>
-</li>
-</ul>
-<p>MILLISECONDS, SECONDS, MINUTES, HOURS, DAYS，7个可选值）。</p>
-<ul>
-<li><p>workQueue 表示存放任务的队列（存放需要被线程池执行的线程队列）。</p>
-</li>
-<li><p>threadFactory 执行程序创建新线程时使用的工厂。</p>
-</li>
-<li><p>handler 由于超出线程范围和队列容量而使执行被阻塞时所使用的处理程序。</p>
-</li>
-</ul>
-<h1 id="四种线程池"><a href="#四种线程池" class="headerlink" title="四种线程池"></a>四种线程池</h1><h2 id="newSingleThreadExecutor"><a href="#newSingleThreadExecutor" class="headerlink" title="newSingleThreadExecutor"></a><strong>newSingleThreadExecutor</strong></h2><blockquote>
-<p>创建一个单线程的线程池。这个线程池只有一个线程在工作，也就是相当于单线程串行执行所有任务。如果这个唯一的线程因为异常结束，那么会有一个新的线程来替代它。此线程池保证所有任务的执行顺序按照任务的提交顺序执行。</p>
+<h1 id="执行结果"><a href="#执行结果" class="headerlink" title="执行结果"></a>执行结果</h1><blockquote>
+<p>Thread-0print1<br>Thread-0print2<br>Thread-0print3<br>Thread-0print4<br>Thread-0print5<br>Thread-1接到了通知<br>Thread-0print6<br>Thread-0print7<br>Thread-0print8<br>Thread-0print9<br>Thread-0print10<br>Thread-0print1<br>Thread-0print2<br>Thread-0print3<br>Thread-0print4<br>Thread-0print5<br>Thread-1接到了通知<br>Thread-0print6<br>Thread-0print7<br>Thread-0print8<br>Thread-0print9<br>Thread-0print10</p>
 </blockquote>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> ExecutorService <span class="title">newSingleThreadExecutor</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> FinalizableDelegatedExecutorService</span><br><span class="line">        (<span class="keyword">new</span> ThreadPoolExecutor(<span class="number">1</span>, <span class="number">1</span>, <span class="number">0L</span>, TimeUnit.MILLISECONDS, <span class="keyword">new</span> LinkedBlockingQueue&lt;Runnable&gt;()));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>此线程池核心线程为1，不回收线程，使用<code>LinkedBlockingQueue</code>且无参数，即线程队列的大小为<code>Integer.MAX_VALUE</code>，当有任务在执行时，其余任务全都会存放在队列中等待执行。</p>
-<h2 id="newFixedThreadPool"><a href="#newFixedThreadPool" class="headerlink" title="newFixedThreadPool"></a><strong>newFixedThreadPool</strong></h2><blockquote>
-<p>创建固定大小的线程池。每次提交一个任务就创建一个线程，直到线程达到线程池的最大大小。线程池的大小一旦达到最大值就会保持不变，如果某个线程因为执行异常而结束，那么线程池会补充一个新线程。</p>
-</blockquote>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> ExecutorService <span class="title">newFixedThreadPool</span><span class="params">(<span class="keyword">int</span> nThreads)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> ThreadPoolExecutor(nThreads, nThreads,</span><br><span class="line"> <span class="number">0L</span>,TimeUnit.MILLISECONDS, <span class="keyword">new</span> LinkedBlockingQueue&lt;Runnable&gt;());</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
-
-<p>相比于<code>newSingleThreadExecutor</code>，允许传入参数来创建固定大小的线程池，其余无区别，即传入参数为1时相当于<code>newSingleThreadExecutor</code></p>
-<h2 id="newCachedThreadPool"><a href="#newCachedThreadPool" class="headerlink" title="newCachedThreadPool"></a><strong>newCachedThreadPool</strong></h2><blockquote>
-<p>创建一个可缓存的线程池。如果线程池的大小超过了处理任务所需要的线程，那么就会回收部分空闲（60秒不执行任务）的线程，当任务数增加时，此线程池又可以智能的添加新线程来处理任务。此线程池不会对线程池大小做限制，线程池大小完全依赖于操作系统（或者说JVM）能够创建的最大线程大小。</p>
-</blockquote>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> ExecutorService <span class="title">newCachedThreadPool</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> ThreadPoolExecutor(<span class="number">0</span>, Integer.MAX_VALUE,<span class="number">60L</span>, TimeUnit.SECONDS, <span class="keyword">new</span> SynchronousQueue&lt;Runnable&gt;());</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>可以看到核心线程为0，但允许最大线程为<code>Integer.MAX_VALUE</code>，且闲置经过60s的线程会被回收，即可以根据任务数量来调整线程池的线程数量，使用<code>SynchronousQueue</code>队列，此队列内部没有数据缓存空间，生产者和消费者互相等待，等到对方之后然后再一起离开，也就是说队列中不排队存放任务，每个任务都会交给线程池进行处理。</p>
-<h2 id="newScheduledThreadPool"><a href="#newScheduledThreadPool" class="headerlink" title="newScheduledThreadPool"></a><strong>newScheduledThreadPool</strong></h2><blockquote>
-<p>具有定时定期执行任务功能的线程池。</p>
-</blockquote>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="title">ScheduledThreadPoolExecutor</span><span class="params">(<span class="keyword">int</span> corePoolSize)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">super</span>(corePoolSize, Integer.MAX_VALUE,</span><br><span class="line">            DEFAULT_KEEPALIVE_MILLIS, MILLISECONDS,</span><br><span class="line">            <span class="keyword">new</span> DelayedWorkQueue());</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>核心线程固定，最大线程无穷大，但非核心线程闲置后会被立即回收，可以通过<code>schedule()</code>等方法启动，进行延迟操作。</p>
-<h1 id="无法处理线程时的Handler"><a href="#无法处理线程时的Handler" class="headerlink" title="无法处理线程时的Handler"></a>无法处理线程时的Handler</h1><blockquote>
-<p>RejectedExecutionHandler接口提供了对于拒绝任务的处理的自定方法的机会。在ThreadPoolExecutor中已经默认包含了4中策略。</p>
-</blockquote>
-<ul>
-<li><p>CallerRunsPolicy（直接运行run方法）：线程调用运行该任务的 execute 本身。此策略提供简单的反馈控制机制，能够减缓新任务的提交速度。</p>
-</li>
-<li><p>AbortPolicy（抛异常）：处理程序遭到拒绝将抛出运行时RejectedExecutionException。</p>
-</li>
-<li><p>DiscardPolicy（直接丢弃）：不能执行的任务将被删除。</p>
-</li>
-<li><p>DiscardOldestPolicy（抛弃最老的线程）：如果执行程序尚未关闭，则位于工作队列头部的任务将被删除，然后重试执行程序（如果再次失败，则重复此过程）。</p>
-</li>
-</ul>
+<p>截取了一部分输出，程序没有设置停止操作，会一直循环，可以设置计数器控制打印次数。</p>
 
       
     </div>
@@ -511,8 +452,6 @@
           
             <a href="/tags/%E5%A4%9A%E7%BA%BF%E7%A8%8B/" rel="tag"># 多线程</a>
           
-            <a href="/tags/%E7%BA%BF%E7%A8%8B%E6%B1%A0/" rel="tag"># 线程池</a>
-          
         </div>
       
 
@@ -524,8 +463,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2019/12/06/%E5%90%88%E5%B9%B6%E4%B8%A4%E4%B8%AA%E6%9C%89%E5%BA%8F%E9%93%BE%E8%A1%A8/" rel="next" title="合并两个有序链表">
-                <i class="fa fa-chevron-left"></i> 合并两个有序链表
+              <a href="/2019/12/20/%E7%8E%AF%E5%BD%A2%E9%93%BE%E8%A1%A8/" rel="next" title="环形链表">
+                <i class="fa fa-chevron-left"></i> 环形链表
               </a>
             
           </div>
@@ -533,10 +472,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2019/12/09/%E5%88%A0%E9%99%A4%E9%93%BE%E8%A1%A8%E7%9A%84%E5%80%92%E6%95%B0%E7%AC%ACN%E4%B8%AA%E8%8A%82%E7%82%B9/" rel="prev" title="删除链表的倒数第N个节点">
-                删除链表的倒数第N个节点 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -703,7 +638,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#什么是线程池"><span class="nav-number">1.</span> <span class="nav-text">什么是线程池</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#使用线程池的优点"><span class="nav-number">2.</span> <span class="nav-text">使用线程池的优点</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#ThreadPoolExecutor"><span class="nav-number">3.</span> <span class="nav-text">ThreadPoolExecutor</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#四种线程池"><span class="nav-number">4.</span> <span class="nav-text">四种线程池</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#newSingleThreadExecutor"><span class="nav-number">4.1.</span> <span class="nav-text">newSingleThreadExecutor</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#newFixedThreadPool"><span class="nav-number">4.2.</span> <span class="nav-text">newFixedThreadPool</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#newCachedThreadPool"><span class="nav-number">4.3.</span> <span class="nav-text">newCachedThreadPool</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#newScheduledThreadPool"><span class="nav-number">4.4.</span> <span class="nav-text">newScheduledThreadPool</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#无法处理线程时的Handler"><span class="nav-number">5.</span> <span class="nav-text">无法处理线程时的Handler</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#问题描述"><span class="nav-number">1.</span> <span class="nav-text">问题描述</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#思路"><span class="nav-number">2.</span> <span class="nav-text">思路</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#代码"><span class="nav-number">3.</span> <span class="nav-text">代码</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#执行结果"><span class="nav-number">4.</span> <span class="nav-text">执行结果</span></a></li></ol></div>
             
 
           </div>

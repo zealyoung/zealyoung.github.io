@@ -279,6 +279,662 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://www.zealyoung.site/2019/12/10/%E6%A0%88%E5%92%8C%E9%98%9F%E5%88%97%E7%9B%B8%E4%BA%92%E5%AE%9E%E7%8E%B0/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="ZealYoung">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Zealyoung · CodeMaker">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/12/10/%E6%A0%88%E5%92%8C%E9%98%9F%E5%88%97%E7%9B%B8%E4%BA%92%E5%AE%9E%E7%8E%B0/" itemprop="url">栈和队列相互实现</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-12-10T20:31:44+08:00">
+                2019-12-10
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/" itemprop="url" rel="index">
+                    <span itemprop="name">数据结构与算法</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/%E6%A0%88%E4%B8%8E%E9%98%9F%E5%88%97/" itemprop="url" rel="index">
+                    <span itemprop="name">栈与队列</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2019/12/10/%E6%A0%88%E5%92%8C%E9%98%9F%E5%88%97%E7%9B%B8%E4%BA%92%E5%AE%9E%E7%8E%B0/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2019/12/10/%E6%A0%88%E5%92%8C%E9%98%9F%E5%88%97%E7%9B%B8%E4%BA%92%E5%AE%9E%E7%8E%B0/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                  <span class="post-meta-divider">|</span>
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  759 字
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  3 分钟
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="Leetcode232-用栈实现队列"><a href="#Leetcode232-用栈实现队列" class="headerlink" title="Leetcode232.用栈实现队列"></a>Leetcode232.用栈实现队列</h1><p><strong>题目描述：</strong></p>
+<p>使用栈实现队列的下列操作：</p>
+<ul>
+<li>push(x) – 将一个元素放入队列的尾部。</li>
+<li>pop() – 从队列首部移除元素。</li>
+<li>peek() – 返回队列首部的元素。</li>
+<li>empty() – 返回队列是否为空。</li>
+</ul>
+<p><strong>示例：</strong></p>
+<pre><code>MyQueue queue = new MyQueue();
+
+queue.push(1);
+queue.push(2);  
+queue.peek();  // 返回 1
+queue.pop();   // 返回 1
+queue.empty(); // 返回 false</code></pre><p><strong>思路：</strong></p>
+<p>栈与队列的区别就是栈是先进后出的数据结构，在一端进行操作，队列是先进先出，在两端进行操作，因此我们使用两个栈来实现队列的操作，一个栈进行push操作，当需要pop时将in栈中元素加入out，即元素进入in后又出来进入out，这样操作使得out栈中出栈的顺序恰好是元素进栈顺序，实现了先进先出，当out栈空时进行换栈操作。</p>
+<p><strong>代码：</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MyQueue</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> Stack&lt;Integer&gt; in;</span><br><span class="line">    <span class="keyword">private</span> Stack&lt;Integer&gt; out;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/** Initialize your data structure here. */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">MyQueue</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        in = <span class="keyword">new</span> Stack&lt;&gt;();</span><br><span class="line">        out = <span class="keyword">new</span> Stack&lt;&gt;();</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">/** Push element x to the back of queue. */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">push</span><span class="params">(<span class="keyword">int</span> x)</span> </span>&#123;</span><br><span class="line">        in.push(x);</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">/** Removes the element from in front of queue and returns that element. */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">pop</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        in2out();</span><br><span class="line">        <span class="keyword">return</span> out.pop(); </span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">/** Get the front element. */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">peek</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        in2out();</span><br><span class="line">        <span class="keyword">return</span> out.peek();</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">/** Returns whether the queue is empty. */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">empty</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> in.isEmpty() &amp;&amp; out.isEmpty();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">in2out</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(out.isEmpty())&#123;</span><br><span class="line">            <span class="keyword">while</span>(!in.isEmpty())&#123;</span><br><span class="line">                out.push(in.pop());</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h1 id="Leetcode225-用队列实现栈"><a href="#Leetcode225-用队列实现栈" class="headerlink" title="Leetcode225.用队列实现栈"></a>Leetcode225.用队列实现栈</h1><p><strong>题目描述：</strong></p>
+<p>使用队列实现栈的下列操作：</p>
+<ul>
+<li>push(x) – 元素 x 入栈</li>
+<li>pop() – 移除栈顶元素</li>
+<li>top() – 获取栈顶元素</li>
+<li>empty() – 返回栈是否为空</li>
+</ul>
+<p><strong>思路：</strong></p>
+<p>与栈实现队列类似，首先能想到的就是利用两个队列来做，一个队列维护入栈，当需要出栈时将其他元素加入另一个队列，并将两个队列的作用互换。</p>
+<p>然而其实一个队列就可以实现栈操作，这与栈实现队列不同之处在于，栈是一个一端操作的数据结构，我们用一个栈无论如何也没办法完成队列操作，但队列是两端操作，用一个队列完全可以实现栈操作，每次需要出栈时将除最后一个元素外的其他元素出队再入队即可，或是入栈时将其他元素出队再入队，出栈直接出，效果相同。(因为要获取栈顶元素，所以最好还是在进队的时候就进行操作)</p>
+<p><strong>代码：</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MyStack</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> Queue&lt;Integer&gt; queue;</span><br><span class="line">    <span class="comment">/** Initialize your data structure here. */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">MyStack</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        queue = <span class="keyword">new</span> LinkedList&lt;&gt;();</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">/** Push element x onto stack. */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">push</span><span class="params">(<span class="keyword">int</span> x)</span> </span>&#123;</span><br><span class="line">        queue.add(x);</span><br><span class="line">        <span class="keyword">int</span> cnt = queue.size();</span><br><span class="line">        <span class="keyword">while</span>(cnt-- &gt; <span class="number">1</span>)&#123;</span><br><span class="line">            queue.add(queue.remove());</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">/** Removes the element on top of the stack and returns that element. */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">pop</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> queue.remove();</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">/** Get the top element. */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">top</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> queue.peek();</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">/** Returns whether the stack is empty. */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">empty</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> queue.isEmpty();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Your MyStack object will be instantiated and called as such:</span></span><br><span class="line"><span class="comment"> * MyStack obj = new MyStack();</span></span><br><span class="line"><span class="comment"> * obj.push(x);</span></span><br><span class="line"><span class="comment"> * int param_2 = obj.pop();</span></span><br><span class="line"><span class="comment"> * int param_3 = obj.top();</span></span><br><span class="line"><span class="comment"> * boolean param_4 = obj.empty();</span></span><br><span class="line"><span class="comment"> */</span></span><br></pre></td></tr></table></figure>
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://www.zealyoung.site/2019/12/10/%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8F/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="ZealYoung">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Zealyoung · CodeMaker">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/12/10/%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8F/" itemprop="url">单例模式</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-12-10T16:19:20+08:00">
+                2019-12-10
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Java/" itemprop="url" rel="index">
+                    <span itemprop="name">Java</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Java/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" itemprop="url" rel="index">
+                    <span itemprop="name">设计模式</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2019/12/10/%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8F/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2019/12/10/%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8F/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                  <span class="post-meta-divider">|</span>
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  920 字
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  3 分钟
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="基本概念"><a href="#基本概念" class="headerlink" title="基本概念"></a>基本概念</h1><p>单例模式是一种最简单的设计模式，指对于一个类，在整个程序中仅有一个实类，其他类访问的都是同一个实例。</p>
+<h1 id="实现方式"><a href="#实现方式" class="headerlink" title="实现方式"></a>实现方式</h1><blockquote>
+<p>单例模式分为饿汉式和懒汉式</p>
+</blockquote>
+<p>单例模式一般分为三部分：</p>
+<ul>
+<li>构造函数私有化</li>
+<li>类的实例成员变量</li>
+<li>调用类的实例的方法</li>
+</ul>
+<h2 id="饿汉式单例模式写法"><a href="#饿汉式单例模式写法" class="headerlink" title="饿汉式单例模式写法"></a><strong>饿汉式单例模式写法</strong></h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Singleton</span></span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="title">Singleton</span><span class="params">()</span></span>&#123;&#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> Singleton instance = <span class="keyword">new</span> Singleton();</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> Singleton <span class="title">getInstance</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">return</span> instance;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>顾名思义饿汉式即非常饥饿，无论是否用到此类，都生成类的实例，在类初始化时即被创建，不存在线程安全问题，但如果程序中没有使用到该类，会造成空间浪费。</p>
+<h2 id="懒汉式单例模式写法"><a href="#懒汉式单例模式写法" class="headerlink" title="懒汉式单例模式写法"></a><strong>懒汉式单例模式写法</strong></h2><h3 id="写法一"><a href="#写法一" class="headerlink" title="写法一"></a><strong>写法一</strong></h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Singleton</span></span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="title">Singleton</span><span class="params">()</span></span>&#123;&#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> Singleton instance;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> Singleton <span class="title">getInstance</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(instance == <span class="keyword">null</span>)&#123;</span><br><span class="line">            instance = <span class="keyword">new</span> Singleton();</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> instance;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>顾名思义懒汉式即很懒，直到需要类实例的时候才去创建它，上面是懒汉式最简单的写法，但很明显无法保证线程安全，当一个线程进入if判断但并未创建实例时，另一个线程也同时进入了if判断，会导致创建两个不同的实例，违背了单例模式设计原则。</p>
+<h3 id="写法二"><a href="#写法二" class="headerlink" title="写法二"></a><strong>写法二</strong></h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Singleton</span></span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="title">Singleton</span><span class="params">()</span></span>&#123;&#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> Singleton instance;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">synchronized</span> <span class="keyword">static</span> Singleton <span class="title">getInstance</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(instance == <span class="keyword">null</span>)&#123;</span><br><span class="line">            instance = <span class="keyword">new</span> Singleton();</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> instance;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>线程不安全？那把方法改为同步方法即可，但想想看，这样的话每次访问都需要同步进行，而实际上我们只需要一次同步操作，即当实例未被创建时，此后的同步操作是无意义的。</p>
+<h3 id="写法三"><a href="#写法三" class="headerlink" title="写法三"></a><strong>写法三</strong></h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Singleton</span></span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="title">Singleton</span><span class="params">()</span></span>&#123;&#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> Singleton instance;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span>  <span class="keyword">static</span> Singleton <span class="title">getInstance</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(instance == <span class="keyword">null</span>)&#123;</span><br><span class="line">            <span class="keyword">synchronized</span>(Singleton<span class="class">.<span class="keyword">class</span>)</span>&#123;</span><br><span class="line">                <span class="keyword">if</span>(instance == <span class="keyword">null</span>)&#123;</span><br><span class="line">                    instance = <span class="keyword">new</span> Singleton();</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> instance;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>改为对类对象进行加锁，同时使用了双重检验，因为如果一次判断的话，仍然会出现两个线程同时进入if判断里，只是其中一个要等待锁，结果还是创建了两个对象，双重判定避免了这种情况，但仍存在问题，我们知道JVM的引用赋值操作并非原子操作，而是分为<code>分配对象内存空间</code>、<code>初始化对象</code>、<code>将引用指向分配的内存地址</code>，而执行时会因为JVM优化导致指令重排序，例如可能先指向内存地址，再初始化对象，如果线程1的执行顺序为1-3-2，当线程正在进行了步骤3但还未完成步骤2的执行时，线程2调用<code>getInstance()</code>方法，此时<code>instance</code>不为<code>null</code>，因此返回了并未初始化完成的实例，这就是双重检查锁导致的问题。</p>
+<h3 id="写法四"><a href="#写法四" class="headerlink" title="写法四"></a><strong>写法四</strong></h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Singleton</span></span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="title">Singleton</span><span class="params">()</span></span>&#123;&#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">volatile</span> Singleton instance;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span>  <span class="keyword">static</span> Singleton <span class="title">getInstance</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(instance == <span class="keyword">null</span>)&#123;</span><br><span class="line">            <span class="keyword">synchronized</span>(Singleton<span class="class">.<span class="keyword">class</span>)</span>&#123;</span><br><span class="line">                <span class="keyword">if</span>(instance == <span class="keyword">null</span>)&#123;</span><br><span class="line">                    instance = <span class="keyword">new</span> Singleton();</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> instance;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>使用volatile关键字禁止指令重排，保证在写操作没有完成之前不能调用读操作。volatile的两个特性一个是可见性另一个是有序性。此方法适用于JDK1.5以后。</p>
+<h3 id="写法五"><a href="#写法五" class="headerlink" title="写法五"></a><strong>写法五</strong></h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Singleton</span></span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="title">Singleton</span><span class="params">()</span></span>&#123;&#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="class"><span class="keyword">class</span> <span class="title">SingletonHolder</span></span>&#123;</span><br><span class="line">        <span class="keyword">private</span> <span class="keyword">static</span> Singleton instance = <span class="keyword">new</span> Singleton();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span>  <span class="keyword">static</span> Singleton <span class="title">getInstance</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">return</span> SingletonHolder.instance;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>利用静态内部类的特点实现懒加载，在调用<code>getInstance之前不会对</code>SingletonHolder`进行初始化。</p>
+<h3 id="写法六"><a href="#写法六" class="headerlink" title="写法六"></a><strong>写法六</strong></h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">enum</span> SingleTon&#123;</span><br><span class="line"></span><br><span class="line">    INSTANCE;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">method</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="comment">//TODO</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>枚举类的创建是线程安全的。</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://www.zealyoung.site/2019/12/09/%E9%93%BE%E8%A1%A8%E6%B1%82%E5%92%8C/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="ZealYoung">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Zealyoung · CodeMaker">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/12/09/%E9%93%BE%E8%A1%A8%E6%B1%82%E5%92%8C/" itemprop="url">链表求和</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-12-09T14:17:29+08:00">
+                2019-12-09
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/" itemprop="url" rel="index">
+                    <span itemprop="name">数据结构与算法</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/%E9%93%BE%E8%A1%A8/" itemprop="url" rel="index">
+                    <span itemprop="name">链表</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2019/12/09/%E9%93%BE%E8%A1%A8%E6%B1%82%E5%92%8C/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2019/12/09/%E9%93%BE%E8%A1%A8%E6%B1%82%E5%92%8C/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                  <span class="post-meta-divider">|</span>
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  389 字
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  1 分钟
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p><strong>题目描述：</strong></p>
+<p>给定两个非空链表来代表两个非负整数。数字最高位位于链表开始位置。它们的每个节点只存储单个数字。将这两数相加会返回一个新的链表。</p>
+<p>你可以假设除了数字 0 之外，这两个数字都不会以零开头。</p>
+<p>如果输入链表不能修改该如何处理？换句话说，你不能对列表中的节点进行翻转。<br><strong>示例：</strong></p>
+<pre><code>输入: (7 -&gt; 2 -&gt; 4 -&gt; 3) + (5 -&gt; 6 -&gt; 4)
+输出: 7 -&gt; 8 -&gt; 0 -&gt; 7</code></pre><p><strong>思路：</strong></p>
+<p>两个数按位置相加，需要考虑的就是进位，还有链表长度不一的情况，因为要从链表末尾开始操作，我们需要先对链表进行反转，题目中问到了链表不能翻转如何操作，我使用了将节点入栈的方法，但本质上也是翻转，每次从栈中取出2个数相加，保留进位即可，栈不空则继续，同时要考虑最后栈空但还有进位的情况。</p>
+<p><strong>代码：</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> ListNode <span class="title">addTwoNumbers</span><span class="params">(ListNode l1, ListNode l2)</span> </span>&#123;</span><br><span class="line">    Stack&lt;Integer&gt; s1 = buildStack(l1);</span><br><span class="line">    Stack&lt;Integer&gt; s2 = buildStack(l2);</span><br><span class="line">    <span class="keyword">int</span> carry = <span class="number">0</span>;</span><br><span class="line">    ListNode head = <span class="keyword">new</span> ListNode(-<span class="number">1</span>);</span><br><span class="line">    <span class="keyword">while</span>(!s1.isEmpty() || !s2.isEmpty() || carry != <span class="number">0</span>)&#123;</span><br><span class="line">        <span class="keyword">int</span> x = s1.isEmpty() ? <span class="number">0</span> : s1.pop();</span><br><span class="line">        <span class="keyword">int</span> y = s2.isEmpty() ? <span class="number">0</span> : s2.pop();</span><br><span class="line">        <span class="keyword">int</span> sum = x + y + carry;</span><br><span class="line">        ListNode node = <span class="keyword">new</span> ListNode(sum % <span class="number">10</span>);</span><br><span class="line">        node.next = head.next;</span><br><span class="line">        head.next = node;</span><br><span class="line">        carry = sum / <span class="number">10</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> head.next;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">public</span> Stack&lt;Integer&gt; <span class="title">buildStack</span><span class="params">(ListNode node)</span></span>&#123;</span><br><span class="line">    Stack&lt;Integer&gt; stack = <span class="keyword">new</span> Stack&lt;&gt;();</span><br><span class="line">    <span class="keyword">while</span>(node != <span class="keyword">null</span>)&#123;</span><br><span class="line">        stack.push(node.val);</span><br><span class="line">        node = node.next;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> stack;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://www.zealyoung.site/2019/12/09/%E5%88%A0%E9%99%A4%E9%93%BE%E8%A1%A8%E7%9A%84%E5%80%92%E6%95%B0%E7%AC%ACN%E4%B8%AA%E8%8A%82%E7%82%B9/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1795,640 +2451,6 @@ PRIMARY KEY (`emp_no`,`from_date`));</code></pre><h1 id="输出描述"><a href="
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://www.zealyoung.site/2019/12/05/%E4%BB%A3%E7%90%86%E6%A8%A1%E5%BC%8F/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="ZealYoung">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Zealyoung · CodeMaker">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/12/05/%E4%BB%A3%E7%90%86%E6%A8%A1%E5%BC%8F/" itemprop="url">代理模式-动态代理-AOP</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-12-05T09:50:37+08:00">
-                2019-12-05
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Java/" itemprop="url" rel="index">
-                    <span itemprop="name">Java</span>
-                  </a>
-                </span>
-
-                
-                
-                  ， 
-                
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Java/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" itemprop="url" rel="index">
-                    <span itemprop="name">设计模式</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/2019/12/05/%E4%BB%A3%E7%90%86%E6%A8%A1%E5%BC%8F/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count valine-comment-count" data-xid="/2019/12/05/%E4%BB%A3%E7%90%86%E6%A8%A1%E5%BC%8F/" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                
-                  <span class="post-meta-divider">|</span>
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计&#58;</span>
-                
-                <span title="字数统计">
-                  1.8k 字
-                </span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
-                
-                <span title="阅读时长">
-                  7 分钟
-                </span>
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <pre><code>本篇博客总结一下关于代理模式的内容，认识AOP以后才知道是由动态代理实现的，从什么是代理模式。到静态代理和动态代理，到动态代理实现拦截器。</code></pre><h1 id="代理模式"><a href="#代理模式" class="headerlink" title="代理模式"></a>代理模式</h1><p>代理模式：为其他对象提供一种代理以控制对这个对象的访问。</p>
-<p><img src="https://user-images.githubusercontent.com/45253106/70206721-69a76280-1763-11ea-8852-9ffa821518ea.png" alt="image"></p>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2019/12/05/%E4%BB%A3%E7%90%86%E6%A8%A1%E5%BC%8F/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://www.zealyoung.site/2019/12/04/%E5%9B%9E%E6%96%87%E5%AD%97%E7%AC%A6%E4%B8%B2/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="ZealYoung">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Zealyoung · CodeMaker">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/12/04/%E5%9B%9E%E6%96%87%E5%AD%97%E7%AC%A6%E4%B8%B2/" itemprop="url">回文字符串</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-12-04T14:34:02+08:00">
-                2019-12-04
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/" itemprop="url" rel="index">
-                    <span itemprop="name">数据结构与算法</span>
-                  </a>
-                </span>
-
-                
-                
-                  ， 
-                
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/%E5%AD%97%E7%AC%A6%E4%B8%B2/" itemprop="url" rel="index">
-                    <span itemprop="name">字符串</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/2019/12/04/%E5%9B%9E%E6%96%87%E5%AD%97%E7%AC%A6%E4%B8%B2/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count valine-comment-count" data-xid="/2019/12/04/%E5%9B%9E%E6%96%87%E5%AD%97%E7%AC%A6%E4%B8%B2/" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                
-                  <span class="post-meta-divider">|</span>
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计&#58;</span>
-                
-                <span title="字数统计">
-                  787 字
-                </span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
-                
-                <span title="阅读时长">
-                  3 分钟
-                </span>
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="Leetcode5-最长回文子串"><a href="#Leetcode5-最长回文子串" class="headerlink" title="Leetcode5.最长回文子串"></a>Leetcode5.最长回文子串</h1><p><strong>题目描述：</strong></p>
-<p>给定一个字符串 s，找到 s 中最长的回文子串。你可以假设 s 的最大长度为 1000。</p>
-<p><strong>示例：</strong></p>
-<pre><code>输入: &quot;babad&quot;
-输出: &quot;bab&quot;
-注意: &quot;aba&quot; 也是一个有效答案。</code></pre><hr>
-<pre><code>输入: &quot;cbbd&quot;
-输出: &quot;bb&quot;</code></pre><p><strong>思路：</strong></p>
-<p>回文字符串属于一类题型，常用的方法就是动态规划和中心扩展，还有著名的马拉车算法可以把时间复杂度降低到线性，这两道题一个用动态规划一个用中心扩展。</p>
-<p><strong>代码：</strong></p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> String <span class="title">longestPalindrome</span><span class="params">(String s)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(s.length() == <span class="number">0</span>) <span class="keyword">return</span> <span class="string">""</span>;</span><br><span class="line">    <span class="keyword">boolean</span>[][] dp = <span class="keyword">new</span> <span class="keyword">boolean</span>[s.length()][s.length()];</span><br><span class="line">    <span class="keyword">int</span> start = <span class="number">0</span>, end = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = s.length() - <span class="number">1</span>; i &gt;= <span class="number">0</span>; i--)&#123;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> j = i; j &lt; s.length(); j++)&#123;</span><br><span class="line">            dp[i][j] = (s.charAt(i) == s.charAt(j)) &amp;&amp; (j - i &lt; <span class="number">2</span> || dp[i + <span class="number">1</span>][j - <span class="number">1</span>]);</span><br><span class="line">            <span class="keyword">if</span>(dp[i][j] &amp;&amp; (j - i &gt;= end - start))&#123;</span><br><span class="line">                start = i;</span><br><span class="line">                end = j;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> s.substring(start, end + <span class="number">1</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>动态规划重要的就是dp公式，这里dp[i][j]表示字符串从i到j是不是回文串，那么它决定于[i + 1][j - 1]，dp另一点就是初始化，在这里应该是长度为1和2的回文串，这里用条件<code>j - i &lt; 2</code>同时做初始化。</p>
-<p>因为我们返回时调用了<code>substring()</code>，所以要先判断字符串长度是否为0，另一种方法我们可以直接返回一个字符串，对这个字符串做初始化，将代码里给start，end赋值的地方用<code>substring()</code>来赋值字符串，这样的话就不需要做最初的判断，但是需要多次调用<code>substring()</code>。</p>
-<p>写完以后看了看其他解析，发现这个空间复杂度可以降低到O(n)，这里就不改了，主要是总结字符串，以后总结动态规划再仔细探讨这个问题，动态规划很多时候都可以优化空间，因为很多时候我们只需要一行的内容而不是全部。</p>
-<h1 id="Leetcode647-回文子串"><a href="#Leetcode647-回文子串" class="headerlink" title="Leetcode647.回文子串"></a>Leetcode647.回文子串</h1><p><strong>题目描述：</strong></p>
-<p>给定一个字符串，你的任务是计算这个字符串中有多少个回文子串。</p>
-<p>具有不同开始位置或结束位置的子串，即使是由相同的字符组成，也会被计为是不同的子串。</p>
-<p><strong>示例：</strong></p>
-<pre><code>输入: &quot;abc&quot;
-输出: 3
-解释: 三个回文子串: &quot;a&quot;, &quot;b&quot;, &quot;c&quot;.</code></pre><hr>
-<pre><code>输入: &quot;aaa&quot;
-输出: 6
-说明: 6个回文子串: &quot;a&quot;, &quot;a&quot;, &quot;a&quot;, &quot;aa&quot;, &quot;aa&quot;, &quot;aaa&quot;.</code></pre><p><strong>思路：</strong></p>
-<p>和上一个题类似，这个题用中心扩展法来做，对于一个长度为n的字符串应该有2n-1个中心，因为中心可能是某个下标或是两个下标的中间，对应<code>&quot;aba&quot;,&quot;abba&quot;</code>两种情况.</p>
-<p><strong>代码：</strong></p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="keyword">int</span> count = <span class="number">0</span>;</span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">countSubstrings</span><span class="params">(String s)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; s.length(); i++)&#123;</span><br><span class="line">        centerSpread(s, i, i);</span><br><span class="line">        centerSpread(s, i, i + <span class="number">1</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> count;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">centerSpread</span><span class="params">(String s, <span class="keyword">int</span> left, <span class="keyword">int</span> right)</span></span>&#123;</span><br><span class="line">    <span class="keyword">while</span>(left &gt;= <span class="number">0</span> &amp;&amp; right &lt; s.length() &amp;&amp; s.charAt(left) == s.charAt(right))&#123;</span><br><span class="line">        right++;</span><br><span class="line">        left--;</span><br><span class="line">        count++;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://www.zealyoung.site/2019/12/03/ArrayList%E6%BA%90%E7%A0%81%E9%83%A8%E5%88%86%E5%88%86%E6%9E%90/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="ZealYoung">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Zealyoung · CodeMaker">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/12/03/ArrayList%E6%BA%90%E7%A0%81%E9%83%A8%E5%88%86%E5%88%86%E6%9E%90/" itemprop="url">ArrayList源码部分分析</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-12-03T18:27:57+08:00">
-                2019-12-03
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Java/" itemprop="url" rel="index">
-                    <span itemprop="name">Java</span>
-                  </a>
-                </span>
-
-                
-                
-                  ， 
-                
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Java/%E5%AE%B9%E5%99%A8%E9%9B%86%E5%90%88/" itemprop="url" rel="index">
-                    <span itemprop="name">容器集合</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/2019/12/03/ArrayList%E6%BA%90%E7%A0%81%E9%83%A8%E5%88%86%E5%88%86%E6%9E%90/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count valine-comment-count" data-xid="/2019/12/03/ArrayList%E6%BA%90%E7%A0%81%E9%83%A8%E5%88%86%E5%88%86%E6%9E%90/" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                
-                  <span class="post-meta-divider">|</span>
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计&#58;</span>
-                
-                <span title="字数统计">
-                  1k 字
-                </span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
-                
-                <span title="阅读时长">
-                  4 分钟
-                </span>
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <pre><code>平常做算法题或者编程时常用ArrayList，所以最近也看了看ArrayList的源码，加深理解，并学习一些新内容，以下记录一些在阅读过程中理解的部分内容，像插入删除没什么特别的地方就不多描述了。</code></pre><h1 id="ArrayList的特点"><a href="#ArrayList的特点" class="headerlink" title="ArrayList的特点"></a>ArrayList的特点</h1><blockquote>
-<p>在阅读源码之前自己想着写的</p>
-</blockquote>
-<ul>
-<li>动态数组实现的变长集合</li>
-<li>允许存放空值</li>
-<li>允许存放重复元素</li>
-<li>查找复杂度O(1)</li>
-<li>插入删除性能较差</li>
-<li>非线程安全</li>
-</ul>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2019/12/03/ArrayList%E6%BA%90%E7%A0%81%E9%83%A8%E5%88%86%E5%88%86%E6%9E%90/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -2483,7 +2505,7 @@ PRIMARY KEY (`emp_no`,`from_date`));</code></pre><h1 id="输出描述"><a href="
               
                 <a href="/archives%7C%7C%20archive">
               
-                  <span class="site-state-item-count">32</span>
+                  <span class="site-state-item-count">35</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>

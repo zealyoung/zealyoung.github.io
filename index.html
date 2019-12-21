@@ -355,6 +355,50 @@
           </span>
 
           
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/" itemprop="url" rel="index">
+                    <span itemprop="name">数据结构与算法</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/%E6%A0%91/" itemprop="url" rel="index">
+                    <span itemprop="name">树</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/" itemprop="url" rel="index">
+                    <span itemprop="name">动态规划</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
 
           
             
@@ -388,7 +432,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  0 字
+                  915 字
                 </span>
               
 
@@ -404,7 +448,7 @@
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
                 <span title="阅读时长">
-                  1 分钟
+                  3 分钟
                 </span>
               
             </div>
@@ -427,7 +471,52 @@
       
         
           
-            
+            <h1 id="Leetcode336-打家劫舍-III"><a href="#Leetcode336-打家劫舍-III" class="headerlink" title="Leetcode336.打家劫舍 III"></a>Leetcode336.打家劫舍 III</h1><p><strong>题目描述：</strong></p>
+<p>在上次打劫完一条街道之后和一圈房屋后，小偷又发现了一个新的可行窃的地区。这个地区只有一个入口，我们称之为“根”。 除了“根”之外，每栋房子有且只有一个“父“房子与之相连。一番侦察之后，聪明的小偷意识到“这个地方的所有房屋的排列类似于一棵二叉树”。 如果两个直接相连的房子在同一天晚上被打劫，房屋将自动报警。</p>
+<p>计算在不触动警报的情况下，小偷一晚能够盗取的最高金额。</p>
+<p><strong>示例：</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">输入: [3,2,3,null,3,null,1]</span><br><span class="line"></span><br><span class="line">     3</span><br><span class="line">    / \</span><br><span class="line">   2   3</span><br><span class="line">    \   \ </span><br><span class="line">     3   1</span><br><span class="line"></span><br><span class="line">输出: 7 </span><br><span class="line">解释: 小偷一晚能够盗取的最高金额 = 3 + 3 + 1 = 7.</span><br></pre></td></tr></table></figure>
+
+<p><strong>思路：</strong></p>
+<p>起初我想到的方法就是递归处理，例如对于根节点，选择偷或不偷，如果不偷，则左右子树直接递归，如果偷的话，左右子树的根节点默认不偷，然后递归，这样就写出了第一版代码。</p>
+<p><strong>代码：</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">rob</span><span class="params">(TreeNode root)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(root == <span class="keyword">null</span>) <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">int</span> val1 = root.val;</span><br><span class="line">    <span class="keyword">if</span>(root.left != <span class="keyword">null</span>) val1 += rob(root.left.left) + rob(root.left.right);</span><br><span class="line">    <span class="keyword">if</span>(root.right != <span class="keyword">null</span>) val1 += rob(root.right.left) + rob(root.right.right);</span><br><span class="line">    <span class="keyword">int</span> val2 = rob(root.left) + rob(root.right);</span><br><span class="line">    <span class="keyword">return</span> Math.max(val1, val2);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这样很显然比较暴力，在计算爷爷节点时，需要计算两个儿子节点和四个孙子节点的结果，而计算两个儿子节点时，又要计算儿子的儿子，也就是当前节点的孙子节点，这样计算出现了重复，那么我们可以通过保留中间结果来提高性能。因为是树形结构所以选择HashMap进行缓存，写出第二版代码。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">rob</span><span class="params">(TreeNode root)</span> </span>&#123;</span><br><span class="line">    HashMap&lt;TreeNode, Integer&gt; ret = <span class="keyword">new</span> HashMap&lt;&gt;();</span><br><span class="line">    <span class="keyword">return</span> rob(root, ret);</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">rob</span><span class="params">(TreeNode root, HashMap&lt;TreeNode, Integer&gt; ret)</span></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(root == <span class="keyword">null</span>) <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">if</span>(ret.containsKey(root)) <span class="keyword">return</span> ret.get(root);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">int</span> val1 = root.val;</span><br><span class="line">    <span class="keyword">if</span>(root.left != <span class="keyword">null</span>) val1 += rob(root.left.left, ret) + rob(root.left.right, ret);</span><br><span class="line">    <span class="keyword">if</span>(root.right != <span class="keyword">null</span>) val1 += rob(root.right.left, ret) + rob(root.right.right, ret);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">int</span> val2 = rob(root.left, ret) + rob(root.right, ret);</span><br><span class="line">    <span class="keyword">int</span> res = Math.max(val1, val2);</span><br><span class="line">    ret.put(root, res);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> res;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p> 相比第一版保留了中间结果，运行已经很快了，我自己基本也就想到这里，后来又看到了更好的解法。第二种方法计算爷爷节点时，仍然需要去找两个儿子和四个孙子节点，有没有办法让当前节点的结果只需要计算儿子节点呢，我们分析一下，你需要知道最终结果，首先要知道儿子节点的结果，但其实儿子节点的结果我们并不一定需要，因为可能儿子节点选择不偷，我们使用一个大小为2的数组来表示 <code>int[] res = new int[2]</code> 0代表不偷，1代表偷，这样的话可以得到</p>
+<p><code>root[0] = Math.max(rob(root.left)[0], rob(root.left)[1]) + Math.max(rob(root.right)[0], rob(root.right)[1])</code></p>
+<p><code>root[1] = rob(root.left)[0] + rob(root.right)[0] + root.val</code></p>
+<p>根据这种方法得到第三版代码。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">rob</span><span class="params">(TreeNode root)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span>[] res = rob2(root);</span><br><span class="line">    <span class="keyword">return</span> Math.max(res[<span class="number">0</span>], res[<span class="number">1</span>]);</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">public</span> <span class="keyword">int</span>[] rob2(TreeNode root)&#123;</span><br><span class="line">    <span class="keyword">int</span>[] ret = <span class="keyword">new</span> <span class="keyword">int</span>[<span class="number">2</span>];</span><br><span class="line">    <span class="keyword">if</span>(root == <span class="keyword">null</span>) <span class="keyword">return</span> ret;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">int</span>[] left = rob2(root.left);</span><br><span class="line">    <span class="keyword">int</span>[] right = rob2(root.right);</span><br><span class="line"></span><br><span class="line">    ret[<span class="number">0</span>] = Math.max(left[<span class="number">0</span>], left[<span class="number">1</span>]) + Math.max(right[<span class="number">0</span>], right[<span class="number">1</span>]);</span><br><span class="line">    ret[<span class="number">1</span>] = left[<span class="number">0</span>] + right[<span class="number">0</span>] + root.val;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> ret;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>不同方法的消耗：</strong></p>
+<table>
+<thead>
+<tr>
+<th>方法</th>
+<th align="left">执行用时</th>
+<th align="left">内存消耗</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>动态规划分情况</td>
+<td align="left">1 ms</td>
+<td align="left">37.1 MB</td>
+</tr>
+<tr>
+<td>动态规划记忆化</td>
+<td align="left">4 ms</td>
+<td align="left">41.8 MB</td>
+</tr>
+<tr>
+<td>动态规划递归</td>
+<td align="left">746 ms</td>
+<td align="left">39 MB</td>
+</tr>
+</tbody></table>
+
           
         
       

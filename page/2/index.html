@@ -313,6 +313,427 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://www.zealyoung.site/2019/12/11/%E4%B8%8B%E4%B8%80%E4%B8%AA%E6%9B%B4%E5%A4%A7%E5%85%83%E7%B4%A0/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="ZealYoung">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Zealyoung · CodeMaker">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/12/11/%E4%B8%8B%E4%B8%80%E4%B8%AA%E6%9B%B4%E5%A4%A7%E5%85%83%E7%B4%A0/" itemprop="url">下一个更大元素</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-12-11T09:16:12+08:00">
+                2019-12-11
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/" itemprop="url" rel="index">
+                    <span itemprop="name">数据结构与算法</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/%E6%A0%88%E4%B8%8E%E9%98%9F%E5%88%97/" itemprop="url" rel="index">
+                    <span itemprop="name">栈与队列</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2019/12/11/%E4%B8%8B%E4%B8%80%E4%B8%AA%E6%9B%B4%E5%A4%A7%E5%85%83%E7%B4%A0/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2019/12/11/%E4%B8%8B%E4%B8%80%E4%B8%AA%E6%9B%B4%E5%A4%A7%E5%85%83%E7%B4%A0/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                  <span class="post-meta-divider">|</span>
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  390 字
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  1 分钟
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="Leetcode739-每日温度"><a href="#Leetcode739-每日温度" class="headerlink" title="Leetcode739.每日温度"></a>Leetcode739.每日温度</h1><p><strong>题目描述：</strong></p>
+<p>根据每日 气温 列表，请重新生成一个列表，对应位置的输入是你需要再等待多久温度才会升高超过该日的天数。如果之后都不会升高，请在该位置用 0 来代替。</p>
+<p>提示：气温 列表长度的范围是 [1, 30000]。每个气温的值的均为华氏度，都是在 [30, 100] 范围内的整数。</p>
+<p><strong>示例：</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">输入：[73, 74, 75, 71, 69, 72, 76, 73]</span><br><span class="line">输出：[1, 1, 4, 2, 1, 1, 0, 0]</span><br></pre></td></tr></table></figure>
+
+<p><strong>思路：</strong></p>
+<p>根据题目的描述，实际上是找数组中元素比当前元素大的下一个元素和当前元素之间的距离，最简单的方法就是双重遍历，对于每一个元素向后遍历即可，但效率较低，例如比第一个元素大的元素在数组末尾，我们就要遍历一遍，而中间遍历的有些元素已经可以确定它的下一个更大元素的位置了，因此我们用栈保存遍历过的元素，对于当前元素和栈顶比较，大于栈顶说明当前元素是栈顶元素的下一个更大元素，为了计算距离我们保存他们的索引，时间是线性。</p>
+<p><strong>代码：</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">int</span>[] dailyTemperatures(<span class="keyword">int</span>[] T) &#123;</span><br><span class="line">    <span class="keyword">int</span> n = T.length;</span><br><span class="line">    <span class="keyword">int</span>[] ans = <span class="keyword">new</span> <span class="keyword">int</span>[n];</span><br><span class="line">    Stack&lt;Integer&gt; index = <span class="keyword">new</span> Stack&lt;&gt;();</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> curIndex = <span class="number">0</span>; curIndex &lt; n; curIndex++)&#123;</span><br><span class="line">        <span class="keyword">while</span>(!index.isEmpty() &amp;&amp; T[curIndex] &gt; T[index.peek()])&#123;</span><br><span class="line">            <span class="keyword">int</span> preIndex = index.pop();</span><br><span class="line">            ans[preIndex] = curIndex - preIndex;</span><br><span class="line">        &#125;</span><br><span class="line">        index.push(curIndex);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> ans;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://www.zealyoung.site/2019/12/11/%E6%A0%88%E5%AE%9E%E7%8E%B0%E6%8B%AC%E5%8F%B7%E5%8C%B9%E9%85%8D/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="ZealYoung">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Zealyoung · CodeMaker">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/12/11/%E6%A0%88%E5%AE%9E%E7%8E%B0%E6%8B%AC%E5%8F%B7%E5%8C%B9%E9%85%8D/" itemprop="url">栈实现括号匹配</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-12-11T08:57:36+08:00">
+                2019-12-11
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/" itemprop="url" rel="index">
+                    <span itemprop="name">数据结构与算法</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/%E6%A0%88%E4%B8%8E%E9%98%9F%E5%88%97/" itemprop="url" rel="index">
+                    <span itemprop="name">栈与队列</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2019/12/11/%E6%A0%88%E5%AE%9E%E7%8E%B0%E6%8B%AC%E5%8F%B7%E5%8C%B9%E9%85%8D/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2019/12/11/%E6%A0%88%E5%AE%9E%E7%8E%B0%E6%8B%AC%E5%8F%B7%E5%8C%B9%E9%85%8D/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                  <span class="post-meta-divider">|</span>
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  283 字
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  1 分钟
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="Leetcode20-有效的括号"><a href="#Leetcode20-有效的括号" class="headerlink" title="Leetcode20.有效的括号"></a>Leetcode20.有效的括号</h1><p><strong>题目描述：</strong><br>给定一个只包括<code>&#39;(&#39;，&#39;)&#39;，&#39;{&#39;，&#39;}&#39;，&#39;[&#39;，&#39;]&#39;</code>的字符串，判断字符串是否有效。</p>
+<p>有效字符串需满足：</p>
+<ul>
+<li>左括号必须用相同类型的右括号闭合。</li>
+<li>左括号必须以正确的顺序闭合。</li>
+<li>注意空字符串可被认为是有效字符串。</li>
+</ul>
+<p><strong>示例：</strong></p>
+<pre><code>输入: &quot;()&quot;
+输出: true</code></pre><hr>
+<pre><code>输入: &quot;()[]{}&quot;
+输出: true</code></pre><hr>
+<pre><code>输入: &quot;(]&quot;
+输出: false</code></pre><hr>
+<pre><code>输入: &quot;([)]&quot;
+输出: false</code></pre><hr>
+<pre><code>输入: &quot;{[]}&quot;
+输出: true</code></pre><p><strong>思路：</strong></p>
+<p>括号匹配是最常见的栈操作问题，在初学栈时基本都会拿括号匹配来练习，遇到左括号入栈，遇到右括号则弹出栈顶元素进行匹配，当遍历结束时栈中为空则匹配成功。</p>
+<p><strong>代码：</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">isValid</span><span class="params">(String s)</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    Stack&lt;Character&gt; stack = <span class="keyword">new</span> Stack&lt;&gt;();</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">char</span> c : s.toCharArray()) &#123;</span><br><span class="line">        <span class="keyword">if</span> (c == <span class="string">'('</span> || c == <span class="string">'&#123;'</span> || c == <span class="string">'['</span>) &#123;</span><br><span class="line">            stack.push(c);</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="keyword">if</span> (stack.isEmpty()) &#123;</span><br><span class="line">                <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">char</span> cStack = stack.pop();</span><br><span class="line">            <span class="keyword">boolean</span> b1 = c == <span class="string">')'</span> &amp;&amp; cStack != <span class="string">'('</span>;</span><br><span class="line">            <span class="keyword">boolean</span> b2 = c == <span class="string">']'</span> &amp;&amp; cStack != <span class="string">'['</span>;</span><br><span class="line">            <span class="keyword">boolean</span> b3 = c == <span class="string">'&#125;'</span> &amp;&amp; cStack != <span class="string">'&#123;'</span>;</span><br><span class="line">            <span class="keyword">if</span> (b1 || b2 || b3) &#123;</span><br><span class="line">                <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> stack.isEmpty();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://www.zealyoung.site/2019/12/11/%E6%9C%80%E5%B0%8F%E5%80%BC%E6%A0%88/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -2057,439 +2478,6 @@ queue.empty(); // 返回 false</code></pre><p><strong>思路：</strong></p>
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://www.zealyoung.site/2019/12/06/%E7%9B%B8%E4%BA%A4%E9%93%BE%E8%A1%A8/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="ZealYoung">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Zealyoung · CodeMaker">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/12/06/%E7%9B%B8%E4%BA%A4%E9%93%BE%E8%A1%A8/" itemprop="url">相交链表</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-12-06T20:17:10+08:00">
-                2019-12-06
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/" itemprop="url" rel="index">
-                    <span itemprop="name">数据结构与算法</span>
-                  </a>
-                </span>
-
-                
-                
-                  ， 
-                
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/%E9%93%BE%E8%A1%A8/" itemprop="url" rel="index">
-                    <span itemprop="name">链表</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/2019/12/06/%E7%9B%B8%E4%BA%A4%E9%93%BE%E8%A1%A8/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count valine-comment-count" data-xid="/2019/12/06/%E7%9B%B8%E4%BA%A4%E9%93%BE%E8%A1%A8/" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                
-                  <span class="post-meta-divider">|</span>
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计&#58;</span>
-                
-                <span title="字数统计">
-                  481 字
-                </span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
-                
-                <span title="阅读时长">
-                  1 分钟
-                </span>
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="Leetcode160-相交链表"><a href="#Leetcode160-相交链表" class="headerlink" title="Leetcode160.相交链表"></a>Leetcode160.相交链表</h1><p><strong>题目描述：</strong></p>
-<p>编写一个程序，找到两个单链表相交的起始节点。</p>
-<p><strong>示例：</strong></p>
-<pre><code>A:          a1 → a2
-                    ↘
-                    c1 → c2 → c3
-                    ↗
-B:    b1 → b2 → b3</code></pre><p>例如对于A，B链表，返回c1节点</p>
-<p><strong>思路：</strong></p>
-<p>看到这个题最直接的想法就是遍历，但仔细想想遍历的话我们需要遍历A中每一个节点，然后判断它是否和B中一个节点相同，时间复杂度O(mn)，显然不是好算法，第二种想法可以遍历A中节点，并存在哈希表中，这样同样是遍历，但是哈希表查找的时间复杂度O(1)，可以让算法时间复杂度成为O(m+n)，自己觉得这个方法已经比较好了，因为是线性时间，但是还是有更好的方法，线性时间且空间复杂度为O(1)。</p>
-<p>我们设A链表长度为a + c，B链表长度为b + c，A和B的遍历长度不定，但A+B的遍历长度是一样的，我们用两个指针，一个按AB顺序遍历，一个按BA顺序遍历，也就是a + c + b + c，另一个b + c + a + c，从这里可以看出，当两个指针都走a + b + c时，它们可以同时到达相交节点，这个节点就是结果。</p>
-<p><strong>代码：</strong></p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> ListNode <span class="title">getIntersectionNode</span><span class="params">(ListNode headA, ListNode headB)</span> </span>&#123;</span><br><span class="line">    Set&lt;ListNode&gt; set = <span class="keyword">new</span> HashSet&lt;&gt;();</span><br><span class="line">    <span class="keyword">while</span>(headA != <span class="keyword">null</span>)&#123;</span><br><span class="line">        set.add(headA);</span><br><span class="line">        headA = headA.next;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">while</span>(headB != <span class="keyword">null</span>)&#123;</span><br><span class="line">        <span class="keyword">if</span>(set.contains(headB)) <span class="keyword">break</span>;</span><br><span class="line">        headB = headB.next;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> headB;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> ListNode <span class="title">getIntersectionNode</span><span class="params">(ListNode headA, ListNode headB)</span> </span>&#123;</span><br><span class="line">    ListNode l1 = headA;</span><br><span class="line">    ListNode l2 = headB;</span><br><span class="line">    <span class="keyword">while</span>(l1 != l2)&#123;</span><br><span class="line">        l1 = (l1 == <span class="keyword">null</span>) ? headB : l1.next;</span><br><span class="line">        l2 = (l2 == <span class="keyword">null</span>) ? headA : l2.next;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> l1;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>对于最后这种遍历方式，记得之前做链表中环找环节点的时候也遇到过，遇到链表找节点的题可以多思考思考不同的遍历方式，尤其很多时候需要两个指针。</p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://www.zealyoung.site/2019/12/06/HashSet%E6%BA%90%E7%A0%81%E9%98%85%E8%AF%BB/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="ZealYoung">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Zealyoung · CodeMaker">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/12/06/HashSet%E6%BA%90%E7%A0%81%E9%98%85%E8%AF%BB/" itemprop="url">HashSet源码阅读</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-12-06T16:06:44+08:00">
-                2019-12-06
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Java/" itemprop="url" rel="index">
-                    <span itemprop="name">Java</span>
-                  </a>
-                </span>
-
-                
-                
-                  ， 
-                
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Java/%E5%AE%B9%E5%99%A8%E9%9B%86%E5%90%88/" itemprop="url" rel="index">
-                    <span itemprop="name">容器集合</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/2019/12/06/HashSet%E6%BA%90%E7%A0%81%E9%98%85%E8%AF%BB/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count valine-comment-count" data-xid="/2019/12/06/HashSet%E6%BA%90%E7%A0%81%E9%98%85%E8%AF%BB/" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                
-                  <span class="post-meta-divider">|</span>
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计&#58;</span>
-                
-                <span title="字数统计">
-                  580 字
-                </span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
-                
-                <span title="阅读时长">
-                  2 分钟
-                </span>
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <pre><code>HashSet也是Set集合中用的比较多的，所以也读一读源码。</code></pre><h1 id="HashSet的特点"><a href="#HashSet的特点" class="headerlink" title="HashSet的特点"></a>HashSet的特点</h1><ul>
-<li>存入元素不能重复</li>
-<li>存入元素无序</li>
-<li>可以存null</li>
-</ul>
-<h1 id="核心成员变量"><a href="#核心成员变量" class="headerlink" title="核心成员变量"></a>核心成员变量</h1><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//HashSet底层是基于HashMap存储数据，该map的key就是HashSet要存放的数据</span></span><br><span class="line"><span class="keyword">private</span> <span class="keyword">transient</span> HashMap&lt;E,Object&gt; map;</span><br><span class="line"><span class="comment">//该变量用来填充上一个map的value字段，因为HashSet关注的是map的Key</span></span><br><span class="line"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> Object PRESENT = <span class="keyword">new</span> Object();</span><br></pre></td></tr></table></figure>
-
-<p>HashSet的底层是通过HashMap实现的，HashSet存放的实际数据也就是HashMap的key，调用无参构造方法时，会实例化一个HashMap对象。</p>
-<h1 id="add方法"><a href="#add方法" class="headerlink" title="add方法"></a>add方法</h1><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//添加一个元素，如果该元素已经存在，则返回true，如果不存在，则返回false</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">add</span><span class="params">(E e)</span> </span>&#123;</span><br><span class="line">    <span class="comment">//往map中添加元素，返回null，说明是第一个往map中添加该key</span></span><br><span class="line">    <span class="keyword">return</span> map.put(e, PRESENT)==<span class="keyword">null</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>往hashSet中添加元素，实际是往map成员变量里面添加对应的key和value；</li>
-<li>map中的key实际就是要添加的元素，value是一个固定的对象；</li>
-<li>当第一次往map中添加key时，添加成功返回null，所以当第一次往hashSet中添加元素时，会返回true；</li>
-<li>由于hashMap中的key不能重复，所以hashSet不能存储重复元素。</li>
-</ul>
-<h1 id="remove方法"><a href="#remove方法" class="headerlink" title="remove方法"></a>remove方法</h1><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//删除指定的元素，删除成功返回true</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">remove</span><span class="params">(Object o)</span> </span>&#123;</span><br><span class="line">    <span class="comment">//实际是删除map中的一个对象</span></span><br><span class="line">    <span class="keyword">return</span> map.remove(o)==PRESENT;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>当hashSet删除一个元素时，实际是操作map删除对应的元素；</li>
-<li>当删除map中一个不存在的对象是，会返回null，所以这里当返回PERSENT时，说明之前hashSet往map中添加过对应的元素，因此，当remove(o)返回true时，说明之前已经存在该元素，并且成功删除；当返回false时，说明之前并没有添加过该对象；</li>
-</ul>
-<h1 id="Iterator-方法实现"><a href="#Iterator-方法实现" class="headerlink" title="Iterator()方法实现"></a>Iterator()方法实现</h1><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//获取hashSet的迭代器</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> Iterator&lt;E&gt; <span class="title">iterator</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="comment">//调用map获取keySet</span></span><br><span class="line">    <span class="keyword">return</span> map.keySet().iterator();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>hashset获取迭代器实际是获取map的keySet的iterator；</p>
-<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>总的来说只要知道HashSet底层是通过HashMap来实现的就好了，HashSet的一些方法基本也是对HashMap实例的操作和方法调用，然后了解HashSet的一些特点，并且因为HashSet不提供get方法，所以获取数据的话可以通过Iterator获取。</p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -2544,7 +2532,7 @@ B:    b1 → b2 → b3</code></pre><p>例如对于A，B链表，返回c1节点</
               
                 <a href="/archives%7C%7C%20archive">
               
-                  <span class="site-state-item-count">36</span>
+                  <span class="site-state-item-count">38</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -2566,7 +2554,7 @@ B:    b1 → b2 → b3</code></pre><p>例如对于A，B链表，返回c1节点</
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">29</span>
+                  <span class="site-state-item-count">34</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>

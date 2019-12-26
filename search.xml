@@ -1,11 +1,142 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>简单工厂、工厂与抽象工厂模式</title>
+    <url>/2019/12/22/%E7%AE%80%E5%8D%95%E5%B7%A5%E5%8E%82%E3%80%81%E5%B7%A5%E5%8E%82%E4%B8%8E%E6%8A%BD%E8%B1%A1%E5%B7%A5%E5%8E%82%E6%A8%A1%E5%BC%8F/</url>
+    <content><![CDATA[<h1 id="简单工厂模式"><a href="#简单工厂模式" class="headerlink" title="简单工厂模式"></a>简单工厂模式</h1><h2 id="Intent"><a href="#Intent" class="headerlink" title="Intent"></a>Intent</h2><p>在创建一个对象时不向客户暴露内部细节，并提供一个创建对象的通用接口。</p>
+<h2 id="Class-Diagram"><a href="#Class-Diagram" class="headerlink" title="Class Diagram"></a>Class Diagram</h2><p>简单工厂把实例化的操作单独放到一个类中，这个类就成为简单工厂类，让简单工厂类来决定应该用哪个具体子类来实例化。</p>
+<p>这样做能把客户类和具体子类的实现解耦，客户类不再需要知道有哪些子类以及应当实例化哪个子类。客户类往往有多个，如果不使用简单工厂，那么所有的客户类都要知道所有子类的细节。而且一旦子类发生改变，例如增加子类，那么所有的客户类都要进行修改。</p>
+<p><img src="https://user-images.githubusercontent.com/45253106/71435033-29178500-2722-11ea-9a0b-d49271c47954.png" alt="image"></p>
+<h2 id="Implementation"><a href="#Implementation" class="headerlink" title="Implementation"></a>Implementation</h2><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">Product</span> </span>&#123;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ConcreteProduct</span> <span class="keyword">implements</span> <span class="title">Product</span> </span>&#123;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ConcreteProduct1</span> <span class="keyword">implements</span> <span class="title">Product</span> </span>&#123;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ConcreteProduct2</span> <span class="keyword">implements</span> <span class="title">Product</span> </span>&#123;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>以下的 Client 类包含了实例化的代码，这是一种错误的实现。如果在客户类中存在这种实例化代码，就需要考虑将代码放到简单工厂中。</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Client</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> type = <span class="number">1</span>;</span><br><span class="line">        Product product;</span><br><span class="line">        <span class="keyword">if</span> (type == <span class="number">1</span>) &#123;</span><br><span class="line">            product = <span class="keyword">new</span> ConcreteProduct1();</span><br><span class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span> (type == <span class="number">2</span>) &#123;</span><br><span class="line">            product = <span class="keyword">new</span> ConcreteProduct2();</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            product = <span class="keyword">new</span> ConcreteProduct();</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">// do something with the product</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>以下的 SimpleFactory 是简单工厂实现，它被所有需要进行实例化的客户类调用。</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SimpleFactory</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Product <span class="title">createProduct</span><span class="params">(<span class="keyword">int</span> type)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (type == <span class="number">1</span>) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">new</span> ConcreteProduct1();</span><br><span class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span> (type == <span class="number">2</span>) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">new</span> ConcreteProduct2();</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> ConcreteProduct();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Client</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        SimpleFactory simpleFactory = <span class="keyword">new</span> SimpleFactory();</span><br><span class="line">        Product product = simpleFactory.createProduct(<span class="number">1</span>);</span><br><span class="line">        <span class="comment">// do something with the product</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h1 id="工厂模式"><a href="#工厂模式" class="headerlink" title="工厂模式"></a>工厂模式</h1><h2 id="Intent-1"><a href="#Intent-1" class="headerlink" title="Intent"></a>Intent</h2><p>定义了一个创建对象的接口，但由子类决定要实例化哪个类。工厂方法把实例化操作推迟到子类。</p>
+<h2 id="Class-Diagram-1"><a href="#Class-Diagram-1" class="headerlink" title="Class Diagram"></a>Class Diagram</h2><p>在简单工厂中，创建对象的是另一个类，而在工厂方法中，是由子类来创建对象。</p>
+<p>下图中，Factory 有一个 doSomething() 方法，这个方法需要用到一个产品对象，这个产品对象由 factoryMethod() 方法创建。该方法是抽象的，需要由子类去实现。</p>
+<p><img src="https://user-images.githubusercontent.com/45253106/71436614-31bf8980-2729-11ea-9753-a3b17d176eac.png" alt="image"></p>
+<h2 id="Implementation-1"><a href="#Implementation-1" class="headerlink" title="Implementation"></a>Implementation</h2><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="class"><span class="keyword">class</span> <span class="title">Factory</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">abstract</span> <span class="keyword">public</span> Product <span class="title">factoryMethod</span><span class="params">()</span></span>;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">doSomething</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        Product product = factoryMethod();</span><br><span class="line">        <span class="comment">// do something with the product</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ConcreteFactory</span> <span class="keyword">extends</span> <span class="title">Factory</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> Product <span class="title">factoryMethod</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> ConcreteProduct();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ConcreteFactory1</span> <span class="keyword">extends</span> <span class="title">Factory</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> Product <span class="title">factoryMethod</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> ConcreteProduct1();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ConcreteFactory2</span> <span class="keyword">extends</span> <span class="title">Factory</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> Product <span class="title">factoryMethod</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> ConcreteProduct2();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h1 id="抽象工厂模式"><a href="#抽象工厂模式" class="headerlink" title="抽象工厂模式"></a>抽象工厂模式</h1><h2 id="Intent-2"><a href="#Intent-2" class="headerlink" title="Intent"></a>Intent</h2><p>提供一个接口，用于创建 <strong>相关的对象家族</strong> 。</p>
+<h2 id="Class-Diagram-2"><a href="#Class-Diagram-2" class="headerlink" title="Class Diagram"></a>Class Diagram</h2><p>抽象工厂模式创建的是对象家族，也就是很多对象而不是一个对象，并且这些对象是相关的，也就是说必须一起创建出来。而工厂方法模式只是用于创建一个对象，这和抽象工厂模式有很大不同。</p>
+<p>抽象工厂模式用到了工厂方法模式来创建单一对象，AbstractFactory 中的 createProductA() 和 createProductB() 方法都是让子类来实现，这两个方法单独来看就是在创建一个对象，这符合工厂方法模式的定义。</p>
+<p>至于创建对象的家族这一概念是在 Client 体现，Client 要通过 AbstractFactory 同时调用两个方法来创建出两个对象，在这里这两个对象就有很大的相关性，Client 需要同时创建出这两个对象。</p>
+<p>从高层次来看，抽象工厂使用了组合，即 Cilent 组合了 AbstractFactory，而工厂方法模式使用了继承。</p>
+<p><img src="https://user-images.githubusercontent.com/45253106/71459865-67757880-27e4-11ea-919f-5ddcc1c9452c.png" alt="image"></p>
+<h2 id="Implementation-2"><a href="#Implementation-2" class="headerlink" title="Implementation"></a>Implementation</h2><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">AbstractProductA</span> </span>&#123;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">AbstractProductB</span> </span>&#123;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ProductA1</span> <span class="keyword">extends</span> <span class="title">AbstractProductA</span> </span>&#123;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ProductA2</span> <span class="keyword">extends</span> <span class="title">AbstractProductA</span> </span>&#123;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ProductB1</span> <span class="keyword">extends</span> <span class="title">AbstractProductB</span> </span>&#123;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ProductB2</span> <span class="keyword">extends</span> <span class="title">AbstractProductB</span> </span>&#123;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="class"><span class="keyword">class</span> <span class="title">AbstractFactory</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">abstract</span> AbstractProductA <span class="title">createProductA</span><span class="params">()</span></span>;</span><br><span class="line">    <span class="function"><span class="keyword">abstract</span> AbstractProductB <span class="title">createProductB</span><span class="params">()</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ConcreteFactory1</span> <span class="keyword">extends</span> <span class="title">AbstractFactory</span> </span>&#123;</span><br><span class="line">    <span class="function">AbstractProductA <span class="title">createProductA</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> ProductA1();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function">AbstractProductB <span class="title">createProductB</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> ProductB1();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ConcreteFactory2</span> <span class="keyword">extends</span> <span class="title">AbstractFactory</span> </span>&#123;</span><br><span class="line">    <span class="function">AbstractProductA <span class="title">createProductA</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> ProductA2();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function">AbstractProductB <span class="title">createProductB</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> ProductB2();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Client</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        AbstractFactory abstractFactory = <span class="keyword">new</span> ConcreteFactory1();</span><br><span class="line">        AbstractProductA productA = abstractFactory.createProductA();</span><br><span class="line">        AbstractProductB productB = abstractFactory.createProductB();</span><br><span class="line">        <span class="comment">// do something with productA and productB</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h1 id="三者有何区别"><a href="#三者有何区别" class="headerlink" title="三者有何区别"></a>三者有何区别</h1><p>三者的特点如下：</p>
+<ul>
+<li>简单工厂模式最大的优点在于工厂类中包含了必要的逻辑判断，根据客户端的选择条件动态实例化相关的类，对于客户端来说，去除了与具体产品的依赖。但是当需求变动的时候，需要对原有的类进行修改，违背了开放封闭原则。</li>
+<li>工厂模式由于使用了多态，克服了简单工厂违背的开放封闭原则的缺点，又保持了封装对象创建过程的优点。但是由于每增加一个产品，都需要新增对应的生产工厂，导致增加额外的开发工作量。</li>
+<li>抽象工厂模式提供一个创建一系列相关或相互依赖对象的接口，而无需制定他们具体的类。抽象工厂接口，应该包含所有的产品创建的抽象方法，我们可以定义实现不止一个接口，一个工厂也可以生产不止一种产品类，和工厂方法模式一样，抽象工厂模式同样实现了开发封闭原则。</li>
+</ul>
+<p>具体该使用怎么样的模式还是要看具体的需求。</p>
+]]></content>
+      <categories>
+        <category>Java</category>
+        <category>设计模式</category>
+      </categories>
+      <tags>
+        <tag>设计模式</tag>
+        <tag>工厂模式</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>关于String的一些认识</title>
+    <url>/2019/12/22/%E5%85%B3%E4%BA%8EString%E7%9A%84%E4%B8%80%E4%BA%9B%E8%AE%A4%E8%AF%86/</url>
+    <content><![CDATA[<h1 id="String类"><a href="#String类" class="headerlink" title="String类"></a>String类</h1><p>String类是Java里一个比较特殊的类，也是我们频繁用到的类，String表示字符串，用来处理程序中与字符串相关的内容。</p>
+<p>之所以特殊，是因为String不是必须用new来初始化，可以用<code>=</code>进行赋值，String不是基本类型但又胜似基本类型，像是基本类型的包装类，比如Integer，可以有两种初始化方式，类都是被定义为final的，用<code>=</code>进行赋值时，其指向的地址都是栈中常量池而非堆。</p>
+<a id="more"></a>
+
+<h1 id="String有长度限制吗"><a href="#String有长度限制吗" class="headerlink" title="String有长度限制吗"></a>String有长度限制吗</h1><p>还是无意间看到了这个问题，第一反应就是：真不知道，一般我们也不会用太长的字符串，但是多了解一下也没问题，避免以后真的遇到了错误晕头转向。</p>
+<p><strong>编译期</strong></p>
+<p>我们用=直接对String进行赋值，最长赋值为65534，超过则会提示常量字符串过长，为什么是65534呢？</p>
+<p>当我们使用字符串字面量直接定义String的时候，是会把字符串在常量池中存储一份的，其实65534是常量池的限制。</p>
+<p>常量池中的每一种数据项也有自己的类型。Java中的UTF-8编码的Unicode字符串在常量池中以CONSTANT_Utf8类型表示。</p>
+<p>理论上允许的的最大长度是2^16=65536。而 java class 文件是使用一种变体UTF-8格式来存放字符的，null 值使用两个 字节来表示，因此只剩下 65536－ 2 ＝ 65534个字节。</p>
+<p><strong>运行期</strong></p>
+<p>在String的构造方法中，count为int型，最长为Integer.MAX_VALUE也就是2^31-1，超过这个长度可能会抛出异常。</p>
+<h1 id="String为什么被定义为final"><a href="#String为什么被定义为final" class="headerlink" title="String为什么被定义为final"></a>String为什么被定义为final</h1><p>我自己认为讨论这个问题更应该考虑，String为什么被设计为不可变的。</p>
+<ul>
+<li>定义为final使得String不可以被继承，String里的<code>value[]</code>也被定义为final，但这仅仅保证引用指向的地址不能改变，我们仍然可以改变数组内容，String在设计过程中避免了对<code>value[]</code>进行更改来保证String的不可变</li>
+<li>String不可变，因而才能够实现字符串常量池，在运行时节约许多堆空间。</li>
+<li>String不可变提高了数据安全性，因为我们很多时候会用到String，例如用户名密码，数据库连接名，主机名端口等等，String如果是可变的，会非常不安全。</li>
+<li>String不可变使得String可读不可写，是多线程安全的。</li>
+<li>String不可变，所以在它创建的时候<code>HashCode</code>就被缓存了，不需要重新计算。这就使得字符串很适合作为Map中的键，字符串的处理速度要快过其它的键对象。这就是HashMap中的键往往都使用字符串。</li>
+</ul>
+<p>举例说明一下String的字符串常量池</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">String s1 = <span class="string">"abc"</span>;</span><br><span class="line">String s2 = <span class="string">"abc"</span>;</span><br><span class="line">String s3 = <span class="keyword">new</span> String(<span class="string">"abc"</span>);</span><br><span class="line">System.out.println(s1 == s2);<span class="comment">//true</span></span><br><span class="line">System.out.println(s1 == s3);<span class="comment">//false</span></span><br><span class="line">System.out.println(s1.equals(s3));<span class="comment">//true</span></span><br><span class="line">String s2 = s2 + <span class="string">"d"</span>;</span><br><span class="line">System.out.println(s1);<span class="comment">//abc</span></span><br><span class="line">System.out.println(s2);<span class="comment">//abcd</span></span><br></pre></td></tr></table></figure>
+
+<p>从上面的输出可以看出，通过<code>=</code>为s1赋值，其内容存在常量池中，s2指向同一个常量，s1和s2的地址相同，返回true，而s3初始化在堆中，返回false，但s1和s3的字符串内容相同，返回true，这是String重写了<code>equals()</code>的结果，之后我们改变s2的内容，但s1并未改变，s1和s2指向同一个地址，但s2修改时实际上上是创建了新的字符串<code>&quot;abcd&quot;</code>存入了字符串常量中。</p>
+<h1 id="String重写equals-与hashCode"><a href="#String重写equals-与hashCode" class="headerlink" title="String重写equals()与hashCode()"></a>String重写equals()与hashCode()</h1><p>先看一下String重写<code>hashCode()</code>的方法，用到了字符串的每一个字符，乘子31，通过<code>h = 31 * h + val[i]</code>进行计算。</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">hashCode</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> h = hash;</span><br><span class="line">    <span class="keyword">if</span> (h == <span class="number">0</span> &amp;&amp; value.length &gt; <span class="number">0</span>) &#123;</span><br><span class="line">        <span class="keyword">char</span> val[] = value;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; value.length; i++) &#123;</span><br><span class="line">            h = <span class="number">31</span> * h + val[i];</span><br><span class="line">        &#125;</span><br><span class="line">        hash = h;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> h;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>再看一下<code>equals()</code>的重写，也很好理解很清晰。</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">equals</span><span class="params">(Object anObject)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (<span class="keyword">this</span> == anObject) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (anObject <span class="keyword">instanceof</span> String) &#123;</span><br><span class="line">        String anotherString = (String)anObject;</span><br><span class="line">        <span class="keyword">int</span> n = value.length;</span><br><span class="line">        <span class="keyword">if</span> (n == anotherString.value.length) &#123;</span><br><span class="line">            <span class="keyword">char</span> v1[] = value;</span><br><span class="line">            <span class="keyword">char</span> v2[] = anotherString.value;</span><br><span class="line">            <span class="keyword">int</span> i = <span class="number">0</span>;</span><br><span class="line">            <span class="keyword">while</span> (n-- != <span class="number">0</span>) &#123;</span><br><span class="line">                <span class="keyword">if</span> (v1[i] != v2[i])</span><br><span class="line">                    <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">                i++;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这里再讨论一下为什么重写<code>equals()</code>要重写<code>hashCode()</code>呢，这个问题也常常被提起，重写<code>equals()</code>方法主要是为了实际的使用，有时候我们希望类的某些属性相同时即判定为true而不是指向的地址相同，对象的hashCode相同时对象不一定相同，对象相同时hashCode不一定相同，如果不重写<code>hashCode()</code>则可能对象相同但它们的hashCode不同。</p>
+<p>不重写时，实际使用也可能出现问题，例如我们将对象存入HashMap,HashMap首先对对象进行hashCode计算，hashCode相同时再判断对象是否已经存入在对应位置上，因为没有重写，两个相同的对象拥有不同的hashCode，导致被存在了不同的位置上作为key，这就使得使用HashMap出现了问题，因为它们是相同对象，我们希望它应该是同一个key。</p>
+<h1 id="String的hashCode-为什么以数字31为乘子"><a href="#String的hashCode-为什么以数字31为乘子" class="headerlink" title="String的hashCode()为什么以数字31为乘子"></a>String的hashCode()为什么以数字31为乘子</h1><p>主要是两个原因：</p>
+<ul>
+<li>31是一个不大不小的质数，冲突率较低</li>
+<li>31 * i 可以被优化为 <code>(i &lt;&lt; 5) - i</code></li>
+</ul>
+<p>综合这两方面原因一般会选择31作为hashCode的乘子，大质数例如101冲突率也很低而且分布相比31更均匀，但太容易造成溢出。</p>
+]]></content>
+      <categories>
+        <category>Java</category>
+        <category>容器集合</category>
+      </categories>
+      <tags>
+        <tag>源码阅读</tag>
+        <tag>String</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>树型动态规划问题-打家劫舍</title>
     <url>/2019/12/20/%E6%A0%91%E5%9E%8B%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92%E9%97%AE%E9%A2%98-%E6%89%93%E5%AE%B6%E5%8A%AB%E8%88%8D/</url>
     <content><![CDATA[<h1 id="Leetcode336-打家劫舍-III"><a href="#Leetcode336-打家劫舍-III" class="headerlink" title="Leetcode336.打家劫舍 III"></a>Leetcode336.打家劫舍 III</h1><p><strong>题目描述：</strong></p>
 <p>在上次打劫完一条街道之后和一圈房屋后，小偷又发现了一个新的可行窃的地区。这个地区只有一个入口，我们称之为“根”。 除了“根”之外，每栋房子有且只有一个“父“房子与之相连。一番侦察之后，聪明的小偷意识到“这个地方的所有房屋的排列类似于一棵二叉树”。 如果两个直接相连的房子在同一天晚上被打劫，房屋将自动报警。</p>
 <p>计算在不触动警报的情况下，小偷一晚能够盗取的最高金额。</p>
+<a id="more"></a>
+
 <p><strong>示例：</strong></p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">输入: [3,2,3,null,3,null,1]</span><br><span class="line"></span><br><span class="line">     3</span><br><span class="line">    / \</span><br><span class="line">   2   3</span><br><span class="line">    \   \ </span><br><span class="line">     3   1</span><br><span class="line"></span><br><span class="line">输出: 7 </span><br><span class="line">解释: 小偷一晚能够盗取的最高金额 = 3 + 3 + 1 = 7.</span><br></pre></td></tr></table></figure>
 
@@ -116,7 +247,349 @@
   <entry>
     <title>http协议知识整理</title>
     <url>/2019/12/19/http%E5%8D%8F%E8%AE%AE%E7%9F%A5%E8%AF%86%E6%95%B4%E7%90%86/</url>
-    <content><![CDATA[]]></content>
+    <content><![CDATA[<h1 id="基础概念"><a href="#基础概念" class="headerlink" title="基础概念"></a>基础概念</h1><h2 id="URI-Uniform-Resource-Identifier"><a href="#URI-Uniform-Resource-Identifier" class="headerlink" title="URI(Uniform Resource Identifier)"></a>URI(Uniform Resource Identifier)</h2><p>URI包括URL(Uniform Resource Locator)和URN(Uniform Resource Name)</p>
+<p>URL例如<a href="https://www.baidu.com" target="_blank" rel="noopener">https://www.baidu.com</a></p>
+<p>URN例如urn:isbn:0451450523</p>
+<a id="more"></a>
+
+<h2 id="请求和响应报文"><a href="#请求和响应报文" class="headerlink" title="请求和响应报文"></a>请求和响应报文</h2><h3 id="请求报文"><a href="#请求报文" class="headerlink" title="请求报文"></a>请求报文</h3><p><img src="https://user-images.githubusercontent.com/45253106/71391276-73bfd100-263e-11ea-9b6a-20843fad040e.png" alt="image"></p>
+<p>请求行：包括请求方法、URL、使用的HTTP协议版本</p>
+<p>请求头：后面整理</p>
+<p>空行：用来分隔header和body</p>
+<p>请求体：具体内容</p>
+<h3 id="响应报文"><a href="#响应报文" class="headerlink" title="响应报文"></a>响应报文</h3><p><img src="https://user-images.githubusercontent.com/45253106/71391316-981bad80-263e-11ea-9581-df6630532fda.png" alt="image"></p>
+<p>响应状态行：使用的HTTP协议版本、返回状态码</p>
+<p>响应头：后面整理</p>
+<p>空行：用来分隔header和body</p>
+<p>响应体：具体内容</p>
+<h1 id="HTTP方法"><a href="#HTTP方法" class="headerlink" title="HTTP方法"></a>HTTP方法</h1><p>客户端发送的 <strong>请求报文</strong> 第一行为请求行，包含了方法字段。</p>
+<h2 id="GET"><a href="#GET" class="headerlink" title="GET"></a>GET</h2><blockquote>
+<p>获取资源</p>
+</blockquote>
+<p>当前网络请求中，绝大部分使用的是 GET 方法。</p>
+<h2 id="HEAD"><a href="#HEAD" class="headerlink" title="HEAD"></a>HEAD</h2><blockquote>
+<p>获取报文头部</p>
+</blockquote>
+<p>和 GET 方法类似，但是不返回报文实体主体部分。</p>
+<p>主要用于确认 URL 的有效性以及资源更新的日期时间等。</p>
+<h2 id="POST"><a href="#POST" class="headerlink" title="POST"></a>POST</h2><blockquote>
+<p>传输实体主体</p>
+</blockquote>
+<p>POST 主要用来传输数据，而 GET 主要用来获取资源。</p>
+<h2 id="PUT"><a href="#PUT" class="headerlink" title="PUT"></a>PUT</h2><blockquote>
+<p>上传文件</p>
+</blockquote>
+<p>不带验证机制，存在安全性问题，一般不使用。</p>
+<h2 id="PATCH"><a href="#PATCH" class="headerlink" title="PATCH"></a>PATCH</h2><blockquote>
+<p>对资源进行部分修改</p>
+</blockquote>
+<p>PUT也可以用于修改资源，但只能进行完全替代，PATCH允许部分修改。</p>
+<h2 id="DELETE"><a href="#DELETE" class="headerlink" title="DELETE"></a>DELETE</h2><blockquote>
+<p>删除文件</p>
+</blockquote>
+<p>与PUT一样不带验证机制。</p>
+<h2 id="OPTIONS"><a href="#OPTIONS" class="headerlink" title="OPTIONS"></a>OPTIONS</h2><blockquote>
+<p>查询支持的方法</p>
+</blockquote>
+<p>查询指定的 URL 能够支持的方法。</p>
+<p>会返回 <code>Allow: GET, POST, HEAD, OPTIONS</code> 这样的内容。</p>
+<h2 id="CONNECT"><a href="#CONNECT" class="headerlink" title="CONNECT"></a>CONNECT</h2><blockquote>
+<p>要求在与代理服务器通信时建立隧道</p>
+</blockquote>
+<p>使用 SSL（Secure Sockets Layer，安全套接层）和 TLS（Transport Layer Security，传输层安全）协议把通信内容加密后经网络隧道传输。</p>
+<h2 id="TRACE"><a href="#TRACE" class="headerlink" title="TRACE"></a>TRACE</h2><blockquote>
+<p>追踪路径</p>
+</blockquote>
+<p>服务器会将通信路径返回给客户端。</p>
+<p>发送请求时，在 Max-Forwards 首部字段中填入数值，每经过一个服务器就会减 1，当数值为 0 时就停止传输。</p>
+<p>通常不会使用 TRACE，并且它容易受到 XST 攻击（Cross-Site Tracing，跨站追踪）。</p>
+<h1 id="HTTP状态码"><a href="#HTTP状态码" class="headerlink" title="HTTP状态码"></a>HTTP状态码</h1><p>服务器返回的 <strong>响应报文</strong> 中第一行为状态行，包含了状态码以及原因短语，用来告知客户端请求的结果。</p>
+<table>
+<thead>
+<tr>
+<th>状态码</th>
+<th>类别</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>1XX</td>
+<td>Informational（信息性状态码）</td>
+<td>接收的请求正在处理</td>
+</tr>
+<tr>
+<td>2XX</td>
+<td>Success（成功状态码）</td>
+<td>请求正常处理完毕</td>
+</tr>
+<tr>
+<td>3XX</td>
+<td>Redirection（重定向状态码）</td>
+<td>需要进行附加操作以完成请求</td>
+</tr>
+<tr>
+<td>4XX</td>
+<td>Client Error（客户端错误状态码）</td>
+<td>服务器无法处理请求</td>
+</tr>
+<tr>
+<td>5XX</td>
+<td>Server Error（服务器错误状态码）</td>
+<td>服务器处理请求出错</td>
+</tr>
+</tbody></table>
+<h2 id="1XX-信息"><a href="#1XX-信息" class="headerlink" title="1XX 信息"></a>1XX 信息</h2><ul>
+<li><strong>100 Continue：</strong>表明目前为止都很正常，客户端可以继续发送请求或忽略这个响应。</li>
+</ul>
+<h2 id="2XX-成功"><a href="#2XX-成功" class="headerlink" title="2XX 成功"></a>2XX 成功</h2><ul>
+<li><strong>200 OK</strong></li>
+<li><strong>204 No Content</strong>：请求成功处理，但响应报文不包含实体的主体部分。一般在只需要从客户端向服务端发送信息，而不需要返回数据时使用。</li>
+<li><strong>206 Partial Content</strong>：表示客户端进行了范围请求，响应报文包含由Content-Range 指定范围的实体内容。</li>
+</ul>
+<h2 id="3XX-重定向"><a href="#3XX-重定向" class="headerlink" title="3XX 重定向"></a>3XX 重定向</h2><ul>
+<li><strong>301 Moved Permanently</strong> ：永久性重定向</li>
+<li><strong>302 Found</strong> ：临时性重定向</li>
+<li><strong>303 See Other</strong> ：和 302 有着相同的功能，但是 303 明确要求客户端应该采用 GET 方法获取资源。</li>
+<li>注：虽然 HTTP 协议规定 301、302 状态下重定向时不允许把 POST 方法改成 GET 方法，但是大多数浏览器都会在 301、302 和 303 状态下的重定向把 POST 方法改成 GET 方法。</li>
+<li><strong>304 Not Modified</strong> ：如果请求报文首部包含一些条件，例如：If-Match，If-Modified-Since，If-None-Match，If-Range，If-Unmodified-Since，如果不满足条件，则服务器会返回 304 状态码。</li>
+<li><strong>307 Temporary Redirect</strong> ：临时重定向，与 302 的含义类似，但是 307 要求浏览器不会把重定向请求的 POST 方法改成 GET 方法。</li>
+</ul>
+<h2 id="4XX-客户端错误"><a href="#4XX-客户端错误" class="headerlink" title="4XX 客户端错误"></a>4XX 客户端错误</h2><ul>
+<li><strong>400 Bad Request</strong>：请求报文中存在语法错误</li>
+<li><strong>401 Unauthorized</strong> ：该状态码表示发送的请求需要有认证信息（BASIC 认证、DIGEST 认证）。如果之前已进行过一次请求，则表示用户认证失败。</li>
+<li><strong>403 Forbidden</strong> ：请求被拒绝。</li>
+<li><strong>404 Not Found</strong></li>
+</ul>
+<h2 id="5XX-服务器错误"><a href="#5XX-服务器错误" class="headerlink" title="5XX 服务器错误"></a>5XX 服务器错误</h2><ul>
+<li><strong>500 Internal Server Error</strong> ：服务器正在执行请求时发生错误。</li>
+<li><strong>503 Service Unavailable</strong> ：服务器暂时处于超负载或正在进行停机维护，现在无法处理请求。</li>
+</ul>
+<h1 id="HTTP首部"><a href="#HTTP首部" class="headerlink" title="HTTP首部"></a>HTTP首部</h1><p>有 4 种类型的首部字段：通用首部字段、请求首部字段、响应首部字段和实体首部字段。</p>
+<h2 id="通用首部字段"><a href="#通用首部字段" class="headerlink" title="通用首部字段"></a>通用首部字段</h2><table>
+<thead>
+<tr>
+<th>首部字段名</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Cache-Control</td>
+<td>控制缓存的行为</td>
+</tr>
+<tr>
+<td>Connection</td>
+<td>控制不再转发给代理的首部字段、管理持久连接</td>
+</tr>
+<tr>
+<td>Date</td>
+<td>创建报文的日期时间</td>
+</tr>
+<tr>
+<td>Pragma</td>
+<td>报文指令</td>
+</tr>
+<tr>
+<td>Trailer</td>
+<td>报文末端的首部一览</td>
+</tr>
+<tr>
+<td>Transfer-Encoding</td>
+<td>指定报文主体的传输编码方式</td>
+</tr>
+<tr>
+<td>Upgrade</td>
+<td>升级为其他协议</td>
+</tr>
+<tr>
+<td>Via</td>
+<td>代理服务器的相关信息</td>
+</tr>
+<tr>
+<td>Warning</td>
+<td>错误通知</td>
+</tr>
+</tbody></table>
+<h2 id="请求首部字段"><a href="#请求首部字段" class="headerlink" title="请求首部字段"></a>请求首部字段</h2><table>
+<thead>
+<tr>
+<th>首部字段名</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Accept</td>
+<td>用户代理可处理的媒体类型</td>
+</tr>
+<tr>
+<td>Accept-Charset</td>
+<td>优先的字符集</td>
+</tr>
+<tr>
+<td>Accept-Encoding</td>
+<td>优先的内容编码</td>
+</tr>
+<tr>
+<td>Accept-Language</td>
+<td>优先的语言（自然语言）</td>
+</tr>
+<tr>
+<td>Authorization</td>
+<td>Web 认证信息</td>
+</tr>
+<tr>
+<td>Expect</td>
+<td>期待服务器的特定行为</td>
+</tr>
+<tr>
+<td>From</td>
+<td>用户的电子邮箱地址</td>
+</tr>
+<tr>
+<td>Host</td>
+<td>请求资源所在服务器</td>
+</tr>
+<tr>
+<td>If-Match</td>
+<td>比较实体标记（ETag）</td>
+</tr>
+<tr>
+<td>If-Modified-Since</td>
+<td>比较资源的更新时间</td>
+</tr>
+<tr>
+<td>If-None-Match</td>
+<td>比较实体标记（与 If-Match 相反）</td>
+</tr>
+<tr>
+<td>If-Range</td>
+<td>资源未更新时发送实体 Byte 的范围请求</td>
+</tr>
+<tr>
+<td>If-Unmodified-Since</td>
+<td>比较资源的更新时间（与 If-Modified-Since 相反）</td>
+</tr>
+<tr>
+<td>Max-Forwards</td>
+<td>最大传输逐跳数</td>
+</tr>
+<tr>
+<td>Proxy-Authorization</td>
+<td>代理服务器要求客户端的认证信息</td>
+</tr>
+<tr>
+<td>Range</td>
+<td>实体的字节范围请求</td>
+</tr>
+<tr>
+<td>Referer</td>
+<td>对请求中 URI 的原始获取方</td>
+</tr>
+<tr>
+<td>TE</td>
+<td>传输编码的优先级</td>
+</tr>
+<tr>
+<td>User-Agent</td>
+<td>HTTP 客户端程序的信息</td>
+</tr>
+</tbody></table>
+<h2 id="响应首部字段"><a href="#响应首部字段" class="headerlink" title="响应首部字段"></a>响应首部字段</h2><table>
+<thead>
+<tr>
+<th>首部字段名</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Accept-Ranges</td>
+<td>是否接受字节范围请求</td>
+</tr>
+<tr>
+<td>Age</td>
+<td>推算资源创建经过时间</td>
+</tr>
+<tr>
+<td>ETag</td>
+<td>资源的匹配信息</td>
+</tr>
+<tr>
+<td>Location</td>
+<td>令客户端重定向至指定 URI</td>
+</tr>
+<tr>
+<td>Proxy-Authenticate</td>
+<td>代理服务器对客户端的认证信息</td>
+</tr>
+<tr>
+<td>Retry-After</td>
+<td>对再次发起请求的时机要求</td>
+</tr>
+<tr>
+<td>Server</td>
+<td>HTTP 服务器的安装信息</td>
+</tr>
+<tr>
+<td>Vary</td>
+<td>代理服务器缓存的管理信息</td>
+</tr>
+<tr>
+<td>WWW-Authenticate</td>
+<td>服务器对客户端的认证信息</td>
+</tr>
+</tbody></table>
+<h2 id="实体首部字段"><a href="#实体首部字段" class="headerlink" title="实体首部字段"></a>实体首部字段</h2><table>
+<thead>
+<tr>
+<th>首部字段名</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Allow</td>
+<td>资源可支持的 HTTP 方法</td>
+</tr>
+<tr>
+<td>Content-Encoding</td>
+<td>实体主体适用的编码方式</td>
+</tr>
+<tr>
+<td>Content-Language</td>
+<td>实体主体的自然语言</td>
+</tr>
+<tr>
+<td>Content-Length</td>
+<td>实体主体的大小</td>
+</tr>
+<tr>
+<td>Content-Location</td>
+<td>替代对应资源的 URI</td>
+</tr>
+<tr>
+<td>Content-MD5</td>
+<td>实体主体的报文摘要</td>
+</tr>
+<tr>
+<td>Content-Range</td>
+<td>实体主体的位置范围</td>
+</tr>
+<tr>
+<td>Content-Type</td>
+<td>实体主体的媒体类型</td>
+</tr>
+<tr>
+<td>Expires</td>
+<td>实体主体过期的日期时间</td>
+</tr>
+<tr>
+<td>Last-Modified</td>
+<td>资源的最后修改日期时间</td>
+</tr>
+</tbody></table>
+]]></content>
+      <tags>
+        <tag>http协议</tag>
+        <tag>计算机网络</tag>
+      </tags>
   </entry>
   <entry>
     <title>树的层次遍历</title>
@@ -800,8 +1273,8 @@ PRIMARY KEY (`emp_no`,`from_date`));</code></pre><h1 id="输出描述"><a href="
   <entry>
     <title>代理模式-动态代理-AOP</title>
     <url>/2019/12/05/%E4%BB%A3%E7%90%86%E6%A8%A1%E5%BC%8F/</url>
-    <content><![CDATA[<pre><code>本篇博客总结一下关于代理模式的内容，认识AOP以后才知道是由动态代理实现的，从什么是代理模式。到静态代理和动态代理，到动态代理实现拦截器。</code></pre><h1 id="代理模式"><a href="#代理模式" class="headerlink" title="代理模式"></a>代理模式</h1><p>代理模式：为其他对象提供一种代理以控制对这个对象的访问。</p>
-<p><img src="https://user-images.githubusercontent.com/45253106/70206721-69a76280-1763-11ea-8852-9ffa821518ea.png" alt="image"></p>
+    <content><![CDATA[<pre><code>本篇博客总结一下关于代理模式的内容，认识AOP以后才知道是由动态代理实现的，从什么是代理模式。到静态代理和动态代理，到动态代理实现拦截器。</code></pre><h1 id="代理模式"><a href="#代理模式" class="headerlink" title="代理模式"></a>代理模式</h1><h2 id="Intent"><a href="#Intent" class="headerlink" title="Intent"></a>Intent</h2><p>为其他对象提供一种代理以控制对这个对象的访问。</p>
+<h2 id="Class-Diagram"><a href="#Class-Diagram" class="headerlink" title="Class Diagram"></a>Class Diagram</h2><p><img src="https://user-images.githubusercontent.com/45253106/71434814-210b1580-2721-11ea-88f7-2204229c3d7d.png" alt="image"></p>
 <a id="more"></a>
 
 <p>代理模式中的角色：</p>

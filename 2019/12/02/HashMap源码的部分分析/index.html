@@ -88,17 +88,17 @@
 
 
 
-<meta name="description" content="也谈不上对HashMap做源码分析，网上的分析也很多，此篇博客记录自己学习HashMap的一些收获。HashMap中做hash的方法存储位置是hash &amp;amp; [n - 1]，如果直接用HashCode()，高位不产生影响，键值对存放在哪里完全取决于低位，例如n = 16时取决于低四位，碰撞几率大。 因为hashCode()返回值为int32位，通过hash ^ hash &amp;gt;&amp;gt;&amp;g">
+<meta name="description" content="也谈不上对HashMap做源码分析，网上的分析也很多，此篇博客记录自己学习HashMap的一些收获。HashMap中做hash的方法存储位置是hash &amp;amp; [n - 1]，如果直接用HashCode()，高位不产生影响，键值对存放在哪里完全取决于低位，例如n = 16时取决于低四位，碰撞几率大。 因为hashCode()返回值为int32位，通过hash ^ (hash &amp;gt;&amp;gt;&amp;">
 <meta name="keywords" content="源码阅读,HashMap">
 <meta property="og:type" content="article">
 <meta property="og:title" content="读HashMap源码的一些理解">
 <meta property="og:url" content="http:&#x2F;&#x2F;www.zealyoung.site&#x2F;2019&#x2F;12&#x2F;02&#x2F;HashMap%E6%BA%90%E7%A0%81%E7%9A%84%E9%83%A8%E5%88%86%E5%88%86%E6%9E%90&#x2F;index.html">
 <meta property="og:site_name" content="Zealyoung · CodeMaker">
-<meta property="og:description" content="也谈不上对HashMap做源码分析，网上的分析也很多，此篇博客记录自己学习HashMap的一些收获。HashMap中做hash的方法存储位置是hash &amp;amp; [n - 1]，如果直接用HashCode()，高位不产生影响，键值对存放在哪里完全取决于低位，例如n = 16时取决于低四位，碰撞几率大。 因为hashCode()返回值为int32位，通过hash ^ hash &amp;gt;&amp;gt;&amp;g">
+<meta property="og:description" content="也谈不上对HashMap做源码分析，网上的分析也很多，此篇博客记录自己学习HashMap的一些收获。HashMap中做hash的方法存储位置是hash &amp;amp; [n - 1]，如果直接用HashCode()，高位不产生影响，键值对存放在哪里完全取决于低位，例如n = 16时取决于低四位，碰撞几率大。 因为hashCode()返回值为int32位，通过hash ^ (hash &amp;gt;&amp;gt;&amp;">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https:&#x2F;&#x2F;user-images.githubusercontent.com&#x2F;45253106&#x2F;69959234-9b40e380-1541-11ea-9e9c-9a70472e617e.png">
 <meta property="og:image" content="https:&#x2F;&#x2F;user-images.githubusercontent.com&#x2F;45253106&#x2F;69959257-a8f66900-1541-11ea-8532-850a2c5f0221.png">
-<meta property="og:updated_time" content="2019-12-05T08:56:12.000Z">
+<meta property="og:updated_time" content="2019-12-28T09:35:43.373Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https:&#x2F;&#x2F;user-images.githubusercontent.com&#x2F;45253106&#x2F;69959234-9b40e380-1541-11ea-9e9c-9a70472e617e.png">
 
@@ -463,7 +463,7 @@
 
       
         <pre><code>也谈不上对HashMap做源码分析，网上的分析也很多，此篇博客记录自己学习HashMap的一些收获。</code></pre><h1 id="HashMap中做hash的方法"><a href="#HashMap中做hash的方法" class="headerlink" title="HashMap中做hash的方法"></a>HashMap中做hash的方法</h1><p>存储位置是<code>hash &amp; [n - 1]</code>，如果直接用HashCode()，高位不产生影响，键值对存放在哪里完全取决于低位，例如n = 16时取决于低四位，碰撞几率大。</p>
-<p>因为hashCode()返回值为int32位，通过<code>hash ^ hash &gt;&gt;&gt; 16</code>，右移16位做异或，也就是高位为高16位，低位为高低16位进行异或的结果，那么低位就是由高位低位一起决定的，这样可以使散列更均匀，减少碰撞概率。</p>
+<p>因为hashCode()返回值为int32位，通过<code>hash ^ (hash &gt;&gt;&gt; 16)</code>，右移16位做异或，也就是高位为高16位，低位为高低16位进行异或的结果，那么低位就是由高位低位一起决定的，这样可以使散列更均匀，减少碰撞概率。</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> <span class="title">hash</span><span class="params">(Object key)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> h;</span><br><span class="line">    <span class="keyword">return</span> (key == <span class="keyword">null</span>) ? <span class="number">0</span> : (h = key.hashCode()) ^ (h &gt;&gt;&gt; <span class="number">16</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <a id="more"></a>
@@ -617,7 +617,7 @@
               
                 <a href="/archives%7C%7C%20archive">
               
-                  <span class="site-state-item-count">38</span>
+                  <span class="site-state-item-count">44</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -628,7 +628,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">14</span>
+                  <span class="site-state-item-count">16</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>

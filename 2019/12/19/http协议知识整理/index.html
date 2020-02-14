@@ -98,7 +98,7 @@
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https:&#x2F;&#x2F;user-images.githubusercontent.com&#x2F;45253106&#x2F;71391276-73bfd100-263e-11ea-9b6a-20843fad040e.png">
 <meta property="og:image" content="https:&#x2F;&#x2F;user-images.githubusercontent.com&#x2F;45253106&#x2F;71391316-981bad80-263e-11ea-9581-df6630532fda.png">
-<meta property="og:updated_time" content="2019-12-31T03:10:59.079Z">
+<meta property="og:updated_time" content="2019-12-31T10:27:58.931Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https:&#x2F;&#x2F;user-images.githubusercontent.com&#x2F;45253106&#x2F;71391276-73bfd100-263e-11ea-9b6a-20843fad040e.png">
 
@@ -425,7 +425,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  2.4k 字
+                  3.7k 字
                 </span>
               
 
@@ -441,7 +441,7 @@
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
                 <span title="阅读时长">
-                  9 分钟
+                  13 分钟
                 </span>
               
             </div>
@@ -826,7 +826,44 @@
 <li>响应报文的状态码是可缓存的，包括：200, 203, 204, 206, 300, 301, 404, 405, 410, 414, and 501。</li>
 <li>响应报文的 Cache-Control 首部字段没有指定不进行缓存。</li>
 </ul>
-<h1 id="Cookie和Session"><a href="#Cookie和Session" class="headerlink" title="Cookie和Session"></a>Cookie和Session</h1><h1 id="Https"><a href="#Https" class="headerlink" title="Https"></a>Https</h1>
+<h1 id="Cookie和Session"><a href="#Cookie和Session" class="headerlink" title="Cookie和Session"></a>Cookie和Session</h1><h2 id="Cookie"><a href="#Cookie" class="headerlink" title="Cookie"></a>Cookie</h2><p>HTTP 协议是无状态的，主要是为了让 HTTP 协议尽可能简单，使得它能够处理大量事务。HTTP/1.1 引入 Cookie 来保存状态信息。</p>
+<p>Cookie 是服务器发送到用户浏览器并保存在本地的一小块数据，它会在浏览器之后向同一服务器再次发起请求时被携带上，用于告知服务端两个请求是否来自同一浏览器。由于之后每次请求都会需要携带 Cookie 数据，因此会带来额外的性能开销（尤其是在移动环境下）。</p>
+<p>Cookie 曾一度用于客户端数据的存储，因为当时并没有其它合适的存储办法而作为唯一的存储手段，但现在随着现代浏览器开始支持各种各样的存储方式，Cookie 渐渐被淘汰。新的浏览器 API 已经允许开发者直接将数据存储到本地，如使用 Web storage API（本地存储和会话存储）或 IndexedDB。</p>
+<h2 id="Session"><a href="#Session" class="headerlink" title="Session"></a>Session</h2><p>除了可以将用户信息通过 Cookie 存储在用户浏览器中，也可以利用 Session 存储在服务器端，存储在服务器端的信息更加安全。</p>
+<p>Session 可以存储在服务器上的文件、数据库或者内存中。也可以将 Session 存储在 Redis 这种内存型数据库中，效率会更高。</p>
+<p>使用 Session 维护用户登录状态的过程如下：</p>
+<ul>
+<li>用户进行登录时，用户提交包含用户名和密码的表单，放入 HTTP 请求报文中；</li>
+<li>服务器验证该用户名和密码，如果正确则把用户信息存储到 Redis 中，它在 Redis 中的 Key 称为 Session ID；</li>
+<li>服务器返回的响应报文的 Set-Cookie 首部字段包含了这个 Session ID，客户端收到响应报文之后将该 Cookie 值存入浏览器中；</li>
+<li>客户端之后对同一个服务器进行请求时会包含该 Cookie 值，服务器收到之后提取出 Session ID，从 Redis 中取出用户信息，继续之前的业务操作。</li>
+</ul>
+<p>应该注意 Session ID 的安全性问题，不能让它被恶意攻击者轻易获取，那么就不能产生一个容易被猜到的 Session ID 值。此外，还需要经常重新生成 Session ID。在对安全性要求极高的场景下，例如转账等操作，除了使用 Session 管理用户状态之外，还需要对用户进行重新验证，比如重新输入密码，或者使用短信验证码等方式。</p>
+<h2 id="Cookie-与-Session-选择"><a href="#Cookie-与-Session-选择" class="headerlink" title="Cookie 与 Session 选择"></a>Cookie 与 Session 选择</h2><ul>
+<li>Cookie 只能存储 ASCII 码字符串，而 Session 则可以存储任何类型的数据，因此在考虑数据复杂性时首选 Session；</li>
+<li>Cookie 存储在浏览器中，容易被恶意查看。如果非要将一些隐私数据存在 Cookie 中，可以将 Cookie 值进行加密，然后在服务器进行解密；</li>
+<li>对于大型网站，如果用户所有的信息都存储在 Session 中，那么开销是非常大的，因此不建议将所有的用户信息都存储到 Session 中。</li>
+</ul>
+<h1 id="HTTPS"><a href="#HTTPS" class="headerlink" title="HTTPS"></a>HTTPS</h1><p>HTTP 有以下安全性问题：</p>
+<ul>
+<li>使用明文进行通信，内容可能会被窃听；</li>
+<li>不验证通信方的身份，通信方的身份有可能遭遇伪装；</li>
+<li>无法证明报文的完整性，报文有可能遭篡改。</li>
+</ul>
+<p>HTTPS 并不是新协议，而是让 HTTP 先和 SSL（Secure Sockets Layer）通信，再由 SSL 和 TCP 通信，也就是说 HTTPS 使用了隧道进行通信。</p>
+<p>通过使用 SSL，HTTPS 具有了加密（防窃听）、认证（防伪装）和完整性保护（防篡改）。</p>
+<h2 id="认证"><a href="#认证" class="headerlink" title="认证"></a>认证</h2><p>通过使用 <strong>证书</strong> 来对通信方进行认证。</p>
+<p>数字证书认证机构（CA，Certificate Authority）是客户端与服务器双方都可信赖的第三方机构。</p>
+<p>服务器的运营人员向 CA 提出公开密钥的申请，CA 在判明提出申请者的身份之后，会对已申请的公开密钥做数字签名，然后分配这个已签名的公开密钥，并将该公开密钥放入公开密钥证书后绑定在一起。</p>
+<p>进行 HTTPS 通信时，服务器会把证书发送给客户端。客户端取得其中的公开密钥之后，先使用数字签名进行验证，如果验证通过，就可以开始通信了。</p>
+<h2 id="完整性保护"><a href="#完整性保护" class="headerlink" title="完整性保护"></a>完整性保护</h2><p>SSL 提供报文摘要功能来进行完整性保护。</p>
+<p>HTTP 也提供了 MD5 报文摘要功能，但不是安全的。例如报文内容被篡改之后，同时重新计算 MD5 的值，通信接收方是无法意识到发生了篡改。</p>
+<p>HTTPS 的报文摘要功能之所以安全，是因为它结合了加密和认证这两个操作。试想一下，加密之后的报文，遭到篡改之后，也很难重新计算报文摘要，因为无法轻易获取明文。</p>
+<h2 id="HTTPS-的缺点"><a href="#HTTPS-的缺点" class="headerlink" title="HTTPS 的缺点"></a>HTTPS 的缺点</h2><ul>
+<li>因为需要进行加密解密等过程，因此速度会更慢；</li>
+<li>需要支付证书授权的高额费用。</li>
+</ul>
+
       
     </div>
     
@@ -954,7 +991,7 @@
               
                 <a href="/archives%7C%7C%20archive">
               
-                  <span class="site-state-item-count">44</span>
+                  <span class="site-state-item-count">49</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -965,7 +1002,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">16</span>
+                  <span class="site-state-item-count">20</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -976,7 +1013,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">34</span>
+                  <span class="site-state-item-count">35</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -1037,7 +1074,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#基础概念"><span class="nav-number">1.</span> <span class="nav-text">基础概念</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#URI-Uniform-Resource-Identifier"><span class="nav-number">1.1.</span> <span class="nav-text">URI(Uniform Resource Identifier)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#请求和响应报文"><span class="nav-number">1.2.</span> <span class="nav-text">请求和响应报文</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#请求报文"><span class="nav-number">1.2.1.</span> <span class="nav-text">请求报文</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#响应报文"><span class="nav-number">1.2.2.</span> <span class="nav-text">响应报文</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#HTTP方法"><span class="nav-number">2.</span> <span class="nav-text">HTTP方法</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#GET"><span class="nav-number">2.1.</span> <span class="nav-text">GET</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#HEAD"><span class="nav-number">2.2.</span> <span class="nav-text">HEAD</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#POST"><span class="nav-number">2.3.</span> <span class="nav-text">POST</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#PUT"><span class="nav-number">2.4.</span> <span class="nav-text">PUT</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#PATCH"><span class="nav-number">2.5.</span> <span class="nav-text">PATCH</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#DELETE"><span class="nav-number">2.6.</span> <span class="nav-text">DELETE</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#OPTIONS"><span class="nav-number">2.7.</span> <span class="nav-text">OPTIONS</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#CONNECT"><span class="nav-number">2.8.</span> <span class="nav-text">CONNECT</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#TRACE"><span class="nav-number">2.9.</span> <span class="nav-text">TRACE</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#HTTP状态码"><span class="nav-number">3.</span> <span class="nav-text">HTTP状态码</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1XX-信息"><span class="nav-number">3.1.</span> <span class="nav-text">1XX 信息</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2XX-成功"><span class="nav-number">3.2.</span> <span class="nav-text">2XX 成功</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3XX-重定向"><span class="nav-number">3.3.</span> <span class="nav-text">3XX 重定向</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4XX-客户端错误"><span class="nav-number">3.4.</span> <span class="nav-text">4XX 客户端错误</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5XX-服务器错误"><span class="nav-number">3.5.</span> <span class="nav-text">5XX 服务器错误</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#HTTP首部"><span class="nav-number">4.</span> <span class="nav-text">HTTP首部</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#通用首部字段"><span class="nav-number">4.1.</span> <span class="nav-text">通用首部字段</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#请求首部字段"><span class="nav-number">4.2.</span> <span class="nav-text">请求首部字段</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#响应首部字段"><span class="nav-number">4.3.</span> <span class="nav-text">响应首部字段</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#实体首部字段"><span class="nav-number">4.4.</span> <span class="nav-text">实体首部字段</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#GET和POST的比较"><span class="nav-number">5.</span> <span class="nav-text">GET和POST的比较</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#作用"><span class="nav-number">5.1.</span> <span class="nav-text">作用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参数"><span class="nav-number">5.2.</span> <span class="nav-text">参数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#安全"><span class="nav-number">5.3.</span> <span class="nav-text">安全</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#幂等性"><span class="nav-number">5.4.</span> <span class="nav-text">幂等性</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#可缓存"><span class="nav-number">5.5.</span> <span class="nav-text">可缓存</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Cookie和Session"><span class="nav-number">6.</span> <span class="nav-text">Cookie和Session</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Https"><span class="nav-number">7.</span> <span class="nav-text">Https</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#基础概念"><span class="nav-number">1.</span> <span class="nav-text">基础概念</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#URI-Uniform-Resource-Identifier"><span class="nav-number">1.1.</span> <span class="nav-text">URI(Uniform Resource Identifier)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#请求和响应报文"><span class="nav-number">1.2.</span> <span class="nav-text">请求和响应报文</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#请求报文"><span class="nav-number">1.2.1.</span> <span class="nav-text">请求报文</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#响应报文"><span class="nav-number">1.2.2.</span> <span class="nav-text">响应报文</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#HTTP方法"><span class="nav-number">2.</span> <span class="nav-text">HTTP方法</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#GET"><span class="nav-number">2.1.</span> <span class="nav-text">GET</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#HEAD"><span class="nav-number">2.2.</span> <span class="nav-text">HEAD</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#POST"><span class="nav-number">2.3.</span> <span class="nav-text">POST</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#PUT"><span class="nav-number">2.4.</span> <span class="nav-text">PUT</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#PATCH"><span class="nav-number">2.5.</span> <span class="nav-text">PATCH</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#DELETE"><span class="nav-number">2.6.</span> <span class="nav-text">DELETE</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#OPTIONS"><span class="nav-number">2.7.</span> <span class="nav-text">OPTIONS</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#CONNECT"><span class="nav-number">2.8.</span> <span class="nav-text">CONNECT</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#TRACE"><span class="nav-number">2.9.</span> <span class="nav-text">TRACE</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#HTTP状态码"><span class="nav-number">3.</span> <span class="nav-text">HTTP状态码</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1XX-信息"><span class="nav-number">3.1.</span> <span class="nav-text">1XX 信息</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2XX-成功"><span class="nav-number">3.2.</span> <span class="nav-text">2XX 成功</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3XX-重定向"><span class="nav-number">3.3.</span> <span class="nav-text">3XX 重定向</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4XX-客户端错误"><span class="nav-number">3.4.</span> <span class="nav-text">4XX 客户端错误</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5XX-服务器错误"><span class="nav-number">3.5.</span> <span class="nav-text">5XX 服务器错误</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#HTTP首部"><span class="nav-number">4.</span> <span class="nav-text">HTTP首部</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#通用首部字段"><span class="nav-number">4.1.</span> <span class="nav-text">通用首部字段</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#请求首部字段"><span class="nav-number">4.2.</span> <span class="nav-text">请求首部字段</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#响应首部字段"><span class="nav-number">4.3.</span> <span class="nav-text">响应首部字段</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#实体首部字段"><span class="nav-number">4.4.</span> <span class="nav-text">实体首部字段</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#GET和POST的比较"><span class="nav-number">5.</span> <span class="nav-text">GET和POST的比较</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#作用"><span class="nav-number">5.1.</span> <span class="nav-text">作用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参数"><span class="nav-number">5.2.</span> <span class="nav-text">参数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#安全"><span class="nav-number">5.3.</span> <span class="nav-text">安全</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#幂等性"><span class="nav-number">5.4.</span> <span class="nav-text">幂等性</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#可缓存"><span class="nav-number">5.5.</span> <span class="nav-text">可缓存</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Cookie和Session"><span class="nav-number">6.</span> <span class="nav-text">Cookie和Session</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Cookie"><span class="nav-number">6.1.</span> <span class="nav-text">Cookie</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Session"><span class="nav-number">6.2.</span> <span class="nav-text">Session</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Cookie-与-Session-选择"><span class="nav-number">6.3.</span> <span class="nav-text">Cookie 与 Session 选择</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#HTTPS"><span class="nav-number">7.</span> <span class="nav-text">HTTPS</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#认证"><span class="nav-number">7.1.</span> <span class="nav-text">认证</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#完整性保护"><span class="nav-number">7.2.</span> <span class="nav-text">完整性保护</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#HTTPS-的缺点"><span class="nav-number">7.3.</span> <span class="nav-text">HTTPS 的缺点</span></a></li></ol></li></ol></div>
             
 
           </div>
@@ -1057,7 +1094,7 @@
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
   <span> ❤ </span>
   <span class="author" itemprop="copyrightHolder">ZealYoung</span>
 

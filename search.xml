@@ -1,6 +1,148 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>备忘录模式</title>
+    <url>/2020/02/14/%E5%A4%87%E5%BF%98%E5%BD%95%E6%A8%A1%E5%BC%8F/</url>
+    <content><![CDATA[]]></content>
+  </entry>
+  <entry>
+    <title>顺时针打印矩阵</title>
+    <url>/2020/02/05/%E9%A1%BA%E6%97%B6%E9%92%88%E6%89%93%E5%8D%B0%E7%9F%A9%E9%98%B5/</url>
+    <content><![CDATA[<h1 id="剑指Offer-顺时针打印矩阵"><a href="#剑指Offer-顺时针打印矩阵" class="headerlink" title="剑指Offer.顺时针打印矩阵"></a>剑指Offer.顺时针打印矩阵</h1><p><strong>题目描述：</strong></p>
+<p>输入一个矩阵，按照从外向里以顺时针的顺序依次打印出每一个数字。</p>
+<p><strong>示例：</strong></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">输入：1  2  3  4</span><br><span class="line">	 5  6  7  8</span><br><span class="line">	 9  10 11 12</span><br><span class="line">	 13 14 15 16</span><br><span class="line">输出：[1,2,3,4,8,12,16,15,14,13,9,5,6,7,11,10]</span><br></pre></td></tr></table></figure>
+
+<p><strong>思路：</strong></p>
+<p>因为是顺时针输出，我们将数组进行逆序旋转的话，就可以一直输出第一行，例如对于示例输出[1,2,3,4]然后对其余进行逆时针旋转，第一行的[8,12,16]就是接下来要输出的内容，直到数组全部输出,这种方法稍微复杂，数组要进行多次旋转。</p>
+<p>可以按照顺时针输出的特点，按照下标循环输出，这种方法比较简单，采用这种方法写一下代码。</p>
+<p><strong>代码：</strong></p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> ArrayList&lt;Integer&gt; <span class="title">printMatrix</span><span class="params">(<span class="keyword">int</span> [][] matrix)</span> </span>&#123;</span><br><span class="line">    ArrayList&lt;Integer&gt; ret = <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line">    <span class="keyword">int</span> r1 = <span class="number">0</span>, r2 = matrix.length - <span class="number">1</span>, c1 = <span class="number">0</span>, c2 = matrix[<span class="number">0</span>].length - <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">while</span>(r1 &lt;= r2 &amp;&amp; c1 &lt;= c2)&#123;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = c1; i &lt;= c2; i++)&#123;</span><br><span class="line">            ret.add(matrix[r1][i]);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = r1 + <span class="number">1</span>; i &lt;= r2; i++)&#123;</span><br><span class="line">            ret.add(matrix[i][c2]);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = c2 - <span class="number">1</span>; i &gt;= c1 &amp;&amp; r1 != r2; i--)&#123;</span><br><span class="line">            ret.add(matrix[r2][i]);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = r2 - <span class="number">1</span>; i &gt; r1 &amp;&amp; c1 != c2; i--)&#123;</span><br><span class="line">            ret.add(matrix[i][c1]);</span><br><span class="line">        &#125;</span><br><span class="line">        r1++;r2--;c1++;c2--;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> ret;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+]]></content>
+      <categories>
+        <category>数据结构与算法</category>
+        <category>数组</category>
+      </categories>
+      <tags>
+        <tag>数据结构</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>位运算问题</title>
+    <url>/2020/01/28/%E4%BD%8D%E8%BF%90%E7%AE%97%E9%97%AE%E9%A2%98/</url>
+    <content><![CDATA[<blockquote>
+<p>本文总结一下位运算常用的方法和一些题目的解法。</p>
+</blockquote>
+<p><strong>基本原理</strong></p>
+<p>0s 表示一串 0，1s 表示一串 1。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">x ^ 0s = x      x &amp; 0s = 0      x | 0s = x</span><br><span class="line">x ^ 1s = ~x     x &amp; 1s = x      x | 1s = 1s</span><br><span class="line">x ^ x = 0       x &amp; x = x       x | x = x</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>利用 x ^ 1s = ~x 的特点，可以将位级表示翻转；利用 x ^ x = 0 的特点，可以将三个数中重复的两个数去除，只留下另一个数。</li>
+<li>利用 x &amp; 0s = 0 和 x &amp; 1s = x 的特点，可以实现掩码操作。一个数 num 与 mask：00111100 进行位与操作，只保留 num 中与 mask 的 1 部分相对应的位。</li>
+<li>利用 x | 0s = x 和 x | 1s = 1s 的特点，可以实现设值操作。一个数 num 与 mask：00111100 进行位或操作，将 num 中与 mask 的 1 部分相对应的位都设置为 1。</li>
+</ul>
+<p>位与运算技巧：</p>
+<ul>
+<li>n&amp;(n-1) 去除 n 的位级表示中最低的那一位。例如对于二进制表示 10110100，减去 1 得到 10110011，这两个数相与得到 10110000。</li>
+<li>n&amp;(-n) 得到 n 的位级表示中最低的那一位。-n 得到 n 的反码加 1，对于二进制表示 10110100，-n 得到 01001100，相与得到 00000100。</li>
+<li>n-n&amp;(~n+1) 去除 n 的位级表示中最高的那一位。</li>
+</ul>
+<p>移位运算：</p>
+<ul>
+<li>&gt;&gt; n 为算术右移，相当于除以 2n；</li>
+<li>&gt;&gt;&gt; n 为无符号右移，左边会补上 0。</li>
+<li>&lt;&lt; n 为算术左移，相当于乘以 2n。</li>
+</ul>
+<p><strong>mask 计算</strong></p>
+<p>要获取 111111111，将 0 取反即可，~0。</p>
+<p>要得到只有第 i 位为 1 的 mask，将 1 向左移动 i-1 位即可，1&lt;&lt;(i-1) 。例如 1&lt;&lt;4 得到只有第 5 位为 1 的 mask ：00010000。</p>
+<p>要得到 1 到 i 位为 1 的 mask，(1&lt;&lt;i)-1 即可，例如将 (1&lt;&lt;4)-1 = 00010000-1 = 00001111。</p>
+<p>要得到 1 到 i 位为 0 的 mask，只需将 1 到 i 位为 1 的 mask 取反，即 ~((1&lt;&lt;i)-1)。</p>
+<p><strong>Java 中的位操作</strong></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">static int Integer.bitCount();           // 统计 1 的数量</span><br><span class="line">static int Integer.highestOneBit();      // 获得最高位</span><br><span class="line">static String toBinaryString(int i);     // 转换为二进制表示的字符串</span><br></pre></td></tr></table></figure>
+
+<h1 id="Leetcode461-汉明距离"><a href="#Leetcode461-汉明距离" class="headerlink" title="Leetcode461.汉明距离"></a>Leetcode461.汉明距离</h1><p><a href="https://leetcode-cn.com/problems/hamming-distance/" target="_blank" rel="noopener">Leetcode461.汉明距离</a></p>
+<blockquote>
+<p>两个整数之间的<a href="https://baike.baidu.com/item/汉明距离" target="_blank" rel="noopener">汉明距离</a>指的是这两个数字对应二进制位不同的位置的数目，异或操作进行计算。</p>
+</blockquote>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">hammingDistance</span><span class="params">(<span class="keyword">int</span> x, <span class="keyword">int</span> y)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> z = x ^ y;</span><br><span class="line">    <span class="keyword">int</span> cnt = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">while</span>(z != <span class="number">0</span>)&#123;</span><br><span class="line">        <span class="keyword">if</span>((z &amp; <span class="number">1</span>) == <span class="number">1</span>) cnt++;</span><br><span class="line">        z = z &gt;&gt; <span class="number">1</span>;</span><br><span class="line">        <span class="comment">//z &amp;= (z - 1);</span></span><br><span class="line">        <span class="comment">//cnt++;</span></span><br><span class="line">        <span class="comment">//注释代码可用于替换上面2行，不同方式。</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> cnt;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">//Integer.bitCount()用于统计1的个数</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">hammingDistance</span><span class="params">(<span class="keyword">int</span> x, <span class="keyword">int</span> y)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> Integer.bitCount(x ^ y);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h1 id="Leetcode268-缺失数字"><a href="#Leetcode268-缺失数字" class="headerlink" title="Leetcode268.缺失数字"></a>Leetcode268.缺失数字</h1><p><a href="https://leetcode-cn.com/problems/missing-number/" target="_blank" rel="noopener">Leetcode268.缺失数字</a></p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">missingNumber</span><span class="params">(<span class="keyword">int</span>[] nums)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> ret = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; nums.length; i++)&#123;</span><br><span class="line">        ret ^= nums[i] ^ i;</span><br><span class="line">    &#125;</span><br><span class="line">    ret ^= nums.length;</span><br><span class="line">    <span class="keyword">return</span> ret;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h1 id="Leetcode136-只出现一次的数字"><a href="#Leetcode136-只出现一次的数字" class="headerlink" title="Leetcode136.只出现一次的数字"></a>Leetcode136.只出现一次的数字</h1><p><a href="https://leetcode-cn.com/problems/single-number/" target="_blank" rel="noopener">Leetcode136.只出现一次的数字</a></p>
+<blockquote>
+<p>根据重复数字异或等于0的性质，对所有数字进行异或。</p>
+</blockquote>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">singleNumber</span><span class="params">(<span class="keyword">int</span>[] nums)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> ret = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> num : nums)&#123;</span><br><span class="line">        ret = ret ^ num;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> ret;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h1 id="Leetcode190-颠倒二进制位"><a href="#Leetcode190-颠倒二进制位" class="headerlink" title="Leetcode190.颠倒二进制位"></a>Leetcode190.颠倒二进制位</h1><p><a href="https://leetcode-cn.com/problems/reverse-bits/" target="_blank" rel="noopener">Leetcode190.颠倒二进制位</a></p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">reverseBits</span><span class="params">(<span class="keyword">int</span> n)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> ret = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">32</span>; i++)&#123;</span><br><span class="line">        ret = ret &lt;&lt; <span class="number">1</span>;</span><br><span class="line">        ret |= (n &amp; <span class="number">1</span>);</span><br><span class="line">        n = n &gt;&gt; <span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> ret;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h1 id="Leetcode231-2的幂次方"><a href="#Leetcode231-2的幂次方" class="headerlink" title="Leetcode231.2的幂次方"></a>Leetcode231.2的幂次方</h1><p><a href="https://leetcode-cn.com/problems/power-of-two/" target="_blank" rel="noopener">Leetcode231.2的幂次方</a></p>
+<blockquote>
+<p>2的幂次表示二进制只有一个1</p>
+</blockquote>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">isPowerOfTwo</span><span class="params">(<span class="keyword">int</span> n)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> n &gt; <span class="number">0</span> &amp;&amp; (n &amp; (n - <span class="number">1</span>)) == <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">isPowerOfTwo</span><span class="params">(<span class="keyword">int</span> n)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> Integer.bitCount(n) == <span class="number">1</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h1 id="Leetcode693-交替位二进制数"><a href="#Leetcode693-交替位二进制数" class="headerlink" title="Leetcode693.交替位二进制数"></a>Leetcode693.交替位二进制数</h1><p><a href="https://leetcode-cn.com/problems/binary-number-with-alternating-bits/" target="_blank" rel="noopener">Leetcode693.交替位二进制数</a></p>
+<blockquote>
+<p>类似1010的二进制数，右移得到101，与原数每一位都不相同，异或得全1</p>
+</blockquote>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">hasAlternatingBits</span><span class="params">(<span class="keyword">int</span> n)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> a = (n ^ (n &gt;&gt; <span class="number">1</span>));</span><br><span class="line">    <span class="keyword">return</span> (a &amp; (a + <span class="number">1</span>)) == <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
+      <categories>
+        <category>数据结构与算法</category>
+        <category>位运算</category>
+      </categories>
+      <tags>
+        <tag>Leetcode</tag>
+        <tag>位运算</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>操作系统死锁知识</title>
+    <url>/2020/01/09/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E6%AD%BB%E9%94%81%E7%9F%A5%E8%AF%86/</url>
+    <content><![CDATA[]]></content>
+      <categories>
+        <category>操作系统</category>
+        <category>死锁</category>
+      </categories>
+  </entry>
+  <entry>
+    <title>扑克牌顺子</title>
+    <url>/2020/01/02/%E6%89%91%E5%85%8B%E7%89%8C%E9%A1%BA%E5%AD%90/</url>
+    <content><![CDATA[<h1 id="剑指Offer-扑克牌顺子"><a href="#剑指Offer-扑克牌顺子" class="headerlink" title="剑指Offer.扑克牌顺子"></a>剑指Offer.扑克牌顺子</h1><p><strong>题目描述：</strong></p>
+<p>LL今天心情特别好,因为他去买了一副扑克牌,发现里面居然有2个大王,2个小王(一副牌原本是54张^_^)…他随机从中抽出了5张牌,想测测自己的手气,看看能不能抽到顺子,如果抽到的话,他决定去买体育彩票,嘿嘿！！“红心A,黑桃3,小王,大王,方片5”,“Oh My God!”不是顺子…..LL不高兴了,他想了想,决定大\小 王可以看成任何数字,并且A看作1,J为11,Q为12,K为13。上面的5张牌就可以变成“1,2,3,4,5”(大小王分别看作2和4),“So Lucky!”。LL决定去买体育彩票啦。 现在,要求你使用这幅牌模拟上面的过程,然后告诉我们LL的运气如何， 如果牌能组成顺子就输出true，否则就输出false。为了方便起见,你可以认为大小王是0。</p>
+<p><strong>示例：</strong></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">输入：&#123;1,3,0,5,4&#125;</span><br><span class="line">输出：true</span><br></pre></td></tr></table></figure>
+
+<hr>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">输入：&#123;1,3,0,5,6&#125;</span><br><span class="line">输出：false</span><br></pre></td></tr></table></figure>
+
+<a id="more"></a>
+
+<p><strong>思路：</strong></p>
+<p>对元素进行排序，计算除0以外其他元素的最大差值，例如对与{1,2,3,4,5}，差值不超过长度-1，即可成为顺子，否则不行，然后确保没有除0以外的重复元素即可。</p>
+<p><strong>代码：</strong></p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">isContinuous</span><span class="params">(<span class="keyword">int</span> [] nums)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(nums.length &lt; <span class="number">5</span>)</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line"></span><br><span class="line">    Arrays.sort(nums);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">int</span> max = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">int</span> last = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> num : nums)&#123;</span><br><span class="line">        <span class="keyword">if</span>(num == <span class="number">0</span>) <span class="keyword">continue</span>;</span><br><span class="line">        <span class="keyword">if</span>(num == last) <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">        <span class="keyword">int</span> sub = nums[nums.length - <span class="number">1</span>] - num;</span><br><span class="line">        <span class="keyword">if</span>(sub &gt; max) max = sub;</span><br><span class="line">        last = num;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span>(max &lt;= nums.length - <span class="number">1</span>)</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>思路没有问题，但是代码看起来不舒服，这个题因为数据量小，所以可以不考虑复杂度，看看能不能把代码改改可读性高一点。</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">isContinuous</span><span class="params">(<span class="keyword">int</span> [] nums)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(nums.length &lt; <span class="number">5</span>)</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line"></span><br><span class="line">    Arrays.sort(nums);</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">int</span> notZeroIndex = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> num : nums)&#123;</span><br><span class="line">        <span class="keyword">if</span>(num == <span class="number">0</span>)</span><br><span class="line">            notZeroIndex++;</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">break</span>;</span><br><span class="line">    &#125;</span><br><span class="line">	</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = notZeroIndex; i &lt; nums.length - <span class="number">1</span>; i++)&#123;</span><br><span class="line">        <span class="keyword">if</span>(nums[i] == nums[i + <span class="number">1</span>])</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">return</span> nums[nums.length - <span class="number">1</span>] - nums[notZeroIndex] &lt;= nums.length - <span class="number">1</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>代码量区别不大，但感觉可读性高了不少。</p>
+]]></content>
+      <categories>
+        <category>数据结构与算法</category>
+        <category>字符串</category>
+      </categories>
+  </entry>
+  <entry>
     <title>第一个只出现一次的字符位置</title>
     <url>/2019/12/31/%E7%AC%AC%E4%B8%80%E4%B8%AA%E5%8F%AA%E5%87%BA%E7%8E%B0%E4%B8%80%E6%AC%A1%E7%9A%84%E5%AD%97%E7%AC%A6%E4%BD%8D%E7%BD%AE/</url>
     <content><![CDATA[<h1 id="剑指Offer-第一个只出现一次的字符位置"><a href="#剑指Offer-第一个只出现一次的字符位置" class="headerlink" title="剑指Offer.第一个只出现一次的字符位置"></a>剑指Offer.第一个只出现一次的字符位置</h1><p><strong>题目描述：</strong></p>
@@ -50,8 +192,8 @@
       </categories>
       <tags>
         <tag>数据结构</tag>
-        <tag>Leetcode</tag>
         <tag>树</tag>
+        <tag>Leetcode</tag>
       </tags>
   </entry>
   <entry>
@@ -368,8 +510,8 @@
         <category>动态规划</category>
       </categories>
       <tags>
-        <tag>Leetcode</tag>
         <tag>树</tag>
+        <tag>Leetcode</tag>
         <tag>动态规划</tag>
       </tags>
   </entry>
@@ -793,7 +935,44 @@
 <li>响应报文的状态码是可缓存的，包括：200, 203, 204, 206, 300, 301, 404, 405, 410, 414, and 501。</li>
 <li>响应报文的 Cache-Control 首部字段没有指定不进行缓存。</li>
 </ul>
-<h1 id="Cookie和Session"><a href="#Cookie和Session" class="headerlink" title="Cookie和Session"></a>Cookie和Session</h1><h1 id="Https"><a href="#Https" class="headerlink" title="Https"></a>Https</h1>]]></content>
+<h1 id="Cookie和Session"><a href="#Cookie和Session" class="headerlink" title="Cookie和Session"></a>Cookie和Session</h1><h2 id="Cookie"><a href="#Cookie" class="headerlink" title="Cookie"></a>Cookie</h2><p>HTTP 协议是无状态的，主要是为了让 HTTP 协议尽可能简单，使得它能够处理大量事务。HTTP/1.1 引入 Cookie 来保存状态信息。</p>
+<p>Cookie 是服务器发送到用户浏览器并保存在本地的一小块数据，它会在浏览器之后向同一服务器再次发起请求时被携带上，用于告知服务端两个请求是否来自同一浏览器。由于之后每次请求都会需要携带 Cookie 数据，因此会带来额外的性能开销（尤其是在移动环境下）。</p>
+<p>Cookie 曾一度用于客户端数据的存储，因为当时并没有其它合适的存储办法而作为唯一的存储手段，但现在随着现代浏览器开始支持各种各样的存储方式，Cookie 渐渐被淘汰。新的浏览器 API 已经允许开发者直接将数据存储到本地，如使用 Web storage API（本地存储和会话存储）或 IndexedDB。</p>
+<h2 id="Session"><a href="#Session" class="headerlink" title="Session"></a>Session</h2><p>除了可以将用户信息通过 Cookie 存储在用户浏览器中，也可以利用 Session 存储在服务器端，存储在服务器端的信息更加安全。</p>
+<p>Session 可以存储在服务器上的文件、数据库或者内存中。也可以将 Session 存储在 Redis 这种内存型数据库中，效率会更高。</p>
+<p>使用 Session 维护用户登录状态的过程如下：</p>
+<ul>
+<li>用户进行登录时，用户提交包含用户名和密码的表单，放入 HTTP 请求报文中；</li>
+<li>服务器验证该用户名和密码，如果正确则把用户信息存储到 Redis 中，它在 Redis 中的 Key 称为 Session ID；</li>
+<li>服务器返回的响应报文的 Set-Cookie 首部字段包含了这个 Session ID，客户端收到响应报文之后将该 Cookie 值存入浏览器中；</li>
+<li>客户端之后对同一个服务器进行请求时会包含该 Cookie 值，服务器收到之后提取出 Session ID，从 Redis 中取出用户信息，继续之前的业务操作。</li>
+</ul>
+<p>应该注意 Session ID 的安全性问题，不能让它被恶意攻击者轻易获取，那么就不能产生一个容易被猜到的 Session ID 值。此外，还需要经常重新生成 Session ID。在对安全性要求极高的场景下，例如转账等操作，除了使用 Session 管理用户状态之外，还需要对用户进行重新验证，比如重新输入密码，或者使用短信验证码等方式。</p>
+<h2 id="Cookie-与-Session-选择"><a href="#Cookie-与-Session-选择" class="headerlink" title="Cookie 与 Session 选择"></a>Cookie 与 Session 选择</h2><ul>
+<li>Cookie 只能存储 ASCII 码字符串，而 Session 则可以存储任何类型的数据，因此在考虑数据复杂性时首选 Session；</li>
+<li>Cookie 存储在浏览器中，容易被恶意查看。如果非要将一些隐私数据存在 Cookie 中，可以将 Cookie 值进行加密，然后在服务器进行解密；</li>
+<li>对于大型网站，如果用户所有的信息都存储在 Session 中，那么开销是非常大的，因此不建议将所有的用户信息都存储到 Session 中。</li>
+</ul>
+<h1 id="HTTPS"><a href="#HTTPS" class="headerlink" title="HTTPS"></a>HTTPS</h1><p>HTTP 有以下安全性问题：</p>
+<ul>
+<li>使用明文进行通信，内容可能会被窃听；</li>
+<li>不验证通信方的身份，通信方的身份有可能遭遇伪装；</li>
+<li>无法证明报文的完整性，报文有可能遭篡改。</li>
+</ul>
+<p>HTTPS 并不是新协议，而是让 HTTP 先和 SSL（Secure Sockets Layer）通信，再由 SSL 和 TCP 通信，也就是说 HTTPS 使用了隧道进行通信。</p>
+<p>通过使用 SSL，HTTPS 具有了加密（防窃听）、认证（防伪装）和完整性保护（防篡改）。</p>
+<h2 id="认证"><a href="#认证" class="headerlink" title="认证"></a>认证</h2><p>通过使用 <strong>证书</strong> 来对通信方进行认证。</p>
+<p>数字证书认证机构（CA，Certificate Authority）是客户端与服务器双方都可信赖的第三方机构。</p>
+<p>服务器的运营人员向 CA 提出公开密钥的申请，CA 在判明提出申请者的身份之后，会对已申请的公开密钥做数字签名，然后分配这个已签名的公开密钥，并将该公开密钥放入公开密钥证书后绑定在一起。</p>
+<p>进行 HTTPS 通信时，服务器会把证书发送给客户端。客户端取得其中的公开密钥之后，先使用数字签名进行验证，如果验证通过，就可以开始通信了。</p>
+<h2 id="完整性保护"><a href="#完整性保护" class="headerlink" title="完整性保护"></a>完整性保护</h2><p>SSL 提供报文摘要功能来进行完整性保护。</p>
+<p>HTTP 也提供了 MD5 报文摘要功能，但不是安全的。例如报文内容被篡改之后，同时重新计算 MD5 的值，通信接收方是无法意识到发生了篡改。</p>
+<p>HTTPS 的报文摘要功能之所以安全，是因为它结合了加密和认证这两个操作。试想一下，加密之后的报文，遭到篡改之后，也很难重新计算报文摘要，因为无法轻易获取明文。</p>
+<h2 id="HTTPS-的缺点"><a href="#HTTPS-的缺点" class="headerlink" title="HTTPS 的缺点"></a>HTTPS 的缺点</h2><ul>
+<li>因为需要进行加密解密等过程，因此速度会更慢；</li>
+<li>需要支付证书授权的高额费用。</li>
+</ul>
+]]></content>
       <categories>
         <category>计算机网络</category>
         <category>http</category>
@@ -842,8 +1021,8 @@
       </categories>
       <tags>
         <tag>数据结构</tag>
-        <tag>Leetcode</tag>
         <tag>树</tag>
+        <tag>Leetcode</tag>
       </tags>
   </entry>
   <entry>
@@ -944,8 +1123,8 @@
       </categories>
       <tags>
         <tag>数据结构</tag>
-        <tag>Leetcode</tag>
         <tag>树</tag>
+        <tag>Leetcode</tag>
       </tags>
   </entry>
   <entry>
@@ -1031,8 +1210,8 @@
       </categories>
       <tags>
         <tag>数据结构</tag>
-        <tag>栈</tag>
         <tag>Leetcode</tag>
+        <tag>栈</tag>
       </tags>
   </entry>
   <entry>
@@ -1065,8 +1244,8 @@
       </categories>
       <tags>
         <tag>数据结构</tag>
-        <tag>栈</tag>
         <tag>Leetcode</tag>
+        <tag>栈</tag>
       </tags>
   </entry>
   <entry>
@@ -1098,8 +1277,8 @@ minStack.getMin();   --&gt; 返回 -2.</code></pre><p><strong>思路：</strong>
       </categories>
       <tags>
         <tag>数据结构</tag>
-        <tag>栈</tag>
         <tag>Leetcode</tag>
+        <tag>栈</tag>
       </tags>
   </entry>
   <entry>
@@ -1144,8 +1323,8 @@ queue.empty(); // 返回 false</code></pre><p><strong>思路：</strong></p>
       </categories>
       <tags>
         <tag>数据结构</tag>
-        <tag>栈</tag>
         <tag>Leetcode</tag>
+        <tag>栈</tag>
         <tag>队列</tag>
       </tags>
   </entry>
@@ -1824,8 +2003,8 @@ List进行逆序操作。</code></pre><figure class="highlight java"><table><tr>
       </categories>
       <tags>
         <tag>数据结构</tag>
-        <tag>Leetcode</tag>
         <tag>树</tag>
+        <tag>Leetcode</tag>
       </tags>
   </entry>
   <entry>

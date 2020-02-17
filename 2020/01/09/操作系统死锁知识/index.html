@@ -88,12 +88,14 @@
 
 
 
+<meta name="description" content="必要条件 互斥：每个资源要么已经分配给了一个进程，要么就是可用的。 占有和等待：已经得到了某个资源的进程可以再请求新的资源。 不可抢占：已经分配给一个进程的资源不能强制性地被抢占，它只能被占有它的进程显式地释放。 环路等待：有两个或者两个以上的进程组成一条环路，该环路中的每个进程都在等待下一个进程所占有的资源。  处理方法 鸵鸟策略 死锁检测与死锁恢复 死锁预防 死锁避免  鸵鸟策略把头埋在沙子里">
 <meta property="og:type" content="article">
 <meta property="og:title" content="操作系统死锁知识">
 <meta property="og:url" content="http:&#x2F;&#x2F;www.zealyoung.site&#x2F;2020&#x2F;01&#x2F;09&#x2F;%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E6%AD%BB%E9%94%81%E7%9F%A5%E8%AF%86&#x2F;index.html">
 <meta property="og:site_name" content="Zealyoung · CodeMaker">
+<meta property="og:description" content="必要条件 互斥：每个资源要么已经分配给了一个进程，要么就是可用的。 占有和等待：已经得到了某个资源的进程可以再请求新的资源。 不可抢占：已经分配给一个进程的资源不能强制性地被抢占，它只能被占有它的进程显式地释放。 环路等待：有两个或者两个以上的进程组成一条环路，该环路中的每个进程都在等待下一个进程所占有的资源。  处理方法 鸵鸟策略 死锁检测与死锁恢复 死锁预防 死锁避免  鸵鸟策略把头埋在沙子里">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2020-01-09T04:08:13.313Z">
+<meta property="og:updated_time" content="2020-02-16T11:22:13.407Z">
 <meta name="twitter:card" content="summary">
 
 
@@ -419,7 +421,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  0 字
+                  475 字
                 </span>
               
 
@@ -456,7 +458,29 @@
       
 
       
-        
+        <h1 id="必要条件"><a href="#必要条件" class="headerlink" title="必要条件"></a>必要条件</h1><ul>
+<li>互斥：每个资源要么已经分配给了一个进程，要么就是可用的。</li>
+<li>占有和等待：已经得到了某个资源的进程可以再请求新的资源。</li>
+<li>不可抢占：已经分配给一个进程的资源不能强制性地被抢占，它只能被占有它的进程显式地释放。</li>
+<li>环路等待：有两个或者两个以上的进程组成一条环路，该环路中的每个进程都在等待下一个进程所占有的资源。</li>
+</ul>
+<h1 id="处理方法"><a href="#处理方法" class="headerlink" title="处理方法"></a>处理方法</h1><ul>
+<li>鸵鸟策略</li>
+<li>死锁检测与死锁恢复</li>
+<li>死锁预防</li>
+<li>死锁避免</li>
+</ul>
+<h2 id="鸵鸟策略"><a href="#鸵鸟策略" class="headerlink" title="鸵鸟策略"></a>鸵鸟策略</h2><p>把头埋在沙子里，假装根本没发生问题。</p>
+<p>因为解决死锁问题的代价很高，因此鸵鸟策略这种不采取任务措施的方案会获得更高的性能。</p>
+<p>当发生死锁时不会对用户造成多大影响，或发生死锁的概率很低，可以采用鸵鸟策略。</p>
+<p>大多数操作系统，包括 Unix，Linux 和 Windows，处理死锁问题的办法仅仅是忽略它。</p>
+<h2 id="死锁检测与死锁恢复"><a href="#死锁检测与死锁恢复" class="headerlink" title="死锁检测与死锁恢复"></a>死锁检测与死锁恢复</h2><p>不试图阻止死锁，而是当检测到死锁发生时，采取措施进行恢复。</p>
+<h2 id="死锁预防"><a href="#死锁预防" class="headerlink" title="死锁预防"></a>死锁预防</h2><p>在程序运行之前预防发生死锁。</p>
+<h3 id="1-破坏互斥条件"><a href="#1-破坏互斥条件" class="headerlink" title="1. 破坏互斥条件"></a>1. 破坏互斥条件</h3><p>例如假脱机打印机技术允许若干个进程同时输出，唯一真正请求物理打印机的进程是打印机守护进程。</p>
+<h3 id="2-破坏占有和等待条件"><a href="#2-破坏占有和等待条件" class="headerlink" title="2. 破坏占有和等待条件"></a>2. 破坏占有和等待条件</h3><p>一种实现方式是规定所有进程在开始执行前请求所需要的全部资源。</p>
+<h3 id="3-破坏不可抢占条件"><a href="#3-破坏不可抢占条件" class="headerlink" title="3. 破坏不可抢占条件"></a>3. 破坏不可抢占条件</h3><h3 id="4-破坏环路等待"><a href="#4-破坏环路等待" class="headerlink" title="4. 破坏环路等待"></a>4. 破坏环路等待</h3><p>给资源统一编号，进程只能按编号顺序来请求资源。</p>
+<h2 id="死锁避免"><a href="#死锁避免" class="headerlink" title="死锁避免"></a>死锁避免</h2><p>银行家算法</p>
+
       
     </div>
     
@@ -547,8 +571,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -567,7 +600,7 @@
               
                 <a href="/archives%7C%7C%20archive">
               
-                  <span class="site-state-item-count">49</span>
+                  <span class="site-state-item-count">51</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -640,6 +673,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#必要条件"><span class="nav-number">1.</span> <span class="nav-text">必要条件</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#处理方法"><span class="nav-number">2.</span> <span class="nav-text">处理方法</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#鸵鸟策略"><span class="nav-number">2.1.</span> <span class="nav-text">鸵鸟策略</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#死锁检测与死锁恢复"><span class="nav-number">2.2.</span> <span class="nav-text">死锁检测与死锁恢复</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#死锁预防"><span class="nav-number">2.3.</span> <span class="nav-text">死锁预防</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-破坏互斥条件"><span class="nav-number">2.3.1.</span> <span class="nav-text">1. 破坏互斥条件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-破坏占有和等待条件"><span class="nav-number">2.3.2.</span> <span class="nav-text">2. 破坏占有和等待条件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-破坏不可抢占条件"><span class="nav-number">2.3.3.</span> <span class="nav-text">3. 破坏不可抢占条件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-破坏环路等待"><span class="nav-number">2.3.4.</span> <span class="nav-text">4. 破坏环路等待</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#死锁避免"><span class="nav-number">2.4.</span> <span class="nav-text">死锁避免</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       

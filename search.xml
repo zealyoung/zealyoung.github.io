@@ -1,9 +1,72 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>生产机器数量</title>
+    <url>/2020/02/16/%E7%94%9F%E4%BA%A7%E6%9C%BA%E5%99%A8%E6%95%B0%E9%87%8F/</url>
+    <content><![CDATA[<p><strong>题目描述：</strong></p>
+<p>一台新机器，第4年可以生产一台机器，以后每一年生产1台。 生产出来的新机器第4年又可以生产一台机器，后续每年可以生产1台。</p>
+<p>现在有一台新机器，求第n年总共有多少台机器。 计算结果对109+7取模。</p>
+<p><strong>示例：</strong></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">输入：10</span><br><span class="line">输出：19</span><br></pre></td></tr></table></figure>
+
+<hr>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">输入：15</span><br><span class="line">输出：129</span><br></pre></td></tr></table></figure>
+
+<p><strong>思路：</strong></p>
+<p>每台新机器都会在第四年生产，此后每年生产，那么第n年新增多少呢？显然是n-3年时有多少机器，这些机器在第n年都会有新增机器。</p>
+<p>则machine[n] = machine[n-1] + machine[n - 3]。也就是说第n年只需求出n-1和n-3年。</p>
+<p><strong>代码：</strong></p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">machineNum</span><span class="params">(<span class="keyword">int</span> n)</span></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(n &lt; <span class="number">4</span>)</span><br><span class="line">        <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">    Deque&lt;Integer&gt; queue = <span class="keyword">new</span> LinkedList&lt;&gt;(Arrays.asList(<span class="number">1</span>,<span class="number">1</span>,<span class="number">1</span>));</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">4</span>; i &lt; n; i++)&#123;</span><br><span class="line">        <span class="keyword">int</span> num = (queue.getFirst() + queue.getLast()) % <span class="number">1000000007</span>;</span><br><span class="line">        queue.add(num);</span><br><span class="line">        queue.removeFirst();</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">return</span> queue.getLast();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+]]></content>
+      <categories>
+        <category>数据结构与算法</category>
+        <category>动态规划</category>
+      </categories>
+  </entry>
+  <entry>
+    <title>原型模式</title>
+    <url>/2020/02/16/%E5%8E%9F%E5%9E%8B%E6%A8%A1%E5%BC%8F/</url>
+    <content><![CDATA[<h1 id="原型模式"><a href="#原型模式" class="headerlink" title="原型模式"></a>原型模式</h1><h2 id="Intent"><a href="#Intent" class="headerlink" title="Intent"></a>Intent</h2><p>使用原型实例指定要创建对象的类型，通过复制这个原型来创建新对象。</p>
+<h2 id="Class-Diagram"><a href="#Class-Diagram" class="headerlink" title="Class Diagram"></a>Class Diagram</h2><p><img src="https://user-images.githubusercontent.com/45253106/74599611-db831d00-50bf-11ea-8155-5f833b73b64b.png" alt="image"></p>
+<h2 id="Implementation"><a href="#Implementation" class="headerlink" title="Implementation"></a>Implementation</h2><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="class"><span class="keyword">class</span> <span class="title">Prototype</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">abstract</span> Prototype <span class="title">myClone</span><span class="params">()</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ConcretePrototype</span> <span class="keyword">extends</span> <span class="title">Prototype</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> String filed;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">ConcretePrototype</span><span class="params">(String filed)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.filed = filed;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function">Prototype <span class="title">myClone</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> ConcretePrototype(filed);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">toString</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> filed;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Client</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        Prototype prototype = <span class="keyword">new</span> ConcretePrototype(<span class="string">"abc"</span>);</span><br><span class="line">        Prototype clone = prototype.myClone();</span><br><span class="line">        System.out.println(clone.toString());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
+      <categories>
+        <category>Java</category>
+        <category>设计模式</category>
+      </categories>
+  </entry>
+  <entry>
     <title>备忘录模式</title>
     <url>/2020/02/14/%E5%A4%87%E5%BF%98%E5%BD%95%E6%A8%A1%E5%BC%8F/</url>
-    <content><![CDATA[]]></content>
+    <content><![CDATA[<h1 id="备忘录模式"><a href="#备忘录模式" class="headerlink" title="备忘录模式"></a>备忘录模式</h1><h2 id="Intent"><a href="#Intent" class="headerlink" title="Intent"></a>Intent</h2><p>在不违反封装的情况下获得对象的内部状态，从而在需要时可以将对象恢复到最初状态。</p>
+<h2 id="Class-Diagram"><a href="#Class-Diagram" class="headerlink" title="Class Diagram"></a>Class Diagram</h2><ul>
+<li>Originator：原始对象</li>
+<li>Caretaker：负责保存好备忘录</li>
+<li>Memento：备忘录，存储原始对象的的状态。备忘录实际上有两个接口，一个是提供给 Caretaker 的窄接口：它只能将备忘录传递给其它对象；一个是提供给 Originator 的宽接口，允许它访问到先前状态所需的所有数据。理想情况是只允许 Originator 访问本备忘录的内部状态。</li>
+</ul>
+<p>![image-20200214212853630](/Users/zealyoung/Library/Application Support/typora-user-images/image-20200214212853630.png)</p>
+<h2 id="Implementation"><a href="#Implementation" class="headerlink" title="Implementation"></a>Implementation</h2><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">GameRole</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> attack = <span class="number">100</span>;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> vitality = <span class="number">100</span>;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> defense = <span class="number">100</span>;</span><br><span class="line">    </span><br><span class="line">	<span class="comment">//战斗，数值下降</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">fight</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.attack -= <span class="number">50</span>;</span><br><span class="line">        <span class="keyword">this</span>.vitality -= <span class="number">50</span>;</span><br><span class="line">        <span class="keyword">this</span>.defense -= <span class="number">50</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">	<span class="comment">//保存当前状态</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> RoleStateMemento <span class="title">saveState</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">return</span> (<span class="keyword">new</span> RoleStateMemento(attack, vitality, defense));</span><br><span class="line">    &#125;</span><br><span class="line">	<span class="comment">//状态回退，恢复到保存时状态</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">recoveryState</span><span class="params">(RoleStateMemento memento)</span></span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.attack = memento.getAttack();</span><br><span class="line">        <span class="keyword">this</span>.vitality = memento.getVitality();</span><br><span class="line">        <span class="keyword">this</span>.defense = memento.getDefense();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">  	<span class="comment">//省略Get、Set</span></span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">toString</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">"GameRole&#123;"</span> +</span><br><span class="line">                <span class="string">"attack="</span> + attack +</span><br><span class="line">                <span class="string">", vitality="</span> + vitality +</span><br><span class="line">                <span class="string">", defense="</span> + defense +</span><br><span class="line">                <span class="string">'&#125;'</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">stateDisplay</span><span class="params">()</span></span>&#123;</span><br><span class="line">        System.out.println(<span class="keyword">this</span>.toString());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">角色状态备忘录</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">RoleStateMemento</span></span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> attack;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> vitality;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> defense;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">RoleStateMemento</span><span class="params">(<span class="keyword">int</span> attack, <span class="keyword">int</span> vitality, <span class="keyword">int</span> defense)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.attack = attack;</span><br><span class="line">        <span class="keyword">this</span>.vitality = vitality;</span><br><span class="line">        <span class="keyword">this</span>.defense = defense;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//省略Get、Set方法</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">角色状态管理者</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">RoleStateCaretaker</span></span>&#123;</span><br><span class="line">    <span class="keyword">private</span> RoleStateMemento memento;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> RoleStateMemento <span class="title">getMemento</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> memento;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setMemento</span><span class="params">(RoleStateMemento memento)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.memento = memento;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">客户端代码</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Main</span></span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        GameRole asura = <span class="keyword">new</span> GameRole();</span><br><span class="line"></span><br><span class="line">        RoleStateCaretaker caretaker = <span class="keyword">new</span> RoleStateCaretaker();</span><br><span class="line">        caretaker.setMemento(asura.saveState());</span><br><span class="line">		</span><br><span class="line">        asura.stateDisplay();</span><br><span class="line">        </span><br><span class="line">        asura.fight();</span><br><span class="line">        asura.stateDisplay();</span><br><span class="line"></span><br><span class="line">        asura.recoveryState(caretaker.getMemento());</span><br><span class="line">        asura.stateDisplay();</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<blockquote>
+<p>GameRole{attack=100, vitality=100, defense=100}<br>GameRole{attack=50, vitality=50, defense=50}<br>GameRole{attack=100, vitality=100, defense=100}</p>
+</blockquote>
+]]></content>
+      <categories>
+        <category>Java</category>
+        <category>设计模式</category>
+      </categories>
   </entry>
   <entry>
     <title>顺时针打印矩阵</title>
@@ -108,7 +171,29 @@
   <entry>
     <title>操作系统死锁知识</title>
     <url>/2020/01/09/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E6%AD%BB%E9%94%81%E7%9F%A5%E8%AF%86/</url>
-    <content><![CDATA[]]></content>
+    <content><![CDATA[<h1 id="必要条件"><a href="#必要条件" class="headerlink" title="必要条件"></a>必要条件</h1><ul>
+<li>互斥：每个资源要么已经分配给了一个进程，要么就是可用的。</li>
+<li>占有和等待：已经得到了某个资源的进程可以再请求新的资源。</li>
+<li>不可抢占：已经分配给一个进程的资源不能强制性地被抢占，它只能被占有它的进程显式地释放。</li>
+<li>环路等待：有两个或者两个以上的进程组成一条环路，该环路中的每个进程都在等待下一个进程所占有的资源。</li>
+</ul>
+<h1 id="处理方法"><a href="#处理方法" class="headerlink" title="处理方法"></a>处理方法</h1><ul>
+<li>鸵鸟策略</li>
+<li>死锁检测与死锁恢复</li>
+<li>死锁预防</li>
+<li>死锁避免</li>
+</ul>
+<h2 id="鸵鸟策略"><a href="#鸵鸟策略" class="headerlink" title="鸵鸟策略"></a>鸵鸟策略</h2><p>把头埋在沙子里，假装根本没发生问题。</p>
+<p>因为解决死锁问题的代价很高，因此鸵鸟策略这种不采取任务措施的方案会获得更高的性能。</p>
+<p>当发生死锁时不会对用户造成多大影响，或发生死锁的概率很低，可以采用鸵鸟策略。</p>
+<p>大多数操作系统，包括 Unix，Linux 和 Windows，处理死锁问题的办法仅仅是忽略它。</p>
+<h2 id="死锁检测与死锁恢复"><a href="#死锁检测与死锁恢复" class="headerlink" title="死锁检测与死锁恢复"></a>死锁检测与死锁恢复</h2><p>不试图阻止死锁，而是当检测到死锁发生时，采取措施进行恢复。</p>
+<h2 id="死锁预防"><a href="#死锁预防" class="headerlink" title="死锁预防"></a>死锁预防</h2><p>在程序运行之前预防发生死锁。</p>
+<h3 id="1-破坏互斥条件"><a href="#1-破坏互斥条件" class="headerlink" title="1. 破坏互斥条件"></a>1. 破坏互斥条件</h3><p>例如假脱机打印机技术允许若干个进程同时输出，唯一真正请求物理打印机的进程是打印机守护进程。</p>
+<h3 id="2-破坏占有和等待条件"><a href="#2-破坏占有和等待条件" class="headerlink" title="2. 破坏占有和等待条件"></a>2. 破坏占有和等待条件</h3><p>一种实现方式是规定所有进程在开始执行前请求所需要的全部资源。</p>
+<h3 id="3-破坏不可抢占条件"><a href="#3-破坏不可抢占条件" class="headerlink" title="3. 破坏不可抢占条件"></a>3. 破坏不可抢占条件</h3><h3 id="4-破坏环路等待"><a href="#4-破坏环路等待" class="headerlink" title="4. 破坏环路等待"></a>4. 破坏环路等待</h3><p>给资源统一编号，进程只能按编号顺序来请求资源。</p>
+<h2 id="死锁避免"><a href="#死锁避免" class="headerlink" title="死锁避免"></a>死锁避免</h2><p>银行家算法</p>
+]]></content>
       <categories>
         <category>操作系统</category>
         <category>死锁</category>
@@ -192,8 +277,8 @@
       </categories>
       <tags>
         <tag>数据结构</tag>
-        <tag>树</tag>
         <tag>Leetcode</tag>
+        <tag>树</tag>
       </tags>
   </entry>
   <entry>
@@ -506,12 +591,12 @@
 ]]></content>
       <categories>
         <category>数据结构与算法</category>
-        <category>树</category>
         <category>动态规划</category>
+        <category>树</category>
       </categories>
       <tags>
-        <tag>树</tag>
         <tag>Leetcode</tag>
+        <tag>树</tag>
         <tag>动态规划</tag>
       </tags>
   </entry>
@@ -1021,8 +1106,8 @@
       </categories>
       <tags>
         <tag>数据结构</tag>
-        <tag>树</tag>
         <tag>Leetcode</tag>
+        <tag>树</tag>
       </tags>
   </entry>
   <entry>
@@ -1123,8 +1208,8 @@
       </categories>
       <tags>
         <tag>数据结构</tag>
-        <tag>树</tag>
         <tag>Leetcode</tag>
+        <tag>树</tag>
       </tags>
   </entry>
   <entry>
@@ -1210,8 +1295,8 @@
       </categories>
       <tags>
         <tag>数据结构</tag>
-        <tag>Leetcode</tag>
         <tag>栈</tag>
+        <tag>Leetcode</tag>
       </tags>
   </entry>
   <entry>
@@ -1244,8 +1329,8 @@
       </categories>
       <tags>
         <tag>数据结构</tag>
-        <tag>Leetcode</tag>
         <tag>栈</tag>
+        <tag>Leetcode</tag>
       </tags>
   </entry>
   <entry>
@@ -1277,8 +1362,8 @@ minStack.getMin();   --&gt; 返回 -2.</code></pre><p><strong>思路：</strong>
       </categories>
       <tags>
         <tag>数据结构</tag>
-        <tag>Leetcode</tag>
         <tag>栈</tag>
+        <tag>Leetcode</tag>
       </tags>
   </entry>
   <entry>
@@ -1323,8 +1408,8 @@ queue.empty(); // 返回 false</code></pre><p><strong>思路：</strong></p>
       </categories>
       <tags>
         <tag>数据结构</tag>
-        <tag>Leetcode</tag>
         <tag>栈</tag>
+        <tag>Leetcode</tag>
         <tag>队列</tag>
       </tags>
   </entry>
@@ -2003,8 +2088,8 @@ List进行逆序操作。</code></pre><figure class="highlight java"><table><tr>
       </categories>
       <tags>
         <tag>数据结构</tag>
-        <tag>树</tag>
         <tag>Leetcode</tag>
+        <tag>树</tag>
       </tags>
   </entry>
   <entry>

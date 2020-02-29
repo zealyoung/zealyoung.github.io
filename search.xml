@@ -1,6 +1,397 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>动态规划-摆动序列</title>
+    <url>/2020/02/28/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92-%E6%91%86%E5%8A%A8%E5%BA%8F%E5%88%97/</url>
+    <content><![CDATA[<h1 id="Leetcode376-摆动序列"><a href="#Leetcode376-摆动序列" class="headerlink" title="Leetcode376.摆动序列"></a>Leetcode376.摆动序列</h1><p><a href="https://leetcode-cn.com/problems/wiggle-subsequence/" target="_blank" rel="noopener">Leetcode376.摆动序列</a></p>
+<p><strong>题目描述：</strong></p>
+<p>如果连续数字之间的差严格地在正数和负数之间交替，则数字序列称为摆动序列。第一个差（如果存在的话）可能是正数或负数。少于两个元素的序列也是摆动序列。</p>
+<p>例如， [1,7,4,9,2,5] 是一个摆动序列，因为差值 (6,-3,5,-7,3) 是正负交替出现的。相反, [1,4,7,2,5] 和 [1,7,4,5,5] 不是摆动序列，第一个序列是因为它的前两个差值都是正数，第二个序列是因为它的最后一个差值为零。</p>
+<p>给定一个整数序列，返回作为摆动序列的最长子序列的长度。 通过从原始序列中删除一些（也可以不删除）元素来获得子序列，剩下的元素保持其原始顺序。</p>
+<p><strong>示例：</strong></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">输入: [1,7,4,9,2,5]</span><br><span class="line">输出: 6 </span><br><span class="line">解释: 整个序列均为摆动序列。</span><br></pre></td></tr></table></figure>
+
+<hr>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">输入: [1,17,5,10,13,15,10,5,16,8]</span><br><span class="line">输出: 7</span><br><span class="line">解释: 这个序列包含几个长度为 7 摆动序列，其中一个可为[1,17,10,13,10,16,8]。</span><br></pre></td></tr></table></figure>
+
+<p><strong>思路：</strong></p>
+<p>用up和down两个数组来存储，例如up[i]表示到第i个元素的序列，且从i-1到i是上升，down同理，则有up[i] = down[i - 1] + 1或down[i] = up[i - 1] + 1。</p>
+<p><strong>代码：</strong></p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">wiggleMaxLength</span><span class="params">(<span class="keyword">int</span>[] nums)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(nums == <span class="keyword">null</span> ||  nums.length == <span class="number">0</span>)&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">int</span> up = <span class="number">1</span>, down = <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>; i &lt; nums.length; i++)&#123;</span><br><span class="line">        <span class="keyword">if</span>(nums[i] &gt; nums[i - <span class="number">1</span>])&#123;</span><br><span class="line">            up = down + <span class="number">1</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span>(nums[i] &lt; nums[i - <span class="number">1</span>])&#123;</span><br><span class="line">            down = up + <span class="number">1</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> up &gt; down ? up : down;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+]]></content>
+      <categories>
+        <category>数据结构与算法</category>
+        <category>动态规划</category>
+      </categories>
+      <tags>
+        <tag>动态规划</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>贪心算法-最长数对链</title>
+    <url>/2020/02/28/%E8%B4%AA%E5%BF%83%E7%AE%97%E6%B3%95-%E6%9C%80%E9%95%BF%E6%95%B0%E5%AF%B9%E9%93%BE/</url>
+    <content><![CDATA[<h1 id="Leetcode646-最长数对链"><a href="#Leetcode646-最长数对链" class="headerlink" title="Leetcode646.最长数对链"></a>Leetcode646.最长数对链</h1><p><a href="https://leetcode-cn.com/problems/maximum-length-of-pair-chain/" target="_blank" rel="noopener">Leetcode646.最长数对链</a></p>
+<p><strong>题目描述：</strong></p>
+<p>给出 n 个数对。 在每一个数对中，第一个数字总是比第二个数字小。</p>
+<p>现在，我们定义一种跟随关系，当且仅当 b &lt; c 时，数对(c, d) 才可以跟在 (a, b) 后面。我们用这种形式来构造一个数对链。</p>
+<p>给定一个对数集合，找出能够形成的最长数对链的长度。你不需要用到所有的数对，你可以以任何顺序选择其中的一些数对来构造。</p>
+<p><strong>示例：</strong></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">输入: [[1,2], [2,3], [3,4]]</span><br><span class="line">输出: 2</span><br><span class="line">解释: 最长的数对链是 [1,2] -&gt; [3,4]</span><br></pre></td></tr></table></figure>
+
+<p><strong>思路：</strong></p>
+<p>因为数对内有序，数对间无序，因此可以先对数对排序，因为如果两个数对可以连接在一起，那么必然两个数对的四个数是顺序排列的。</p>
+<p>我们可以按数对第一个数字进行排序，然后用双重循环动态规划来解决，因为数对的第二个数字依然是无序的，这是比较容易想到的策略。</p>
+<p>此题可以用贪心，我们可以对数对的第二个数字进行排序，这有什么不同呢？如果我们以第二个数字进行排序，那么对于两个数对来说，前面数对的第一个数字必然小于后一个数对的第二个数字。</p>
+<p>举例说明就是前一种方法会出现<code>[1,100000] [2,3] [4,5]</code>这样的情况，如果我们进行贪心，加入第一个元素后，可能后续很多元素都无法加入，很显然得到的不一定是最优解。对于后一种情况，<code>[2,3] [1,5] [3,7]</code>我们可以贪心的从头开始将尽可能满足的加入进去，例如加入[2, 3]后，虽然[1,5]不能加入，但不影响[3, 7]，因为[1, 5]如果能和[3, 7]连接，那[2,3]必然也可以。</p>
+<p><strong>代码：</strong></p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">findLongestChain</span><span class="params">(<span class="keyword">int</span>[][] pairs)</span> </span>&#123;</span><br><span class="line">    Arrays.sort(pairs, (a, b) -&gt; a[<span class="number">1</span>] - b[<span class="number">1</span>]);</span><br><span class="line">    <span class="keyword">int</span> num = Integer.MIN_VALUE;</span><br><span class="line">    <span class="keyword">int</span> ret = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span>[] pair : pairs)&#123;</span><br><span class="line">        <span class="keyword">if</span>(num &lt; pair[<span class="number">0</span>])&#123;</span><br><span class="line">            num = pair[<span class="number">1</span>];</span><br><span class="line">            ret++;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> ret;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+]]></content>
+      <categories>
+        <category>数据结构与算法</category>
+        <category>贪心</category>
+      </categories>
+      <tags>
+        <tag>贪心算法</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>动态规划-最长上升子序列</title>
+    <url>/2020/02/28/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92-%E6%9C%80%E9%95%BF%E4%B8%8A%E5%8D%87%E5%AD%90%E5%BA%8F%E5%88%97/</url>
+    <content><![CDATA[<h1 id="Leetcode300-最长上升子序列"><a href="#Leetcode300-最长上升子序列" class="headerlink" title="Leetcode300.最长上升子序列"></a>Leetcode300.最长上升子序列</h1><p><a href="https://leetcode-cn.com/problems/longest-increasing-subsequence/" target="_blank" rel="noopener">Leetcode300.最长上升子序列</a></p>
+<p><strong>题目描述：</strong></p>
+<p>给定一个无序的整数数组，找到其中最长上升子序列的长度。</p>
+<p><strong>示例：</strong></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">输入: [10,9,2,5,3,7,101,18]</span><br><span class="line">输出: 4 </span><br><span class="line">解释: 最长的上升子序列是 [2,3,7,101]，它的长度是 4。</span><br></pre></td></tr></table></figure>
+
+<p><strong>思路：</strong></p>
+<p>动态规划，双重循环，<code>dp[i] = Math.max(dp[i], dp[j] + 1)</code></p>
+<p><strong>代码：</strong></p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">lengthOfLIS</span><span class="params">(<span class="keyword">int</span>[] nums)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(nums == <span class="keyword">null</span> || nums.length == <span class="number">0</span>)&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">int</span> n = nums.length;</span><br><span class="line">    <span class="keyword">int</span>[] dp = <span class="keyword">new</span> <span class="keyword">int</span>[n];</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; i++)&#123;</span><br><span class="line">        <span class="keyword">int</span> max = <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; i; j++)&#123;</span><br><span class="line">            <span class="keyword">if</span>(nums[i] &gt; nums[j])&#123;</span><br><span class="line">                max = Math.max(max, dp[j] + <span class="number">1</span>);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        dp[i] = max;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">int</span> ret = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> d : dp)&#123;</span><br><span class="line">        ret = Math.max(ret, d);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> ret;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+]]></content>
+      <categories>
+        <category>数据结构与算法</category>
+        <category>动态规划</category>
+      </categories>
+      <tags>
+        <tag>动态规划</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>操作系统-设备管理</title>
+    <url>/2020/02/27/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F-%E8%AE%BE%E5%A4%87%E7%AE%A1%E7%90%86/</url>
+    <content><![CDATA[<h1 id="磁盘结构"><a href="#磁盘结构" class="headerlink" title="磁盘结构"></a>磁盘结构</h1><ul>
+<li>盘面（Platter）：一个磁盘有多个盘面；</li>
+<li>磁道（Track）：盘面上的圆形带状区域，一个盘面可以有多个磁道；</li>
+<li>扇区（Track Sector）：磁道上的一个弧段，一个磁道可以有多个扇区，它是最小的物理储存单位，目前主要有 512 bytes 与 4 K 两种大小；</li>
+<li>磁头（Head）：与盘面非常接近，能够将盘面上的磁场转换为电信号（读），或者将电信号转换为盘面的磁场（写）；</li>
+<li>制动手臂（Actuator arm）：用于在磁道之间移动磁头；</li>
+<li>主轴（Spindle）：使整个盘面转动。</li>
+</ul>
+<h1 id="磁盘调度算法"><a href="#磁盘调度算法" class="headerlink" title="磁盘调度算法"></a>磁盘调度算法</h1><p>读写一个磁盘块的时间的影响因素有：</p>
+<ul>
+<li>旋转时间（主轴转动盘面，使得磁头移动到适当的扇区上）</li>
+<li>寻道时间（制动手臂移动，使得磁头移动到适当的磁道上）</li>
+<li>实际的数据传输时间</li>
+</ul>
+<p>其中，寻道时间最长，因此磁盘调度的主要目标是使磁盘的平均寻道时间最短。</p>
+<h2 id="1-先来先服务"><a href="#1-先来先服务" class="headerlink" title="1. 先来先服务"></a>1. 先来先服务</h2><blockquote>
+<p>FCFS, First Come First Served</p>
+</blockquote>
+<p>按照磁盘请求的顺序进行调度。</p>
+<p>优点是公平和简单。缺点也很明显，因为未对寻道做任何优化，使平均寻道时间可能较长。</p>
+<h2 id="2-最短寻道时间优先"><a href="#2-最短寻道时间优先" class="headerlink" title="2. 最短寻道时间优先"></a>2. 最短寻道时间优先</h2><blockquote>
+<p>SSTF, Shortest Seek Time First</p>
+</blockquote>
+<p>优先调度与当前磁头所在磁道距离最近的磁道。</p>
+<p>虽然平均寻道时间比较低，但是不够公平。如果新到达的磁道请求总是比一个在等待的磁道请求近，那么在等待的磁道请求会一直等待下去，也就是出现饥饿现象。具体来说，两端的磁道请求更容易出现饥饿现象。</p>
+<h2 id="3-电梯算法"><a href="#3-电梯算法" class="headerlink" title="3. 电梯算法"></a>3. 电梯算法</h2><blockquote>
+<p>SCAN</p>
+</blockquote>
+<p>电梯总是保持一个方向运行，直到该方向没有请求为止，然后改变运行方向。</p>
+<p>电梯算法（扫描算法）和电梯的运行过程类似，总是按一个方向来进行磁盘调度，直到该方向上没有未完成的磁盘请求，然后改变方向。</p>
+<p>因为考虑了移动方向，因此所有的磁盘请求都会被满足，解决了 SSTF 的饥饿问题。</p>
+]]></content>
+      <categories>
+        <category>操作系统</category>
+      </categories>
+      <tags>
+        <tag>操作系统</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>动态规划-完全平方数</title>
+    <url>/2020/02/27/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92-%E5%AE%8C%E5%85%A8%E5%B9%B3%E6%96%B9%E6%95%B0/</url>
+    <content><![CDATA[<h1 id="Leetcode279-完全平方数"><a href="#Leetcode279-完全平方数" class="headerlink" title="Leetcode279.完全平方数"></a>Leetcode279.完全平方数</h1><p><strong>题目描述：</strong></p>
+<p>给定正整数 <em>n</em>，找到若干个完全平方数（比如 <code>1, 4, 9, 16, ...</code>）使得它们的和等于 <em>n</em>。你需要让组成和的完全平方数的个数最少。</p>
+<p><strong>示例：</strong></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">输入: n = 12</span><br><span class="line">输出: 3 </span><br><span class="line">解释: 12 = 4 + 4 + 4.</span><br></pre></td></tr></table></figure>
+
+<hr>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">输入: n = 13</span><br><span class="line">输出: 2</span><br><span class="line">解释: 13 = 4 + 9.</span><br></pre></td></tr></table></figure>
+
+<p><strong>思路：</strong></p>
+<p>起初看到这个题觉得，这怎么难度中等，很简单呀，开根号然后减去平方，就可以减掉一个最大的平方数，要平方数最少那多减几个大的就好了，这就是明显的贪心思想但贪出了问题，贪心之前一定要考虑清楚能不能贪，对于示例第一个，按贪心算出来是9+1+1+1，四个数，而最少是4+4+4，很明显不能贪心。</p>
+<p>用动态规划来做的话，以dp[i]表示数字i至少拆分成几个平方数，则dp[i]  = min, min = Math.min(min, dp[i - square] + 1)，其中square是指小于i的平方数。</p>
+<p><strong>代码：</strong></p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">numSquares</span><span class="params">(<span class="keyword">int</span> n)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span>[] dp = <span class="keyword">new</span> <span class="keyword">int</span>[n + <span class="number">1</span>];</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= n; i++)&#123;</span><br><span class="line">        <span class="keyword">int</span> min = Integer.MAX_VALUE;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> j = <span class="number">1</span>; j * j &lt;= i; j++)&#123;</span><br><span class="line">            min = Math.min(min, dp[i - j * j] + <span class="number">1</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        dp[i] = min;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> dp[n];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
+      <categories>
+        <category>数据结构与算法</category>
+        <category>动态规划</category>
+      </categories>
+      <tags>
+        <tag>动态规划</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>贪心算法-整数拆分</title>
+    <url>/2020/02/25/%E8%B4%AA%E5%BF%83%E7%AE%97%E6%B3%95-%E6%95%B4%E6%95%B0%E6%8B%86%E5%88%86/</url>
+    <content><![CDATA[<h1 id="Leetcode343-整数拆分"><a href="#Leetcode343-整数拆分" class="headerlink" title="Leetcode343.整数拆分"></a>Leetcode343.整数拆分</h1><p><a href="https://leetcode-cn.com/problems/integer-break/" target="_blank" rel="noopener">Leetcode343.整数拆分</a></p>
+<p><strong>题目描述：</strong></p>
+<p>给定一个正整数 <em>n</em>，将其拆分为<strong>至少</strong>两个正整数的和，并使这些整数的乘积最大化。 返回你可以获得的最大乘积。</p>
+<p><strong>示例：</strong></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">输入: 2</span><br><span class="line">输出: 1</span><br><span class="line">解释: 2 = 1 + 1, 1 × 1 = 1。</span><br></pre></td></tr></table></figure>
+
+<hr>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">输入: 10</span><br><span class="line">输出: 36</span><br><span class="line">解释: 10 = 3 + 3 + 4, 3 × 3 × 4 = 36。</span><br></pre></td></tr></table></figure>
+
+<p><strong>思路：</strong></p>
+<p>此题可以用动态规划或者贪心，因为贪心可解的题一般就不用动态规划了，所以分类到了贪心里。</p>
+<p>如果用动态规划的话，<code>dp[i] = Math.max(dp[i], Math.max(j * dp[i - j], j * (i - j)))</code>，是个双重循环，因为题目n不大于58，因此也可以用动态规划。</p>
+<p>贪心算法首先要证明可贪心，这里借用Leetcode上大佬的图。</p>
+<table>
+<thead>
+<tr>
+<th>n</th>
+<th>拆分</th>
+<th>乘积</th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td>2</td>
+<td>1+1</td>
+<td>1</td>
+<td>不拆分，2 比 1+1 更优</td>
+</tr>
+<tr>
+<td>3</td>
+<td>1+2</td>
+<td>2</td>
+<td>不拆分，3 比 1+2 更优</td>
+</tr>
+<tr>
+<td>4</td>
+<td>2+2</td>
+<td>4</td>
+<td>拆分，2 与 4 等价</td>
+</tr>
+<tr>
+<td>5</td>
+<td>2+3</td>
+<td>6</td>
+<td>拆分</td>
+</tr>
+<tr>
+<td>6</td>
+<td>3+3</td>
+<td>9</td>
+<td>拆分，3+3 比 2+2+2 更优</td>
+</tr>
+<tr>
+<td>7</td>
+<td>2+2+3</td>
+<td>12</td>
+<td>拆分，但不能拆成 1+3+3</td>
+</tr>
+</tbody></table>
+<p>从上面的表可以看出，一个大的整数，我们最终都会拆分成2和3，因为2和3不拆分更优，而更大的数都可以拆分成2和3来获得更优解，那么我们将一个数尽可能的拆出更多的3，则可以获得最大的整数，但4不一样，4拆分成2和2比1和3更优，从上表可以看出7也一样，但7可以拆分成4和3，还是4的问题，也就是说如果最后是n个3和一个1，则需要改成n-1个3和4。</p>
+<p><strong>代码：</strong></p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">integerBreak</span><span class="params">(<span class="keyword">int</span> n)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(n == <span class="number">3</span>)</span><br><span class="line">        <span class="keyword">return</span> <span class="number">2</span>;</span><br><span class="line">    <span class="keyword">if</span>(n == <span class="number">2</span>)</span><br><span class="line">        <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">int</span> a = n / <span class="number">3</span>, b = n % <span class="number">3</span>;</span><br><span class="line">    <span class="keyword">if</span>(b == <span class="number">0</span>) <span class="keyword">return</span> (<span class="keyword">int</span>) Math.pow(<span class="number">3</span>, a);</span><br><span class="line">    <span class="keyword">if</span>(b == <span class="number">1</span>) <span class="keyword">return</span> (<span class="keyword">int</span>) Math.pow(<span class="number">3</span>, a - <span class="number">1</span>) * <span class="number">4</span>;</span><br><span class="line">    <span class="keyword">return</span> (<span class="keyword">int</span>) Math.pow(<span class="number">3</span>, a) * <span class="number">2</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+]]></content>
+      <categories>
+        <category>数据结构与算法</category>
+        <category>贪心</category>
+      </categories>
+      <tags>
+        <tag>贪心算法</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>动态规划-解码方法</title>
+    <url>/2020/02/25/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92-%E8%A7%A3%E7%A0%81%E6%96%B9%E6%B3%95/</url>
+    <content><![CDATA[<h1 id="Leetcode91-解码方法"><a href="#Leetcode91-解码方法" class="headerlink" title="Leetcode91.解码方法"></a>Leetcode91.解码方法</h1><p><a href="https://leetcode-cn.com/problems/decode-ways/" target="_blank" rel="noopener">Leetcode91.解码方法</a></p>
+<p><strong>题目描述：</strong></p>
+<p>一条包含字母 <code>A-Z</code>的消息通过以下方式进行了编码：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&apos;A&apos; -&gt; 1</span><br><span class="line">&apos;B&apos; -&gt; 2</span><br><span class="line">...</span><br><span class="line">&apos;Z&apos; -&gt; 26</span><br></pre></td></tr></table></figure>
+
+<p>给定一个只包含数字的<strong>非空</strong>字符串，请计算解码方法的总数。</p>
+<p><strong>示例：</strong></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">输入: &quot;12&quot;</span><br><span class="line">输出: 2</span><br><span class="line">解释: 它可以解码为 &quot;AB&quot;（1 2）或者 &quot;L&quot;（12）。</span><br></pre></td></tr></table></figure>
+
+<hr>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">输入: &quot;226&quot;</span><br><span class="line">输出: 3</span><br><span class="line">解释: 它可以解码为 &quot;BZ&quot; (2 26), &quot;VF&quot; (22 6), 或者 &quot;BBF&quot; (2 2 6) 。</span><br></pre></td></tr></table></figure>
+
+<p><strong>思路：</strong></p>
+<p>显然是典型的动态规划问题，考虑最后两位，假设任何数字都有对应的编码，那么显然dp[i] = dp[i - 1] + dp[i - 2]，此题中首先要考虑编码被限制在1-26中，如果最后两位大于26，那么无法编码，则dp[i] = dp[i - 1]，起初我以为到这里就结束了，代码写完提交以后发现没有考虑0的情况，编码为1-26，因此一位如果是0，无法编码，且如果两位编码为00或01这种，也不能编码，需要额外分析。</p>
+<p><strong>代码：</strong></p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">numDecodings</span><span class="params">(String s)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(s == <span class="keyword">null</span> || s.length() == <span class="number">0</span>)</span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">int</span> n = s.length();</span><br><span class="line">    <span class="keyword">int</span>[] dp = <span class="keyword">new</span> <span class="keyword">int</span>[n + <span class="number">1</span>];</span><br><span class="line">    dp[<span class="number">0</span>] = <span class="number">1</span>;</span><br><span class="line">    dp[<span class="number">1</span>] = s.charAt(<span class="number">0</span>) == <span class="string">'0'</span>? <span class="number">0</span> : <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">2</span>; i &lt;= n; i ++)&#123;</span><br><span class="line">        <span class="keyword">int</span> one = Integer.valueOf(s.substring(i - <span class="number">1</span>, i));</span><br><span class="line">        <span class="keyword">if</span>(one != <span class="number">0</span>)</span><br><span class="line">            dp[i] += dp[i - <span class="number">1</span>];</span><br><span class="line">        <span class="keyword">if</span>(s.charAt(i - <span class="number">2</span>) == <span class="string">'0'</span>)</span><br><span class="line">            <span class="keyword">continue</span>;</span><br><span class="line">        <span class="keyword">int</span> two  = Integer.valueOf(s.substring(i - <span class="number">2</span>, i));</span><br><span class="line">        <span class="keyword">if</span>(two &lt;= <span class="number">26</span>)</span><br><span class="line">            dp[i] += dp[i - <span class="number">2</span>];</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> dp[n];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+]]></content>
+      <categories>
+        <category>数据结构与算法</category>
+        <category>动态规划</category>
+      </categories>
+      <tags>
+        <tag>动态规划</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>等差数列的划分</title>
+    <url>/2020/02/23/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92-%E7%AD%89%E5%B7%AE%E6%95%B0%E5%88%97%E7%9A%84%E5%88%92%E5%88%86/</url>
+    <content><![CDATA[<h1 id="Leetcode413-等差数列划分"><a href="#Leetcode413-等差数列划分" class="headerlink" title="Leetcode413.等差数列划分"></a>Leetcode413.等差数列划分</h1><p><a href="https://leetcode-cn.com/problems/arithmetic-slices/" target="_blank" rel="noopener">Leetcode413.等差数列划分</a></p>
+<p><strong>题目描述：</strong></p>
+<p>如果一个数列至少有三个元素，并且任意两个相邻元素之差相同，则称该数列为等差数列。</p>
+<p>例如，以下数列为等差数列:</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">1, 3, 5, 7, 9</span><br><span class="line">7, 7, 7, 7</span><br><span class="line">3, -1, -5, -9</span><br></pre></td></tr></table></figure>
+
+<p>以下数列不是等差数列。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">1, 1, 2, 5, 7</span><br></pre></td></tr></table></figure>
+
+<p>数组 A 包含 N 个数，且索引从0开始。数组 A 的一个子数组划分为数组 (P, Q)，P 与 Q 是整数且满足 0&lt;=P&lt;Q&lt;N 。</p>
+<p>如果满足以下条件，则称子数组(P, Q)为等差数组：</p>
+<p>元素 A[P], A[p + 1], …, A[Q - 1], A[Q] 是等差的。并且 P + 1 &lt; Q 。</p>
+<p>函数要返回数组 A 中所有为等差数组的子数组个数。</p>
+<p><strong>示例：</strong></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">A = [1, 2, 3, 4]</span><br><span class="line"></span><br><span class="line">返回: 3, A 中有三个子等差数组: [1, 2, 3], [2, 3, 4] 以及自身 [1, 2, 3, 4]。</span><br></pre></td></tr></table></figure>
+
+<p><strong>思路：</strong></p>
+<p>首先明确至少三个数可以构成一个等差数列，假设三个数已经是等差数列了，那么第四个数如果也和前三个数构成等差数列，那么新增的等差数列应该是2个，分别是1234和234构成的等差数列。</p>
+<p>我们以dp[i]来表示以A[i]结尾的等差数列的个数，则</p>
+<p>当 <code>A[i] - A[i-1] == A[i-1] - A[i-2]</code>时，有<code>dp[i] = dp[i - 1] + 1</code>，最后将dp求和即为等差数列个数。</p>
+<p><strong>代码：</strong></p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">numberOfArithmeticSlices</span><span class="params">(<span class="keyword">int</span>[] A)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(A == <span class="keyword">null</span> || A.length &lt;= <span class="number">2</span>)</span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">int</span>[] dp = <span class="keyword">new</span> <span class="keyword">int</span>[A.length];</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">2</span>; i &lt; A.length; i++)&#123;</span><br><span class="line">        <span class="keyword">if</span>(A[i] - A[i - <span class="number">1</span>] == A[i - <span class="number">1</span>] - A[i - <span class="number">2</span>])&#123;</span><br><span class="line">            dp[i] = dp[i - <span class="number">1</span>] + <span class="number">1</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">int</span> ret = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> cnt : dp)&#123;</span><br><span class="line">        ret += cnt;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> ret;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+]]></content>
+      <categories>
+        <category>数据结构与算法</category>
+        <category>动态规划</category>
+      </categories>
+      <tags>
+        <tag>动态规划</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>动态规划-最小路径和</title>
+    <url>/2020/02/22/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92-%E6%9C%80%E5%B0%8F%E8%B7%AF%E5%BE%84%E5%92%8C/</url>
+    <content><![CDATA[<h1 id="Leetcode64-最小路径和"><a href="#Leetcode64-最小路径和" class="headerlink" title="Leetcode64.最小路径和"></a>Leetcode64.最小路径和</h1><p><strong>题目描述：</strong></p>
+<p>给定一个包含非负整数的 <em>m</em> x <em>n</em> 网格，请找出一条从左上角到右下角的路径，使得路径上的数字总和为最小。</p>
+<p>每次只能向下或者向右移动一步。</p>
+<p><strong>示例：</strong></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">输入:</span><br><span class="line">[</span><br><span class="line">  [1,3,1],</span><br><span class="line">  [1,5,1],</span><br><span class="line">  [4,2,1]</span><br><span class="line">]</span><br><span class="line">输出: 7</span><br><span class="line">解释: 因为路径 1→3→1→1→1 的总和最小。</span><br></pre></td></tr></table></figure>
+
+<p><strong>思路：</strong></p>
+<p>因为只能向下或向右走，所以这就是矩阵路径的动态规划问题，到一个点的最短路径等于从上面或从左边到当前点的小值，状态转移方程</p>
+<p><code>dp[i][j]  = grid[i][j] + min(dp[i-1][j], dp[i][j-1])</code></p>
+<p>对于<code>grid[i][j]</code>只用一次，因此不需要用使用额外空间，直接使用<code>grid[i][j]</code>来保存状态即可。</p>
+<p><strong>代码：</strong></p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">minPathSum</span><span class="params">(<span class="keyword">int</span>[][] grid)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(grid == <span class="keyword">null</span> || grid.length == <span class="number">0</span>)</span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; grid.length; i++)&#123;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; grid[<span class="number">0</span>].length; j++)&#123;</span><br><span class="line">            <span class="keyword">if</span>(i == <span class="number">0</span> &amp;&amp; j == <span class="number">0</span>)</span><br><span class="line">                <span class="keyword">continue</span>;</span><br><span class="line">            <span class="keyword">else</span> <span class="keyword">if</span>(i == <span class="number">0</span>)</span><br><span class="line">                grid[i][j] += grid[i][j - <span class="number">1</span>];</span><br><span class="line">            <span class="keyword">else</span> <span class="keyword">if</span>(j == <span class="number">0</span>)</span><br><span class="line">                grid[i][j] += grid[i - <span class="number">1</span>][j];</span><br><span class="line">            <span class="keyword">else</span></span><br><span class="line">                grid[i][j] += Math.min(grid[i][j - <span class="number">1</span>], grid[i - <span class="number">1</span>][j]);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> grid[grid.length - <span class="number">1</span>][grid[<span class="number">0</span>].length - <span class="number">1</span>];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+]]></content>
+      <categories>
+        <category>数据结构与算法</category>
+        <category>动态规划</category>
+      </categories>
+      <tags>
+        <tag>动态规划</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>设计模式-建造者模式</title>
+    <url>/2020/02/22/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-%E5%BB%BA%E9%80%A0%E8%80%85%E6%A8%A1%E5%BC%8F/</url>
+    <content><![CDATA[<h2 id="生成器（Builder）"><a href="#生成器（Builder）" class="headerlink" title="生成器（Builder）"></a>生成器（Builder）</h2><h2 id="Intent"><a href="#Intent" class="headerlink" title="Intent"></a>Intent</h2><p>封装一个对象的构造过程，并允许按步骤构造。</p>
+<h2 id="Class-Diagram"><a href="#Class-Diagram" class="headerlink" title="Class Diagram"></a>Class Diagram</h2><p><img src="https://user-images.githubusercontent.com/45253106/75091560-adaf4400-55a9-11ea-87b7-b07dbbf7517a.png" alt="image"></p>
+<h2 id="Implementation"><a href="#Implementation" class="headerlink" title="Implementation"></a>Implementation</h2><p>lombok中的@Builder注解就是一种建造者模式。</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">BuilderTest</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">  <span class="meta">@Test</span></span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">test</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    Programmer programmer = <span class="keyword">new</span> Programmer.ProgrammerBuilder().setFirstName(<span class="string">"F"</span>).setLastName(<span class="string">"L"</span>)</span><br><span class="line">            .setCity(<span class="string">"City"</span>).setZipCode(<span class="string">"0000A"</span>).setAddress(<span class="string">"Street 39"</span>)</span><br><span class="line">            .setLanguages(<span class="keyword">new</span> String[] &#123;<span class="string">"bash"</span>, <span class="string">"Perl"</span>&#125;).setProjects(<span class="keyword">new</span> String[] &#123;<span class="string">"Linux kernel"</span>&#125;).build();</span><br><span class="line">    assertTrue(<span class="string">"Programmer should be 'F L' but was '"</span>+ programmer+<span class="string">"'"</span>, programmer.toString().equals(<span class="string">"F L"</span>));</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Programmer</span> </span>&#123;</span><br><span class="line">  <span class="keyword">private</span> String firstName;</span><br><span class="line">  <span class="keyword">private</span> String lastName;</span><br><span class="line">  <span class="keyword">private</span> String address;</span><br><span class="line">  <span class="keyword">private</span> String zipCode;</span><br><span class="line">  <span class="keyword">private</span> String city;</span><br><span class="line">  <span class="keyword">private</span> String[] languages;</span><br><span class="line">  <span class="keyword">private</span> String[] projects;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">private</span> <span class="title">Programmer</span><span class="params">(String fName, String lName, String addr, String zip, String city, String[] langs, String[] projects)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">this</span>.firstName = fName;</span><br><span class="line">    <span class="keyword">this</span>.lastName = lName;</span><br><span class="line">    <span class="keyword">this</span>.address = addr;</span><br><span class="line">    <span class="keyword">this</span>.zipCode = zip;</span><br><span class="line">    <span class="keyword">this</span>.city = city;</span><br><span class="line">    <span class="keyword">this</span>.languages = langs;</span><br><span class="line">    <span class="keyword">this</span>.projects = projects;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">public</span> <span class="keyword">static</span> <span class="class"><span class="keyword">class</span> <span class="title">ProgrammerBuilder</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> String firstName;</span><br><span class="line">    <span class="keyword">private</span> String lastName;</span><br><span class="line">    <span class="keyword">private</span> String address;</span><br><span class="line">    <span class="keyword">private</span> String zipCode;</span><br><span class="line">    <span class="keyword">private</span> String city;</span><br><span class="line">    <span class="keyword">private</span> String[] languages;</span><br><span class="line">    <span class="keyword">private</span> String[] projects;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> ProgrammerBuilder <span class="title">setFirstName</span><span class="params">(String firstName)</span> </span>&#123;</span><br><span class="line">      <span class="keyword">this</span>.firstName = firstName;</span><br><span class="line">      <span class="keyword">return</span> <span class="keyword">this</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> ProgrammerBuilder <span class="title">setLastName</span><span class="params">(String lastName)</span> </span>&#123;</span><br><span class="line">      <span class="keyword">this</span>.lastName = lastName;</span><br><span class="line">      <span class="keyword">return</span> <span class="keyword">this</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> ProgrammerBuilder <span class="title">setAddress</span><span class="params">(String address)</span> </span>&#123;</span><br><span class="line">      <span class="keyword">this</span>.address = address;</span><br><span class="line">      <span class="keyword">return</span> <span class="keyword">this</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> ProgrammerBuilder <span class="title">setZipCode</span><span class="params">(String zipCode)</span> </span>&#123;</span><br><span class="line">      <span class="keyword">this</span>.zipCode = zipCode;</span><br><span class="line">      <span class="keyword">return</span> <span class="keyword">this</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> ProgrammerBuilder <span class="title">setCity</span><span class="params">(String city)</span> </span>&#123;</span><br><span class="line">      <span class="keyword">this</span>.city = city;</span><br><span class="line">      <span class="keyword">return</span> <span class="keyword">this</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> ProgrammerBuilder <span class="title">setLanguages</span><span class="params">(String[] languages)</span> </span>&#123;</span><br><span class="line">      <span class="keyword">this</span>.languages = languages;</span><br><span class="line">      <span class="keyword">return</span> <span class="keyword">this</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> ProgrammerBuilder <span class="title">setProjects</span><span class="params">(String[] projects)</span> </span>&#123;</span><br><span class="line">      <span class="keyword">this</span>.projects = projects;</span><br><span class="line">      <span class="keyword">return</span> <span class="keyword">this</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Programmer <span class="title">build</span><span class="params">()</span> </span>&#123;</span><br><span class="line">      <span class="keyword">return</span> <span class="keyword">new</span> Programmer(firstName, lastName, address, zipCode, city, languages, projects);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="meta">@Override</span></span><br><span class="line">  <span class="function"><span class="keyword">public</span> String <span class="title">toString</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">this</span>.firstName + <span class="string">" "</span>+<span class="keyword">this</span>.lastName;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+]]></content>
+      <categories>
+        <category>Java</category>
+        <category>设计模式</category>
+      </categories>
+      <tags>
+        <tag>设计模式</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>操作系统-内存管理</title>
+    <url>/2020/02/22/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F-%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86/</url>
+    <content><![CDATA[<h1 id="虚拟内存"><a href="#虚拟内存" class="headerlink" title="虚拟内存"></a>虚拟内存</h1><p>虚拟内存的目的是为了让物理内存扩充成更大的逻辑内存，从而让程序获得更多的可用内存。</p>
+<p>为了更好的管理内存，操作系统将内存抽象成地址空间。每个程序拥有自己的地址空间，这个地址空间被分割成多个块，每一块称为一页。这些页被映射到物理内存，但不需要映射到连续的物理内存，也不需要所有页都必须在物理内存中。当程序引用到不在物理内存中的页时，由硬件执行必要的映射，将缺失的部分装入物理内存并重新执行失败的指令。</p>
+<p>从上面的描述中可以看出，虚拟内存允许程序不用将地址空间中的每一页都映射到物理内存，也就是说一个程序不需要全部调入内存就可以运行，这使得有限的内存运行大程序成为可能。例如有一台计算机可以产生 16 位地址，那么一个程序的地址空间范围是 0~64K。该计算机只有 32KB 的物理内存，虚拟内存技术允许该计算机运行一个 64K 大小的程序。</p>
+<h1 id="分页系统地址映射"><a href="#分页系统地址映射" class="headerlink" title="分页系统地址映射"></a>分页系统地址映射</h1><p>内存管理单元（MMU）管理着地址空间和物理内存的转换，其中的页表（Page table）存储着页（程序地址空间）和页框（物理内存空间）的映射表。</p>
+<p>一个虚拟地址分成两个部分，一部分存储页面号，一部分存储偏移量。</p>
+<h1 id="页面置换算法"><a href="#页面置换算法" class="headerlink" title="页面置换算法"></a>页面置换算法</h1><p>在程序运行过程中，如果要访问的页面不在内存中，就发生缺页中断从而将该页调入内存中。此时如果内存已无空闲空间，系统必须从内存中调出一个页面到磁盘对换区中来腾出空间。</p>
+<p>页面置换算法和缓存淘汰策略类似，可以将内存看成磁盘的缓存。在缓存系统中，缓存的大小有限，当有新的缓存到达时，需要淘汰一部分已经存在的缓存，这样才有空间存放新的缓存数据。</p>
+<p>页面置换算法的主要目标是使页面置换频率最低（也可以说缺页率最低）。</p>
+<h2 id="1-最佳"><a href="#1-最佳" class="headerlink" title="1. 最佳"></a>1. 最佳</h2><blockquote>
+<p>OPT, Optimal replacement algorithm</p>
+</blockquote>
+<p>所选择的被换出的页面将是最长时间内不再被访问，通常可以保证获得最低的缺页率。</p>
+<p>是一种理论上的算法，因为无法知道一个页面多长时间不再被访问。</p>
+<p>举例：一个系统为某进程分配了三个物理块，并有如下页面引用序列：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">7，0，1，2，0，3，0，4，2，3，0，3，2，1，2，0，1，7，0，1</span><br></pre></td></tr></table></figure>
+
+<p>开始运行时，先将 7, 0, 1 三个页面装入内存。当进程要访问页面 2 时，产生缺页中断，会将页面 7 换出，因为页面 7 再次被访问的时间最长。</p>
+<h2 id="2-最近最久未使用"><a href="#2-最近最久未使用" class="headerlink" title="2. 最近最久未使用"></a>2. 最近最久未使用</h2><blockquote>
+<p>LRU, Least Recently Used</p>
+</blockquote>
+<p>虽然无法知道将来要使用的页面情况，但是可以知道过去使用页面的情况。LRU 将最近最久未使用的页面换出。</p>
+<p>为了实现 LRU，需要在内存中维护一个所有页面的链表。当一个页面被访问时，将这个页面移到链表表头。这样就能保证链表表尾的页面是最近最久未访问的。</p>
+<p>因为每次访问都需要更新链表，因此这种方式实现的 LRU 代价很高。</p>
+<h2 id="3-最近未使用"><a href="#3-最近未使用" class="headerlink" title="3. 最近未使用"></a>3. 最近未使用</h2><blockquote>
+<p>NRU, Not Recently Used</p>
+</blockquote>
+<p>每个页面都有两个状态位：R 与 M，当页面被访问时设置页面的 R=1，当页面被修改时设置 M=1。其中 R 位会定时被清零。可以将页面分成以下四类：</p>
+<ul>
+<li>R=0，M=0</li>
+<li>R=0，M=1</li>
+<li>R=1，M=0</li>
+<li>R=1，M=1</li>
+</ul>
+<p>当发生缺页中断时，NRU 算法随机地从类编号最小的非空类中挑选一个页面将它换出。</p>
+<p>NRU 优先换出已经被修改的脏页面（R=0，M=1），而不是被频繁使用的干净页面（R=1，M=0）。</p>
+<h2 id="4-先进先出"><a href="#4-先进先出" class="headerlink" title="4. 先进先出"></a>4. 先进先出</h2><blockquote>
+<p>FIFO, First In First Out</p>
+</blockquote>
+<p>选择换出的页面是最先进入的页面。</p>
+<p>该算法会将那些经常被访问的页面也被换出，从而使缺页率升高。</p>
+<h2 id="5-第二次机会算法"><a href="#5-第二次机会算法" class="headerlink" title="5. 第二次机会算法"></a>5. 第二次机会算法</h2><p>FIFO 算法可能会把经常使用的页面置换出去，为了避免这一问题，对该算法做一个简单的修改：</p>
+<p>当页面被访问 (读或写) 时设置该页面的 R 位为 1。需要替换的时候，检查最老页面的 R 位。如果 R 位是 0，那么这个页面既老又没有被使用，可以立刻置换掉；如果是 1，就将 R 位清 0，并把该页面放到链表的尾端，修改它的装入时间使它就像刚装入的一样，然后继续从链表的头部开始搜索。</p>
+<h2 id="6-时钟"><a href="#6-时钟" class="headerlink" title="6. 时钟"></a>6. 时钟</h2><blockquote>
+<p>Clock</p>
+</blockquote>
+<p>第二次机会算法需要在链表中移动页面，降低了效率。时钟算法使用环形链表将页面连接起来，再使用一个指针指向最老的页面。</p>
+<h1 id="分段"><a href="#分段" class="headerlink" title="分段"></a>分段</h1><p>虚拟内存采用的是分页技术，也就是将地址空间划分成固定大小的页，每一页再与内存进行映射。段页式</p>
+<p>程序的地址空间划分成多个拥有独立地址空间的段，每个段上的地址空间划分成大小相同的页。这样既拥有分段系统的共享和保护，又拥有分页系统的虚拟内存功能。</p>
+<h1 id="分页与分段的比较"><a href="#分页与分段的比较" class="headerlink" title="分页与分段的比较"></a>分页与分段的比较</h1><ul>
+<li>对程序员的透明性：分页透明，但是分段需要程序员显式划分每个段。</li>
+<li>地址空间的维度：分页是一维地址空间，分段是二维的。</li>
+<li>大小是否可以改变：页的大小不可变，段的大小可以动态改变。</li>
+<li>出现的原因：分页主要用于实现虚拟内存，从而获得更大的地址空间；分段主要是为了使程序和数据可以被划分为逻辑上独立的地址空间并且有助于共享和保护。</li>
+</ul>
+]]></content>
+      <categories>
+        <category>操作系统</category>
+      </categories>
+      <tags>
+        <tag>操作系统</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>动态规划-打家劫舍II</title>
     <url>/2020/02/21/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92-%E6%89%93%E5%AE%B6%E5%8A%AB%E8%88%8DII/</url>
     <content><![CDATA[<h1 id="Leetcode213-打家劫舍II"><a href="#Leetcode213-打家劫舍II" class="headerlink" title="Leetcode213.打家劫舍II"></a>Leetcode213.打家劫舍II</h1><p><strong>题目描述：</strong></p>
@@ -526,8 +917,8 @@
       </categories>
       <tags>
         <tag>数据结构</tag>
-        <tag>Leetcode</tag>
         <tag>树</tag>
+        <tag>Leetcode</tag>
       </tags>
   </entry>
   <entry>
@@ -844,8 +1235,8 @@
         <category>树</category>
       </categories>
       <tags>
-        <tag>Leetcode</tag>
         <tag>树</tag>
+        <tag>Leetcode</tag>
         <tag>动态规划</tag>
       </tags>
   </entry>
@@ -1355,8 +1746,8 @@
       </categories>
       <tags>
         <tag>数据结构</tag>
-        <tag>Leetcode</tag>
         <tag>树</tag>
+        <tag>Leetcode</tag>
       </tags>
   </entry>
   <entry>
@@ -1457,8 +1848,8 @@
       </categories>
       <tags>
         <tag>数据结构</tag>
-        <tag>Leetcode</tag>
         <tag>树</tag>
+        <tag>Leetcode</tag>
       </tags>
   </entry>
   <entry>
@@ -1544,8 +1935,8 @@
       </categories>
       <tags>
         <tag>数据结构</tag>
-        <tag>栈</tag>
         <tag>Leetcode</tag>
+        <tag>栈</tag>
       </tags>
   </entry>
   <entry>
@@ -1578,8 +1969,8 @@
       </categories>
       <tags>
         <tag>数据结构</tag>
-        <tag>栈</tag>
         <tag>Leetcode</tag>
+        <tag>栈</tag>
       </tags>
   </entry>
   <entry>
@@ -1611,8 +2002,8 @@ minStack.getMin();   --&gt; 返回 -2.</code></pre><p><strong>思路：</strong>
       </categories>
       <tags>
         <tag>数据结构</tag>
-        <tag>栈</tag>
         <tag>Leetcode</tag>
+        <tag>栈</tag>
       </tags>
   </entry>
   <entry>
@@ -1657,8 +2048,8 @@ queue.empty(); // 返回 false</code></pre><p><strong>思路：</strong></p>
       </categories>
       <tags>
         <tag>数据结构</tag>
-        <tag>栈</tag>
         <tag>Leetcode</tag>
+        <tag>栈</tag>
         <tag>队列</tag>
       </tags>
   </entry>
@@ -2337,8 +2728,8 @@ List进行逆序操作。</code></pre><figure class="highlight java"><table><tr>
       </categories>
       <tags>
         <tag>数据结构</tag>
-        <tag>Leetcode</tag>
         <tag>树</tag>
+        <tag>Leetcode</tag>
       </tags>
   </entry>
   <entry>
